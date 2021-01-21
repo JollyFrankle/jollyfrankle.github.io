@@ -1,6 +1,6 @@
 <?php
 try{
-$connect= new PDO("mysql:host=localhost;dbname=u463413534_dho","u463413534_dho","GTK1958provNTT");
+$connect= new PDO("mysql:host=194.59.164.107;dbname=u463413534_dho","u463413534_dho","GTK1958provNTT");
 $connect->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }catch(PDOException $e){?>
