@@ -284,7 +284,7 @@ $(document).ready(async function(){
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 
 	var PersenAktif = (AktifJuml[AktifJuml.length-1] / KonfJuml[KonfJuml.length-1])*100;
-	$("#TBA_AktifPersen").text(PersenAktif.replace(".",",").toFixed(2)+"%");
+	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
 
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
