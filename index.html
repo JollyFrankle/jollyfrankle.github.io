@@ -32,10 +32,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="data.js"></script>
 <script>
-let start = new Date(), end = new Date();
-
-start.setDate(start.getDate() - 90); // set to 'now' minus 7 days.
-start.setHours(0, 0, 0, 0); // set to midnight.
+	const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
@@ -51,18 +49,19 @@ var ChartUsiaGTK = new Chart(C_konf, {
 			borderWidth: 1
 		}]
 	},
-	/*options: {
+	options: {
 		tooltips: {
 			enabled: true,
 			mode: 'single',
 			callbacks: {
-				title: function(tooltipItems, data) { 
-					return 'Usia '+tooltipItems[0].xLabel+' tahun:';
+				title: function(tooltipItems, data) {
+					var tgl=new Date(tooltipItems[0].xLabel);
+					return tgl.getDate()+" "+NamaBulan(tgl.getMonth())+" "+tgl.getFullYear()+':';
 				}
 			}
 		},
 		scales:{yAxes:[{ticks: {beginAtZero: true}}]}
-	}*/
+	}
 });
 </script>
 </html>
