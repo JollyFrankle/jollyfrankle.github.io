@@ -83,6 +83,8 @@ const DefChartOpt = {
 	};
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
+var C_NewSemb = document.getElementById('ChartNewSemb').getContext('2d');
+var C_NewMeng = document.getElementById('ChartNewMeng').getContext('2d');
 var ChartKonfirmasi = new Chart(C_konf, {
 	type: 'line',
 	data: {
@@ -116,7 +118,7 @@ var ChartNewKonf = new Chart(C_NewKonf, {
 	data: {
 		labels: Tanggal.slice(GET_day),
 		datasets: [{
-			label: 'Kasus baru',
+			label: 'Penambahan',
 			data: KonfBaru.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#BF9000',
@@ -127,7 +129,48 @@ var ChartNewKonf = new Chart(C_NewKonf, {
 			data: Konf7day.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#3B3838',
-			borderDash: [10,10],
+			borderWidth: 1
+		}]
+	},
+	options: DefChartOpt 
+});
+var ChartNewSemb = new Chart(C_NewSemb, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Penambahan',
+			data: SembBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#002060',
+			borderWidth: 2
+		},
+		{
+			label: 'Rata-rata 7 hari',
+			data: Semb7day.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#3B3838',
+			borderWidth: 1
+		}]
+	},
+	options: DefChartOpt 
+});
+var ChartNewMeng = new Chart(C_NewMeng, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Penambahan',
+			data: MengBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#C00000',
+			borderWidth: 2
+		},
+		{
+			label: 'Rata-rata 7 hari',
+			data: Meng7day.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#3B3838',
 			borderWidth: 1
 		}]
 	},
