@@ -26,11 +26,11 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</nav>
 	<main class="container my-4">
 <div class="d-block d-md-flex justify-content-between">
-	<div>
+	<div class="mb-2">
 		<h1>COVID-19 Tracking</h1>
-		<p class="lead">Grafik Tracking Kasus COVID-19 NTT harian.</p>
+		<p class="lead mb-0">Grafik Tracking Kasus COVID-19 NTT harian.</p>
 	</div>
-	<form method=GET style="max-width:250px" class="m-md-0 m-auto">
+	<form method="GET" style="max-width:300px" class="m-md-0 m-auto mb-2">
 		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
 		<div class="btn-group">
 			<select name="day" class="form-control custom-select" id="RangeSel">
@@ -47,6 +47,50 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div class="alert alert-danger">
 	<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00 - 19.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 19.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga. (Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021).</p>
 	<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<div class="card">
+			<div style="background:#BF9000" class="pb-1 mb-2"></div>
+			<div class="card-body">
+				<h5 class="card-title" style="color:#BF9000">Jumlah kasus positif</h5>
+				<p class="display-4 mb-1" id="TB_JlhKonf"></p>
+				<hr class="my-1"/>
+				<div class="d-flex justify-content-between align-items-center text-muted">
+					<span id="TB_JlhKonfYest">Memuat</span>
+					<span class="logoincrease" id="TB_JlhKonfInc">Memuat</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card">
+			<div style="background:#002060" class="pb-1 mb-2"></div>
+			<div class="card-body">
+				<h5 class="card-title" style="color:#002060">Jumlah sembuh</h5>
+				<p class="display-4 mb-1" id="TB_JlhSemb"></p>
+				<hr class="my-1"/>
+				<div class="d-flex justify-content-between align-items-center text-muted">
+					<span id="TB_JlhSembYest">Memuat</span>
+					<span class="logoincrease" id="TB_JlhSembInc">Memuat</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card">
+			<div style="background:#C00000" class="pb-1 mb-2"></div>
+			<div class="card-body">
+				<h5 class="card-title" style="color:#C00000">Jumlah meninggal</h5>
+				<p class="display-4 mb-1" id="TB_JlhMeng"></p>
+				<hr class="my-1"/>
+				<div class="d-flex justify-content-between align-items-center text-muted">
+					<span id="TB_JlhMengYest">Memuat</span>
+					<span class="logoincrease" id="TB_JlhMengInc">Memuat</span>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <hr class="my-2"/>
