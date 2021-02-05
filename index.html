@@ -24,7 +24,9 @@
 	<main class="container">
 <h1 class="display-4">Welcome to JollyFrankle Projects!</h1>
 <p class="lead">Here you can find all projects currently being worked on/have been worked on by JollyFrankle.</p>
-<canvas id="ChartKonfirmasi" width=400 height=200></canvas>
+<div class="chart-container" style="position: relative; height:300px; width:600px; min-width:100%">
+	<canvas id="ChartKonfirmasi" width=400 height=200></canvas>
+</div>
 	</main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -83,6 +85,7 @@ var ChartUsiaGTK = new Chart(C_konf, {
 				radius: 1
 			}
 		},
+		maintainAspectRatio: false,
 	}
 });
 </script>
