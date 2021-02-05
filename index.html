@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 	<style>
-.chart-container{position:relative; min-width:100%; max-width:100%;}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%;}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -74,6 +74,8 @@ const DefChartOpt = {
 		},
 		maintainAspectRatio: false,
 		aspectRatio: 1.5,
+		defaultFontFamily: "Roboto",
+		defaultFontSize: 14,
 	};
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
@@ -82,7 +84,7 @@ var ChartUsiaGTK = new Chart(C_konf, {
 		labels: Tanggal.slice(GET_day),
 		datasets: [{
 			label: 'Terkonfirmasi',
-			data: KonfJuml.slice(-GET_day),
+			data: KonfJuml.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#BF9000',
 			borderWidth: 2
