@@ -200,7 +200,9 @@ $(".GET_day-html").text(GET_day_plain+" hari");
 var json = (function () {
 	var json = null;
 	$.ajax({
-		url:	'data.json',
+		async: false,
+		global: false,
+		url: "data.json",
 		dataType: "json",
 		success:function(data){json=data}
 	});
