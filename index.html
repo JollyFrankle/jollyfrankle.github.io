@@ -21,17 +21,19 @@
 			</a>
 		</div>
 	</nav>
-<main class="container">
-	<h1 class="display-4">Welcome to JollyFrankle Projects!</h1>
-	<p class="lead">Here you can find all projects currently being worked on/have been worked on by JollyFrankle.</p>
-</main>
+	<main class="container">
+<h1 class="display-4">Welcome to JollyFrankle Projects!</h1>
+<p class="lead">Here you can find all projects currently being worked on/have been worked on by JollyFrankle.</p>
+<canvas id="ChartUsiaGTK" width=400 height=200></canvas>
+	</main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="data.js"></script>
 <script>
-var ChartUsiaGTK = new Chart(C_all, {
+var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
+var ChartUsiaGTK = new Chart(C_konf, {
 	type: 'line',
 	data: {
 		labels: JSON.parse(Tanggal),
