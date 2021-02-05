@@ -41,12 +41,28 @@ var ChartUsiaGTK = new Chart(C_konf, {
 	data: {
 		labels: Tanggal.slice(-90),
 		datasets: [{
-			label: 'Jumlah Terkonfirmasi',
+			label: 'Terkonfirmasi',
 			data: KonfJuml.slice(-90),
-			backgroundColor: 'rgba(0,123,255,.2)',
-			borderColor: 'rgba(0,123,255,1)',
-			pointBorderColor: 'rgba(0,123,255,1)',
-			borderWidth: 1
+			//backgroundColor: 'rgba(0,123,255,.2)',
+			borderColor: '#BF9000',
+			//pointBorderColor: '#BF9000',
+			borderWidth: 2
+		},
+		{
+			label: 'Sembuh',
+			data: SembJuml.slice(-90),
+			//backgroundColor: 'rgba(0,123,255,.2)',
+			borderColor: '#002060',
+			//pointBorderColor: '#BF9000',
+			borderWidth: 2
+		},
+		{
+			label: 'Meninggal',
+			data: MengJuml.slice(-90),
+			//backgroundColor: 'rgba(0,123,255,.2)',
+			borderColor: '#C00000',
+			//pointBorderColor: '#BF9000',
+			borderWidth: 2
 		}]
 	},
 	options: {
