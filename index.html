@@ -1,3 +1,5 @@
+<!doctype html>
+<html>
 <head>
 	<title></title>
 	<meta charset="utf-8">
@@ -9,6 +11,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css" media="none" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 </head>
 <body>
 	<nav class="navbar navbar-dark sticky-top shadow bg-dark mb-4">
@@ -23,3 +26,36 @@
 	<p class="lead">Here you can find all projects currently being worked on/have been worked on by JollyFrankle.</p>
 </main>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script src="data.js"></script>
+<script>
+var ChartUsiaGTK = new Chart(C_all, {
+	type: 'line',
+	data: {
+		labels: JSON.parse(Tanggal),
+		datasets: [{
+			label: 'Jumlah Terkonfirmasi',
+			data: JSON.parse(KonfJumlah),
+			backgroundColor: 'rgba(0,123,255,.2)',
+			borderColor: 'rgba(0,123,255,1)',
+			pointBorderColor: 'rgba(0,123,255,1)',
+			borderWidth: 1
+		}]
+	},
+	options: {
+		tooltips: {
+			enabled: true,
+			mode: 'single',
+			callbacks: {
+				title: function(tooltipItems, data) { 
+					return 'Usia '+tooltipItems[0].xLabel+' tahun:';
+				}
+			}
+		},
+		scales:{yAxes:[{ticks: {beginAtZero: true}}]}
+	}
+});
+</script>
+</html>
