@@ -28,8 +28,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	<main class="container my-4">
 <div class="d-block d-md-flex justify-content-between align-items-center mb-4">
 	<div>
-		<h1>COVID-19 Tracking</h1>
-		<p class="lead mb-0">Grafik Tracking Kasus COVID-19 NTT harian.</p>
+		<h1>COVID-19 NTT Tracking</h1>
+		<p class="lead mb-0">Tracking Kasus COVID-19 NTT harian.</p>
 	</div>
 	<form method="GET" style="max-width:300px" class="m-md-0 m-auto">
 		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
@@ -61,10 +61,24 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				<h5 class="card-title mb-1 text-truncate" style="color:#BF9000">Jumlah kasus positif</h5>
 				<p class="display-4 mb-1" id="TB_JlhKonf">...</p>
 				<hr class="my-1"/>
-				<div class="d-flex justify-content-between align-items-center text-muted">
+				<div class="d-flex justify-content-between text-muted">
 					<span id="TB_JlhKonfYest">Memuat</span>
 					<span class="logoinc" id="TB_JlhKonfInc">Memuat</span>
 				</div>
+			</div>
+			<div class="bg-secondary pb-1"></div>
+			<div class="card-body">
+				Penambahan tertinggi <span class="GET_day-html"></span> hari:
+				<div class="d-flex justify-content-between">
+					<strong id="TBA_KonfHighest">...</strong>
+					<small id="TBA_KonfHighestDate">Memuat</small>
+				</div>
+				Penambahan terendah <span class="GET_day-html"></span> hari:
+				<div class="d-flex justify-content-between">
+					<strong id="TBA_KonfLowest">...</strong>
+					<small id="TBA_KonfLowestDate">Memuat</small>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -75,7 +89,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				<h5 class="card-title mb-1 text-truncate" style="color:#002060">Jumlah sembuh</h5>
 				<p class="display-4 mb-1" id="TB_JlhSemb">...</p>
 				<hr class="my-1"/>
-				<div class="d-flex justify-content-between align-items-center text-muted">
+				<div class="d-flex justify-content-between text-muted">
 					<span id="TB_JlhSembYest">Memuat</span>
 					<span class="logoinc" id="TB_JlhSembInc">Memuat</span>
 				</div>
@@ -89,7 +103,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				<h5 class="card-title mb-1 text-truncate" style="color:#C00000">Jumlah meninggal</h5>
 				<p class="display-4 mb-1" id="TB_JlhMeng">...</p>
 				<hr class="my-1"/>
-				<div class="d-flex justify-content-between align-items-center text-muted">
+				<div class="d-flex justify-content-between text-muted">
 					<span id="TB_JlhMengYest">Memuat</span>
 					<span class="logoinc" id="TB_JlhMengInc">Memuat</span>
 				</div>
@@ -103,7 +117,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				<h5 class="card-title mb-1 text-truncate" style="color:#00B050">Kasus aktif</h5>
 				<p class="display-4 mb-1" id="TB_JlhAktif">...</p>
 				<hr class="my-1"/>
-				<div class="d-flex justify-content-between align-items-center text-muted">
+				<div class="d-flex justify-content-between text-muted">
 					<span id="TB_JlhAktifYest">Memuat</span>
 					<span class="" id="TB_JlhAktifSelisih">Memuat</span>
 				</div>
@@ -144,8 +158,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <script>
 var url = new URL(window.location.href);
 var GET_day = -url.searchParams.get("day");
-//var GET_day = -GET_d;
-if(!GET_day) var GET_day=-90;
+var GET_day_plain = url.searchParams.get("day");
+if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
 $("#RangeSel").val(-GET_day);
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -176,6 +190,14 @@ $(document).ready(function(){
 	var TglHariIni = new Date(Tanggal[Tanggal.length-1]);
 	$("#LastData").text(TglHariIni.getDate()+" "+NamaBulan[TglHariIni.getMonth()]+" "+TglHariIni.getFullYear());
 	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
+	var $ArrKonf_day=KonfBaru.slice(GET_day),
+	Index_KH=Object.keys($ArrKonf_day).reduce((a, b) => $ArrKonf_day[a] > $ArrKonf_day[b] ? a : b),
+	Index_KL=Object.keys($ArrKonf_day).reduce((a, b) => $ArrKonf_day[a] < $ArrKonf_day[b] ? a : b);
+	$(".GET_day-html").text(GET_day_plain);
+	$("#TBA_KonfHighest").text($ArrKonf_day[Index_KH]);
+	$("#TBA_KonfHighestDate").text(Tanggal.slice(GET_day)[Index_KH]);
+	$("#TBA_KonfLowest").text($ArrKonf_day[Index_KL]);
+	$("#TBA_KonfLowestDate").text(Tanggal.slice(GET_day)[Index_KL]);
 });
 
 const DefChartOpt = {
