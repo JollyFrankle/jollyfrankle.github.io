@@ -92,21 +92,21 @@ var ChartKonfirmasi = new Chart(C_konf, {
 			data: KonfJuml.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#BF9000',
-			borderWidth: 2
+			borderWidth: 1
 		},
 		{
 			label: 'Sembuh',
 			data: SembJuml.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#002060',
-			borderWidth: 2
+			borderWidth: 1
 		},
 		{
 			label: 'Meninggal',
 			data: MengJuml.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#C00000',
-			borderWidth: 2
+			borderWidth: 1
 		}]
 	},
 	options: DefChartOpt 
@@ -119,16 +119,16 @@ var ChartNewKonf = new Chart(C_NewKonf, {
 			label: 'Kasus baru',
 			data: KonfBaru.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
-			borderColor: '#BF9000',
-			borderWidth: 2
+			borderColor: '#002060',
+			borderWidth: 1
 		},
 		{
 			label: 'Rata-rata 7 hari',
 			data: Konf7day.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
-			borderColor: '#002060',
-			borderDash: [10,5],
-			borderWidth: 2
+			borderColor: '#BF9000',
+			borderDash: [10,10],
+			borderWidth: 1
 		}]
 	},
 	options: DefChartOpt 
