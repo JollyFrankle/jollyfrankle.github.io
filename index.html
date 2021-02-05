@@ -65,7 +65,8 @@ var ChartUsiaGTK = new Chart(C_konf, {
 	options: {
 		tooltips: {
 			enabled: true,
-			mode: 'single',
+			mode: 'index',
+			intersect: false,
 			callbacks: {
 				title: function(tooltipItems, data) {
 					var tgl=new Date(tooltipItems[0].xLabel);
@@ -73,9 +74,13 @@ var ChartUsiaGTK = new Chart(C_konf, {
 				}
 			}
 		},
+		hover: {
+			mode "nearest",
+			intersect: true
+		},
 		elements: {
 			point:{
-				radius: 2
+				radius: 1
 			}
 		},
 	}
