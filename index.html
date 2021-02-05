@@ -32,6 +32,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="data.js"></script>
 <script>
+let start = new Date(), end = new Date();
+
+start.setDate(start.getDate() - 90); // set to 'now' minus 7 days.
+start.setHours(0, 0, 0, 0); // set to midnight.
+
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
 	type: 'line',
@@ -47,6 +52,18 @@ var ChartUsiaGTK = new Chart(C_konf, {
 		}]
 	},
 	options: {
+		scales: {
+			xAxes: [{
+				type: "time",
+				time: {
+					min: start,
+					max: end,
+					unit: "day"
+				}
+			}]
+		}
+	}
+	/*options: {
 		tooltips: {
 			enabled: true,
 			mode: 'single',
@@ -57,7 +74,7 @@ var ChartUsiaGTK = new Chart(C_konf, {
 			}
 		},
 		scales:{yAxes:[{ticks: {beginAtZero: true}}]}
-	}
+	}*/
 });
 </script>
 </html>
