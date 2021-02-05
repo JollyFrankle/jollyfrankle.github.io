@@ -56,7 +56,7 @@ var ChartUsiaGTK = new Chart(C_konf, {
 			callbacks: {
 				title: function(tooltipItems, data) {
 					var tgl=new Date(tooltipItems[0].xLabel);
-					return tgl.getDate()+" "+NamaBulan(tgl.getMonth())+" "+tgl.getFullYear()+':';
+					return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
 				}
 			}
 		},
