@@ -259,6 +259,7 @@ $(document).ready(async function(){
 	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
 	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 
+	await delay(1000);
 	var $Arr_day=SembBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
@@ -267,6 +268,7 @@ $(document).ready(async function(){
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 
+	await delay(1000);
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
