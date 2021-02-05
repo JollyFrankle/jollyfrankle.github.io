@@ -25,12 +25,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</nav>
 	<main class="container my-4">
-<div class="d-block d-md-flex justify-content-between">
-	<div class="mb-2">
+<div class="d-block d-md-flex justify-content-between align-items-center mb-4">
+	<div>
 		<h1>COVID-19 Tracking</h1>
 		<p class="lead mb-0">Grafik Tracking Kasus COVID-19 NTT harian.</p>
 	</div>
-	<form method="GET" style="max-width:300px" class="m-md-0 m-auto mb-2">
+	<form method="GET" style="max-width:300px" class="m-md-0 m-auto">
 		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
 		<div class="btn-group">
 			<select name="day" class="form-control custom-select" id="RangeSel">
@@ -44,12 +44,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</form>
 </div>
-<div class="alert alert-danger">
+<div class="alert alert-danger text-justify">
 	<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00 - 19.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 19.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga. (Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021).</p>
 	<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
 </div>
 <div class="form-row">
-	<div class="col-sm-6 col-lg-3">
+	<div class="col-sm-6 col-lg-3 mb-3">
 		<div class="card">
 			<div style="background:#BF9000" class="pb-1"></div>
 			<div class="card-body">
@@ -63,7 +63,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 col-lg-3">
+	<div class="col-sm-6 col-lg-3 mb-3">
 		<div class="card">
 			<div style="background:#002060" class="pb-1"></div>
 			<div class="card-body">
@@ -77,7 +77,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 col-lg-3">
+	<div class="col-sm-6 col-lg-3 mb-3">
 		<div class="card">
 			<div style="background:#C00000" class="pb-1"></div>
 			<div class="card-body">
@@ -91,7 +91,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 col-lg-3">
+	<div class="col-sm-6 col-lg-3 mb-3">
 		<div class="card">
 			<div style="background:#00B050" class="pb-1"></div>
 			<div class="card-body">
@@ -107,7 +107,6 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</div>
 </div>
 
-<hr class="my-2"/>
 <h4 class="text-center">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartKonfirmasi"></canvas>
@@ -146,11 +145,10 @@ $("#RangeSel").val(-GET_day);
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 var AktifJuml=[];
-$.each(Tanggal.slice(GET_day),function(key,val){
-	AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
-});
-TB_JlhKonf, TB_JlhKonfYest, TB_JlhKonfInc;
 $(document).ready(function(){
+	$.each(Tanggal.slice(GET_day),function(key,val){
+		AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
+	});
 	var JlhYestPre = "Kemarin: ";
 	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
 	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
