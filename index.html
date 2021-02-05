@@ -28,7 +28,7 @@
 <h1 class="display-4">Welcome to JollyFrankle Projects!</h1>
 <p class="lead">Here you can find all projects currently being worked on/have been worked on by JollyFrankle.</p>
 <div class="chart-container" >
-	<canvas id="ChartKonfirmasi" widtrh=600 height=400></canvas>
+	<canvas id="ChartKonfirmasi" width=600 height=400></canvas>
 </div>
 	</main>
 </body>
@@ -61,6 +61,7 @@ const DefChartOpt = {
 			}
 		},
 		maintainAspectRatio: false,
+		aspectRatio: 1.5,
 	};
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
