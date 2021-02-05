@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%;}.logoincrease::before {display:inline-block;content: "▲";font-size:14px;margin-right:4px;}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%;}.logoinc::before {display:inline-block;content:"▲";font-size:14px;margin-right:4px;}.logodec::before {display:inline-block;content:"▼";font-size:14px;margin-right:4px;}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -53,12 +53,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<div class="card">
 			<div style="background:#BF9000" class="pb-1"></div>
 			<div class="card-body">
-				<h5 class="card-title mb-1" style="color:#BF9000">Jumlah kasus positif</h5>
+				<h5 class="card-title mb-1 text-truncate" style="color:#BF9000">Jumlah kasus positif</h5>
 				<p class="display-4 mb-1" id="TB_JlhKonf">...</p>
 				<hr class="my-1"/>
 				<div class="d-flex justify-content-between align-items-center text-muted">
 					<span id="TB_JlhKonfYest">Memuat</span>
-					<span class="logoincrease" id="TB_JlhKonfInc">Memuat</span>
+					<span class="logoinc" id="TB_JlhKonfInc">Memuat</span>
 				</div>
 			</div>
 		</div>
@@ -67,12 +67,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<div class="card">
 			<div style="background:#002060" class="pb-1"></div>
 			<div class="card-body">
-				<h5 class="card-title mb-1" style="color:#002060">Jumlah sembuh</h5>
+				<h5 class="card-title mb-1 text-truncate" style="color:#002060">Jumlah sembuh</h5>
 				<p class="display-4 mb-1" id="TB_JlhSemb">...</p>
 				<hr class="my-1"/>
 				<div class="d-flex justify-content-between align-items-center text-muted">
 					<span id="TB_JlhSembYest">Memuat</span>
-					<span class="logoincrease" id="TB_JlhSembInc">Memuat</span>
+					<span class="logoinc" id="TB_JlhSembInc">Memuat</span>
 				</div>
 			</div>
 		</div>
@@ -81,12 +81,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<div class="card">
 			<div style="background:#C00000" class="pb-1"></div>
 			<div class="card-body">
-				<h5 class="card-title mb-1" style="color:#C00000">Jumlah meninggal</h5>
+				<h5 class="card-title mb-1 text-truncate" style="color:#C00000">Jumlah meninggal</h5>
 				<p class="display-4 mb-1" id="TB_JlhMeng">...</p>
 				<hr class="my-1"/>
 				<div class="d-flex justify-content-between align-items-center text-muted">
 					<span id="TB_JlhMengYest">Memuat</span>
-					<span class="logoincrease" id="TB_JlhMengInc">Memuat</span>
+					<span class="logoinc" id="TB_JlhMengInc">Memuat</span>
 				</div>
 			</div>
 		</div>
@@ -95,7 +95,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<div class="card">
 			<div style="background:#00B050" class="pb-1"></div>
 			<div class="card-body">
-				<h5 class="card-title mb-1" style="color:#00B050">Kasus aktif</h5>
+				<h5 class="card-title mb-1 text-truncate" style="color:#00B050">Kasus aktif</h5>
 				<p class="display-4 mb-1" id="TB_JlhAktif">...</p>
 				<hr class="my-1"/>
 				<div class="d-flex justify-content-between align-items-center text-muted">
@@ -145,7 +145,7 @@ if(!GET_day) var GET_day=-90;
 $("#RangeSel").val(-GET_day);
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-AktifJuml=[];
+var AktifJuml=[];
 $.each(Tanggal.slice(GET_day),function(key,val){
 	AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
 });
@@ -164,9 +164,11 @@ $(document).ready(function(){
 	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[MengJuml.length-2]);
 	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
 
+	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
+	if(SelisihAktif<0) SelAkInd="logodec"; else SelAkInd="logoinc";
 	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
 	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
-	$("#TB_JlhAktifSelisih").text(AktifJuml[AktifJuml.length-2]-AktifJuml[AktifJuml.length-1]);
+	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
 });
 
 const DefChartOpt = {
