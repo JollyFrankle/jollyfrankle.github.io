@@ -15,9 +15,7 @@
 	<style>
 .chart-container{position:relative; min-width:100%; max-width:100%;}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
-	</style>
-}
-}
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-dark sticky-top shadow bg-dark mb-4">
@@ -28,11 +26,17 @@
 		</div>
 	</nav>
 	<main class="container">
-<h1 class="display-4">Welcome to JollyFrankle Projects!</h1>
-<p class="lead">Here you can find all projects currently being worked on/have been worked on by JollyFrankle.</p>
-<div class="chart-container" style="height:400px;width:600px;">
+<h1 class="display-4">COVID-19 Tracking</h1>
+<p class="lead">Grafik Tracking Kasus COVID-19 NTT harian.</p>
+<div class="alert alert-danger">
+	<strong>DISCLAIMER:</strong> Sebagian besar data yang disediakan grafik ini akan berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00 - 19.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 19.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga. (Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021).
+</div>
+<h4 class="text-center">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
+<div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartKonfirmasi"></canvas>
 </div>
+<h4 class="text-center">Tingkat Kematian dan Kesembuhan</h4>
+
 	</main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -40,6 +44,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="data.js"></script>
 <script>
+var url = new URL(window.location.href);
+var GET_day = url.searchParams.get("day");
+if(GET_day=="") GET_day=90;
+console.log(c);
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 const DefChartOpt = {
@@ -70,24 +78,24 @@ var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
 	type: 'line',
 	data: {
-		labels: Tanggal.slice(-90),
+		labels: Tanggal.slice(-GET_day),
 		datasets: [{
 			label: 'Terkonfirmasi',
-			data: KonfJuml.slice(-90),
+			data: KonfJuml.slice(-GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#BF9000',
 			borderWidth: 2
 		},
 		{
 			label: 'Sembuh',
-			data: SembJuml.slice(-90),
+			data: SembJuml.slice(-GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#002060',
 			borderWidth: 2
 		},
 		{
 			label: 'Meninggal',
-			data: MengJuml.slice(-90),
+			data: MengJuml.slice(-GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#C00000',
 			borderWidth: 2
