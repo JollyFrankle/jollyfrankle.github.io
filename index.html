@@ -69,7 +69,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			<div class="bg-secondary pb-1"></div>
 			<div class="card-body">
 				Penambahan tertinggi <span class="GET_day-html"></span> hari:
-				<div class="d-flex justify-content-between">
+				<div class="d-flex justify-content-between mb-2">
 					<strong id="TBA_KonfHighest">...</strong>
 					<small id="TBA_KonfHighestDate">Memuat</small>
 				</div>
@@ -78,7 +78,6 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 					<strong id="TBA_KonfLowest">...</strong>
 					<small id="TBA_KonfLowestDate">Memuat</small>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -94,6 +93,19 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 					<span class="logoinc" id="TB_JlhSembInc">Memuat</span>
 				</div>
 			</div>
+			<div class="bg-secondary pb-1"></div>
+			<div class="card-body">
+				Penambahan tertinggi <span class="GET_day-html"></span> hari:
+				<div class="d-flex justify-content-between mb-2">
+					<strong id="TBA_SembHighest">...</strong>
+					<small id="TBA_SembHighestDate">Memuat</small>
+				</div>
+				Penambahan terendah <span class="GET_day-html"></span> hari:
+				<div class="d-flex justify-content-between">
+					<strong id="TBA_SembLowest">...</strong>
+					<small id="TBA_SembLowestDate">Memuat</small>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="col-sm-6 col-lg-3 mb-3">
@@ -106,6 +118,19 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				<div class="d-flex justify-content-between text-muted">
 					<span id="TB_JlhMengYest">Memuat</span>
 					<span class="logoinc" id="TB_JlhMengInc">Memuat</span>
+				</div>
+			</div>
+			<div class="bg-secondary pb-1"></div>
+			<div class="card-body">
+				Penambahan tertinggi <span class="GET_day-html"></span> hari:
+				<div class="d-flex justify-content-between mb-2">
+					<strong id="TBA_MengHighest">...</strong>
+					<small id="TBA_MengHighestDate">Memuat</small>
+				</div>
+				Penambahan terendah <span class="GET_day-html"></span> hari:
+				<div class="d-flex justify-content-between">
+					<strong id="TBA_MengLowest">...</strong>
+					<small id="TBA_MengLowestDate">Memuat</small>
 				</div>
 			</div>
 		</div>
@@ -160,10 +185,15 @@ var url = new URL(window.location.href);
 var GET_day = -url.searchParams.get("day");
 var GET_day_plain = url.searchParams.get("day");
 if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
-$("#RangeSel").val(-GET_day);
+$("#RangeSel").val(GET_day_plain);
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 var AktifJuml=[];
+function DateIndo(date)
+{
+	var tgl=new Date(date);
+	return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear();
+}
 $(document).ready(function(){
 	$.each(Tanggal.slice(GET_day),function(key,val){
 		AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
@@ -187,17 +217,33 @@ $(document).ready(function(){
 	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
 
-	var TglHariIni = new Date(Tanggal[Tanggal.length-1]);
-	$("#LastData").text(TglHariIni.getDate()+" "+NamaBulan[TglHariIni.getMonth()]+" "+TglHariIni.getFullYear());
+	$("#LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
 	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
-	var $ArrKonf_day=KonfBaru.slice(GET_day),
-	Index_KH=Object.keys($ArrKonf_day).reduce((a, b) => $ArrKonf_day[a] > $ArrKonf_day[b] ? a : b),
-	Index_KL=Object.keys($ArrKonf_day).reduce((a, b) => $ArrKonf_day[a] < $ArrKonf_day[b] ? a : b);
+
 	$(".GET_day-html").text(GET_day_plain);
-	$("#TBA_KonfHighest").text($ArrKonf_day[Index_KH]);
-	$("#TBA_KonfHighestDate").text(Tanggal.slice(GET_day)[Index_KH]);
-	$("#TBA_KonfLowest").text($ArrKonf_day[Index_KL]);
-	$("#TBA_KonfLowestDate").text(Tanggal.slice(GET_day)[Index_KL]);
+	var $Arr_day=KonfBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
+	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
+	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+
+	var $Arr_day=SembBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	$("#TBA_SembHighest").text($Arr_day[IndexH]);
+	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_SembLowest").text($Arr_day[IndexL]);
+	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+
+	var $Arr_day=MengBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	$("#TBA_MengHighest").text($Arr_day[IndexH]);
+	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_MengLowest").text($Arr_day[IndexL]);
+	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 });
 
 const DefChartOpt = {
