@@ -186,65 +186,9 @@ var GET_day = -url.searchParams.get("day");
 var GET_day_plain = url.searchParams.get("day");
 if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
 $("#RangeSel").val(GET_day_plain);
+const delay = ms => new Promise(res => setTimeout(res, ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-var AktifJuml=[];
-function DateIndo(date)
-{
-	var tgl=new Date(date);
-	return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear();
-}
-$(document).ready(function(){
-	$.each(Tanggal.slice(GET_day),function(key,val){
-		AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
-	});
-	var JlhYestPre = "Kemarin: ";
-	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
-	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
-	$("#TB_JlhKonfInc").text(KonfBaru[KonfBaru.length-1]);
-
-	$("#TB_JlhSemb").text(SembJuml[SembJuml.length-1]);
-	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[SembJuml.length-2]);
-	$("#TB_JlhSembInc").text(SembBaru[SembBaru.length-1]);
-
-	$("#TB_JlhMeng").text(MengJuml[MengJuml.length-1]);
-	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[MengJuml.length-2]);
-	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
-
-	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
-	if(SelisihAktif<0) SelAkInd="logodec"; else SelAkInd="logoinc";
-	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
-	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
-	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
-
-	$("#LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
-	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
-
-	$(".GET_day-html").text(GET_day_plain);
-	var $Arr_day=KonfBaru.slice(GET_day),
-	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
-	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
-	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
-	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
-	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
-	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
-
-	var $Arr_day=SembBaru.slice(GET_day),
-	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
-	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
-	$("#TBA_SembHighest").text($Arr_day[IndexH]);
-	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
-	$("#TBA_SembLowest").text($Arr_day[IndexL]);
-	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
-
-	var $Arr_day=MengBaru.slice(GET_day),
-	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
-	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
-	$("#TBA_MengHighest").text($Arr_day[IndexH]);
-	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
-	$("#TBA_MengLowest").text($Arr_day[IndexL]);
-	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
-});
 
 const DefChartOpt = {
 		tooltips: {
@@ -272,6 +216,66 @@ const DefChartOpt = {
 		defaultFontFamily: "Roboto",
 		defaultFontSize: 14,
 	};
+var AktifJuml=[];
+function DateIndo(date)
+{
+	var tgl=new Date(date);
+	return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear();
+}
+$(document).ready(function(){
+	$.each(Tanggal.slice(GET_day),function(key,val){
+		AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
+	});
+	await delay(500);
+	var JlhYestPre = "Kemarin: ";
+	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
+	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
+	$("#TB_JlhKonfInc").text(KonfBaru[KonfBaru.length-1]);
+
+	$("#TB_JlhSemb").text(SembJuml[SembJuml.length-1]);
+	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[SembJuml.length-2]);
+	$("#TB_JlhSembInc").text(SembBaru[SembBaru.length-1]);
+
+	$("#TB_JlhMeng").text(MengJuml[MengJuml.length-1]);
+	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[MengJuml.length-2]);
+	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
+
+	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
+	if(SelisihAktif<0) SelAkInd="logodec"; else SelAkInd="logoinc";
+	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
+	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
+	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
+
+	$("#LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
+	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
+
+	await delay(1000);
+	$(".GET_day-html").text(GET_day_plain);
+	var $Arr_day=KonfBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
+	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
+	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+
+	var $Arr_day=SembBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	$("#TBA_SembHighest").text($Arr_day[IndexH]);
+	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_SembLowest").text($Arr_day[IndexL]);
+	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+
+	var $Arr_day=MengBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	$("#TBA_MengHighest").text($Arr_day[IndexH]);
+	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_MengLowest").text($Arr_day[IndexL]);
+	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+
+await delay(2000);
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
 var C_NewSemb = document.getElementById('ChartNewSemb').getContext('2d');
@@ -366,6 +370,7 @@ var ChartNewMeng = new Chart(C_NewMeng, {
 		}]
 	},
 	options: DefChartOpt 
+});
 });
 </script>
 </html>
