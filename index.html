@@ -279,7 +279,7 @@ var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
 var C_NewSemb = document.getElementById('ChartNewSemb').getContext('2d');
 var C_NewMeng = document.getElementById('ChartNewMeng').getContext('2d');
-await delay(1000);
+await delay(500);
 var ChartKonfirmasi = new Chart(C_konf, {
 	type: 'line',
 	data: {
@@ -308,7 +308,7 @@ var ChartKonfirmasi = new Chart(C_konf, {
 	},
 	options: DefChartOpt 
 });
-await delay(2000);
+await delay(1500);
 var ChartNewKonf = new Chart(C_NewKonf, {
 	type: 'line',
 	data: {
@@ -330,7 +330,7 @@ var ChartNewKonf = new Chart(C_NewKonf, {
 	},
 	options: DefChartOpt 
 });
-await delay(2000);
+await delay(1500);
 var ChartNewSemb = new Chart(C_NewSemb, {
 	type: 'line',
 	data: {
@@ -352,7 +352,7 @@ var ChartNewSemb = new Chart(C_NewSemb, {
 	},
 	options: DefChartOpt 
 });
-await delay(2000);
+await delay(1500);
 var ChartNewMeng = new Chart(C_NewMeng, {
 	type: 'line',
 	data: {
