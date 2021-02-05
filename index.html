@@ -51,7 +51,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </div>
 <div class="alert alert-info text-center h6">
 	Data per: <strong id="LastData">Memuat</strong><br/>
-	Terakhir diperbarui: <strong id="LastMod">Memuat</strong>
+	<!--Terakhir diperbarui: <strong id="LastMod">Memuat</strong>-->
 </div>
 <div class="form-row">
 	<div class="col-sm-6 col-lg-3 mb-3">
@@ -173,8 +173,9 @@ $(document).ready(function(){
 	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
 
-	$("#LastData").text(Tanggal[Tanggal.length]);
-	$("#LastMod").text(Tanggal[Tanggal.length]);
+	var TglHariIni = new Date(Tanggal[Tanggal.length-1]);
+	$("#LastData").text(TglHariIni.getDate()+" "+NamaBulan[TglHariIni.getMonth()]+" "+TglHariIni.getFullYear());
+	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
 });
 
 const DefChartOpt = {
