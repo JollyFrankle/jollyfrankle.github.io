@@ -55,7 +55,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </div>
 <div class="form-row">
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card h-100">
+		<div class="card">
 			<div style="background:#BF9000" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#BF9000">Jumlah kasus positif</h5>
@@ -82,7 +82,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card h-100">
+		<div class="card">
 			<div style="background:#002060" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#002060">Jumlah sembuh</h5>
@@ -109,7 +109,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card h-100">
+		<div class="card">
 			<div style="background:#C00000" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#C00000">Jumlah meninggal</h5>
@@ -136,7 +136,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card h-100">
+		<div class="card">
 			<div style="background:#00B050" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#00B050">Kasus aktif</h5>
@@ -283,7 +283,8 @@ $(document).ready(async function(){
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 
-	$("#TBA_AktifPersen").text((AktifJuml[AktifJuml.length-1]/KonfJuml[KonfJuml.length-1]).replace(".",",").toFixed(2)+"%");
+	var PersenAktif = AktifJuml[AktifJuml.length-1]/KonfJuml[KonfJuml.length-1];
+	$("#TBA_AktifPersen").text(PersenAktif.replace(".",",").toFixed(2)+"%");
 
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
