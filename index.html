@@ -48,12 +48,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00 - 19.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 19.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga. (Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021).</p>
 	<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
 </div>
-<div class="row">
-	<div class="col-md-4">
+<div class="form-row">
+	<div class="col-sm-6 col-lg-3">
 		<div class="card">
 			<div style="background:#BF9000" class="pb-1"></div>
 			<div class="card-body">
-				<h5 class="card-title" style="color:#BF9000">Jumlah kasus positif</h5>
+				<h5 class="card-title mb-1" style="color:#BF9000">Jumlah kasus positif</h5>
 				<p class="display-4 mb-1" id="TB_JlhKonf">...</p>
 				<hr class="my-1"/>
 				<div class="d-flex justify-content-between align-items-center text-muted">
@@ -63,11 +63,11 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-sm-6 col-lg-3">
 		<div class="card">
 			<div style="background:#002060" class="pb-1"></div>
 			<div class="card-body">
-				<h5 class="card-title" style="color:#002060">Jumlah sembuh</h5>
+				<h5 class="card-title mb-1" style="color:#002060">Jumlah sembuh</h5>
 				<p class="display-4 mb-1" id="TB_JlhSemb">...</p>
 				<hr class="my-1"/>
 				<div class="d-flex justify-content-between align-items-center text-muted">
@@ -77,16 +77,30 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-sm-6 col-lg-3">
 		<div class="card">
 			<div style="background:#C00000" class="pb-1"></div>
 			<div class="card-body">
-				<h5 class="card-title" style="color:#C00000">Jumlah meninggal</h5>
+				<h5 class="card-title mb-1" style="color:#C00000">Jumlah meninggal</h5>
 				<p class="display-4 mb-1" id="TB_JlhMeng">...</p>
 				<hr class="my-1"/>
 				<div class="d-flex justify-content-between align-items-center text-muted">
 					<span id="TB_JlhMengYest">Memuat</span>
 					<span class="logoincrease" id="TB_JlhMengInc">Memuat</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 col-lg-3">
+		<div class="card">
+			<div style="background:#00B050" class="pb-1"></div>
+			<div class="card-body">
+				<h5 class="card-title mb-1" style="color:#00B050">Kasus aktif</h5>
+				<p class="display-4 mb-1" id="TB_JlhAktif">...</p>
+				<hr class="my-1"/>
+				<div class="d-flex justify-content-between align-items-center text-muted">
+					<span id="TB_JlhAktifYest">Memuat</span>
+					<span class="" id="TB_JlhAktifSelisih">Memuat</span>
 				</div>
 			</div>
 		</div>
@@ -131,21 +145,28 @@ if(!GET_day) var GET_day=-90;
 $("#RangeSel").val(-GET_day);
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+var AktifJuml = $.each(Tanggal.slice(GET_day),function(key,val){
+	AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
+});
 TB_JlhKonf, TB_JlhKonfYest, TB_JlhKonfInc;
 $(document).ready(function(){
+	var JlhYestPre = "Kemarin: ";
 	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
-	$("#TB_JlhKonfYest").text(KonfJuml[KonfJuml.length-2]);
+	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
 	$("#TB_JlhKonfInc").text(KonfBaru[KonfBaru.length-1]);
 
 	$("#TB_JlhSemb").text(SembJuml[SembJuml.length-1]);
-	$("#TB_JlhSembYest").text(SembJuml[SembJuml.length-2]);
+	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[SembJuml.length-2]);
 	$("#TB_JlhSembInc").text(SembBaru[SembBaru.length-1]);
 
 	$("#TB_JlhMeng").text(MengJuml[MengJuml.length-1]);
-	$("#TB_JlhMengYest").text(MengJuml[MengJuml.length-2]);
+	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[MengJuml.length-2]);
 	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
-});
 
+	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
+	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
+	$("#TB_JlhAktifSelisih").text(AktifJuml[AktifJuml.length-2]-AktifJuml[AktifJuml.length-1]);
+});
 
 const DefChartOpt = {
 		tooltips: {
