@@ -12,6 +12,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
+	<style>
+.chart-container{position:relative; height:300px; width:600px; min-width:100%; max-width:100%;}
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-dark sticky-top shadow bg-dark mb-4">
@@ -34,9 +37,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="data.js"></script>
 <script>
-	const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-
+const DefChartOpt = {
+		tooltips: {
+			enabled: true,
+			mode: 'index',
+			intersect: false,
+			callbacks: {
+				title: function(tooltipItems, data) {
+					var tgl=new Date(tooltipItems[0].xLabel);
+					return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
+				}
+			}
+		},
+		hover: {
+			mode: "nearest",
+			intersect: true
+		},
+		elements: {
+			point:{
+				radius: 1
+			}
+		},
+		maintainAspectRatio: false,
+	};
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
 	type: 'line',
@@ -64,29 +89,7 @@ var ChartUsiaGTK = new Chart(C_konf, {
 			borderWidth: 2
 		}]
 	},
-	options: {
-		tooltips: {
-			enabled: true,
-			mode: 'index',
-			intersect: false,
-			callbacks: {
-				title: function(tooltipItems, data) {
-					var tgl=new Date(tooltipItems[0].xLabel);
-					return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
-				}
-			}
-		},
-		hover: {
-			mode: "nearest",
-			intersect: true
-		},
-		elements: {
-			point:{
-				radius: 1
-			}
-		},
-		maintainAspectRatio: false,
-	}
+	options: DefChartOpt 
 });
 </script>
 </html>
