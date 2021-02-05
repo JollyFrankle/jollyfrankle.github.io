@@ -7,6 +7,7 @@
 	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
 	<link rel="icon" href="../storage/media/icon.png" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Expires" content="30"/>
 	<noscript><meta http-equiv="refresh" content="0; url=../no-js.html"/></noscript>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
@@ -47,6 +48,10 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div class="alert alert-danger text-justify">
 	<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00 - 19.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 19.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga. (Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021).</p>
 	<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
+</div>
+<div class="alert alert-info text-center h6">
+	Data per: <strong id="LastData">Memuat</strong><br/>
+	Terakhir diperbarui: <strong id="LastMod">Memuat</strong>
 </div>
 <div class="form-row">
 	<div class="col-sm-6 col-lg-3 mb-3">
@@ -167,6 +172,9 @@ $(document).ready(function(){
 	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
 	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
+
+	$("#LastData").text(Tanggal[Tanggal.length]);
+	$("#LastMod").text(Tanggal[Tanggal.length]);
 });
 
 const DefChartOpt = {
