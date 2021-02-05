@@ -226,7 +226,7 @@ $(document).ready(async function(){
 	$.each(Tanggal.slice(GET_day),function(key,val){
 		AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
 	});
-	await delay(100);
+	await delay(500);
 	var JlhYestPre = "Kemarin: ";
 	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
 	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
@@ -249,7 +249,7 @@ $(document).ready(async function(){
 	$("#LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
 	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
 
-	await delay(500);
+	await delay(1000);
 	$(".GET_day-html").text(GET_day_plain);
 	var $Arr_day=KonfBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
@@ -307,7 +307,7 @@ var ChartKonfirmasi = new Chart(C_konf, {
 	},
 	options: DefChartOpt 
 });
-await delay(500);
+await delay(1000);
 var ChartNewKonf = new Chart(C_NewKonf, {
 	type: 'line',
 	data: {
@@ -329,7 +329,7 @@ var ChartNewKonf = new Chart(C_NewKonf, {
 	},
 	options: DefChartOpt 
 });
-await delay(500);
+await delay(1000);
 var ChartNewSemb = new Chart(C_NewSemb, {
 	type: 'line',
 	data: {
@@ -351,7 +351,7 @@ var ChartNewSemb = new Chart(C_NewSemb, {
 	},
 	options: DefChartOpt 
 });
-await delay(500);
+await delay(1000);
 var ChartNewMeng = new Chart(C_NewMeng, {
 	type: 'line',
 	data: {
