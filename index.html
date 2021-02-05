@@ -157,19 +157,19 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </div>
 
 <hr class="my-2"/>
-<h4 class="text-center">Pertambahan Kasus Positif Baru</h4>
+<h4 class="text-center">Penambahan Kasus Positif Baru</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartNewKonf"></canvas>
 </div>
 
 <hr class="my-2"/>
-<h4 class="text-center">Pertambahan Kasus Sembuh</h4>
+<h4 class="text-center">Penambahan Kasus Sembuh</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartNewSemb"></canvas>
 </div>
 
 <hr class="my-2"/>
-<h4 class="text-center">Pertambahan Kasus Meninggal</h4>
+<h4 class="text-center">Penambahan Kasus Meninggal</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartNewMeng"></canvas>
 </div>
@@ -186,6 +186,7 @@ var GET_day = -url.searchParams.get("day");
 var GET_day_plain = url.searchParams.get("day");
 if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
 $("#RangeSel").val(GET_day_plain);
+$(".GET_day-html").text(GET_day_plain);
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -250,7 +251,6 @@ $(document).ready(async function(){
 	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
 
 	await delay(500);
-	$(".GET_day-html").text(GET_day_plain);
 	var $Arr_day=KonfBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
@@ -303,6 +303,13 @@ var ChartKonfirmasi = new Chart(C_konf, {
 			data: MengJuml.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#C00000',
+			borderWidth: 1
+		},
+		{
+			label: 'Kasus Aktif',
+			data: AktifJuml,
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#00B050',
 			borderWidth: 1
 		}]
 	},
