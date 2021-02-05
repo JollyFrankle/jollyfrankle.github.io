@@ -145,7 +145,8 @@ if(!GET_day) var GET_day=-90;
 $("#RangeSel").val(-GET_day);
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-var AktifJuml = $.each(Tanggal.slice(GET_day),function(key,val){
+AktifJuml=array();
+$.each(Tanggal.slice(GET_day),function(key,val){
 	AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
 });
 TB_JlhKonf, TB_JlhKonfYest, TB_JlhKonfInc;
