@@ -231,15 +231,15 @@ $(document).ready(async function(){
 	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
 	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
 	$("#TB_JlhKonfInc").text(KonfBaru[KonfBaru.length-1]);
-	await delay(500);
+
 	$("#TB_JlhSemb").text(SembJuml[SembJuml.length-1]);
 	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[SembJuml.length-2]);
 	$("#TB_JlhSembInc").text(SembBaru[SembBaru.length-1]);
-	await delay(500);
+
 	$("#TB_JlhMeng").text(MengJuml[MengJuml.length-1]);
 	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[MengJuml.length-2]);
 	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
-	await delay(500);
+
 	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
 	if(SelisihAktif<0) SelAkInd="logodec"; else SelAkInd="logoinc";
 	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
@@ -259,7 +259,6 @@ $(document).ready(async function(){
 	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
 	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 
-	await delay(500);
 	var $Arr_day=SembBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
@@ -268,7 +267,6 @@ $(document).ready(async function(){
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 
-	await delay(500);
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
@@ -310,7 +308,7 @@ var ChartKonfirmasi = new Chart(C_konf, {
 	},
 	options: DefChartOpt 
 });
-await delay(1000);
+await delay(2000);
 var ChartNewKonf = new Chart(C_NewKonf, {
 	type: 'line',
 	data: {
@@ -332,7 +330,7 @@ var ChartNewKonf = new Chart(C_NewKonf, {
 	},
 	options: DefChartOpt 
 });
-await delay(1000);
+await delay(2000);
 var ChartNewSemb = new Chart(C_NewSemb, {
 	type: 'line',
 	data: {
@@ -354,7 +352,7 @@ var ChartNewSemb = new Chart(C_NewSemb, {
 	},
 	options: DefChartOpt 
 });
-await delay(1000);
+await delay(2000);
 var ChartNewMeng = new Chart(C_NewMeng, {
 	type: 'line',
 	data: {
