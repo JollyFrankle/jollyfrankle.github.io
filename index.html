@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%;}.logoinc::before {display:inline-block;content:"▲";font-size:14px;margin-right:4px;}.logodec::before {display:inline-block;content:"▼";font-size:14px;margin-right:4px;}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%;}.logoinc::before {display:inline-block;content:"▲";font-size:14px;margin-right:4px;}.logodec::before {display:inline-block;content:"▼";font-size:14px;margin-right:4px;}.card{overflow:hidden}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -33,11 +33,11 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</div>
 	<form method="GET" style="max-width:300px" class="m-md-0 m-auto">
 		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
-		<div class="btn-group">
+		<div class="btn-group w-100">
 			<select name="day" class="form-control custom-select" id="RangeSel">
+				<option value=90>90 hari terakhir (default)</option>
 				<option value=365>1 tahun terakhir</option>
 				<option value=180>180 hari terakhir</option>
-				<option value=90>90 hari terakhir</option>
 				<option value=60>60 hari terakhir</option>
 				<option value=30>30 hari terakhir</option>
 			</select>
@@ -55,7 +55,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </div>
 <div class="form-row">
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
+		<div class="card h-100">
 			<div style="background:#BF9000" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#BF9000">Jumlah kasus positif</h5>
@@ -68,12 +68,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 			<div class="bg-secondary pb-1"></div>
 			<div class="card-body">
-				Penambahan tertinggi <span class="GET_day-html"></span> hari:
+				Penambahan tertinggi <span class="GET_day-html"></span>:
 				<div class="d-flex justify-content-between mb-2">
 					<strong id="TBA_KonfHighest">...</strong>
 					<small id="TBA_KonfHighestDate">Memuat</small>
 				</div>
-				Penambahan terendah <span class="GET_day-html"></span> hari:
+				Penambahan terendah <span class="GET_day-html"></span>:
 				<div class="d-flex justify-content-between">
 					<strong id="TBA_KonfLowest">...</strong>
 					<small id="TBA_KonfLowestDate">Memuat</small>
@@ -82,7 +82,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
+		<div class="card h-100">
 			<div style="background:#002060" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#002060">Jumlah sembuh</h5>
@@ -95,12 +95,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 			<div class="bg-secondary pb-1"></div>
 			<div class="card-body">
-				Penambahan tertinggi <span class="GET_day-html"></span> hari:
+				Penambahan tertinggi <span class="GET_day-html"></span>:
 				<div class="d-flex justify-content-between mb-2">
 					<strong id="TBA_SembHighest">...</strong>
 					<small id="TBA_SembHighestDate">Memuat</small>
 				</div>
-				Penambahan terendah <span class="GET_day-html"></span> hari:
+				Penambahan terendah <span class="GET_day-html"></span>:
 				<div class="d-flex justify-content-between">
 					<strong id="TBA_SembLowest">...</strong>
 					<small id="TBA_SembLowestDate">Memuat</small>
@@ -109,7 +109,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
+		<div class="card h-100">
 			<div style="background:#C00000" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#C00000">Jumlah meninggal</h5>
@@ -122,12 +122,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 			<div class="bg-secondary pb-1"></div>
 			<div class="card-body">
-				Penambahan tertinggi <span class="GET_day-html"></span> hari:
+				Penambahan tertinggi <span class="GET_day-html"></span>:
 				<div class="d-flex justify-content-between mb-2">
 					<strong id="TBA_MengHighest">...</strong>
 					<small id="TBA_MengHighestDate">Memuat</small>
 				</div>
-				Penambahan terendah <span class="GET_day-html"></span> hari:
+				Penambahan terendah <span class="GET_day-html"></span>:
 				<div class="d-flex justify-content-between">
 					<strong id="TBA_MengLowest">...</strong>
 					<small id="TBA_MengLowestDate">Memuat</small>
@@ -136,7 +136,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
+		<div class="card h-100">
 			<div style="background:#00B050" class="pb-1"></div>
 			<div class="card-body">
 				<h5 class="card-title mb-1 text-truncate" style="color:#00B050">Kasus aktif</h5>
@@ -146,6 +146,14 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 					<span id="TB_JlhAktifYest">Memuat</span>
 					<span class="" id="TB_JlhAktifSelisih">Memuat</span>
 				</div>
+			</div>
+			<div class="bg-secondary pb-1"></div>
+			<div class="card-body">
+				Persentase pasien dirawat:
+				<strong id="TBA_AktifPersen">...</strong>
+				<!--<div class="d-flex justify-content-between mb-2">
+					<strong id="TBA_AktifPersen">...</strong>
+				</div>-->
 			</div>
 		</div>
 	</div>
@@ -186,7 +194,7 @@ var GET_day = -url.searchParams.get("day");
 var GET_day_plain = url.searchParams.get("day");
 if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
 $("#RangeSel").val(GET_day_plain);
-$(".GET_day-html").text(GET_day_plain);
+$(".GET_day-html").text(GET_day_plain+" hari");
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -274,6 +282,8 @@ $(document).ready(async function(){
 	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+
+	$("#TBA_AktifPersen").text((AktifJuml[AktifJuml.length-1]/KonfJuml[KonfJuml.length-1]).replace(".",",").toFixed(2)+"%");
 
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
