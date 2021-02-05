@@ -45,8 +45,9 @@
 <script src="data.js"></script>
 <script>
 var url = new URL(window.location.href);
-var GET_day = url.searchParams.get("day");
-if(GET_day=="") GET_day=90;
+var GET_day = -url.searchParams.get("day");
+//var GET_day = -GET_d;
+if(!GET_day) var GET_day=-90;
 
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -78,7 +79,7 @@ var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
 	type: 'line',
 	data: {
-		labels: Tanggal.slice(-GET_day),
+		labels: Tanggal.slice(GET_day),
 		datasets: [{
 			label: 'Terkonfirmasi',
 			data: KonfJuml.slice(-GET_day),
@@ -88,14 +89,14 @@ var ChartUsiaGTK = new Chart(C_konf, {
 		},
 		{
 			label: 'Sembuh',
-			data: SembJuml.slice(-GET_day),
+			data: SembJuml.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#002060',
 			borderWidth: 2
 		},
 		{
 			label: 'Meninggal',
-			data: MengJuml.slice(-GET_day),
+			data: MengJuml.slice(GET_day),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#C00000',
 			borderWidth: 2
