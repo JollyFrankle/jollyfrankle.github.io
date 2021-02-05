@@ -31,16 +31,31 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div class="alert alert-danger">
 	<strong>DISCLAIMER:</strong> Sebagian besar data yang disediakan grafik ini akan berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00 - 19.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 19.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga. (Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021).
 </div>
+
 <hr class="my-2"/>
 <h4 class="text-center">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartKonfirmasi"></canvas>
 </div>
+
 <hr class="my-2"/>
-<h4 class="text-center">Pertambahan Kasus Baru</h4>
+<h4 class="text-center">Pertambahan Kasus Positif Baru</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartNewKonf"></canvas>
 </div>
+
+<hr class="my-2"/>
+<h4 class="text-center">Pertambahan Kasus Sembuh</h4>
+<div class="chart-container" style="height:500px;width:600px;">
+	<canvas id="ChartNewSemb"></canvas>
+</div>
+
+<hr class="my-2"/>
+<h4 class="text-center">Pertambahan Kasus Meninggal</h4>
+<div class="chart-container" style="height:500px;width:600px;">
+	<canvas id="ChartNewMeng"></canvas>
+</div>
+
 	</main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
