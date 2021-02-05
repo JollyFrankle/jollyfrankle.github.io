@@ -30,16 +30,18 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<h1>COVID-19 Tracking</h1>
 		<p class="lead">Grafik Tracking Kasus COVID-19 NTT harian.</p>
 	</div>
-	<form method=GET style="max-width:250px;margin:auto">
+	<form method=GET style="max-width:250px" class="m-md-0 m-auto">
 		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
-		<select name="day" class="form-control custom-select" id="RangeSel">
-			<option value=365>1 tahun terakhir</option>
-			<option value=180>180 hari terakhir</option>
-			<option value=90>90 hari terakhir</option>
-			<option value=60>60 hari terakhir</option>
-			<option value=30>30 hari terakhir</option>
-		</select>
-		<input type="submit" class="btn btn-primary"/>
+		<div class="btn-group">
+			<select name="day" class="form-control custom-select" id="RangeSel">
+				<option value=365>1 tahun terakhir</option>
+				<option value=180>180 hari terakhir</option>
+				<option value=90>90 hari terakhir</option>
+				<option value=60>60 hari terakhir</option>
+				<option value=30>30 hari terakhir</option>
+			</select>
+			<input type="submit" class="btn btn-primary"/>
+		</div>
 	</form>
 </div>
 <div class="alert alert-danger">
