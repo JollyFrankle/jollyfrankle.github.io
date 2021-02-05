@@ -198,6 +198,7 @@ if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
 $("#RangeSel").val(GET_day_plain);
 $(".GET_day-html").text(GET_day_plain+" hari");
 var DataJSON = $.ajax({
+	async:false,
 	url: "data.json",
 	dataType: "json",
 });
