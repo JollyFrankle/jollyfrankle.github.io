@@ -45,7 +45,6 @@ var ChartUsiaGTK = new Chart(C_konf, {
 			data: KonfJuml.slice(-90),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#BF9000',
-			pointBorderWidth:0,
 			borderWidth: 2
 		},
 		{
@@ -53,7 +52,6 @@ var ChartUsiaGTK = new Chart(C_konf, {
 			data: SembJuml.slice(-90),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#002060',
-			pointBorderWidth:0,
 			borderWidth: 2
 		},
 		{
@@ -61,14 +59,13 @@ var ChartUsiaGTK = new Chart(C_konf, {
 			data: MengJuml.slice(-90),
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#C00000',
-			pointBorderWidth:0,
 			borderWidth: 2
 		}]
 	},
 	options: {
 		tooltips: {
 			enabled: true,
-			mode: 'single',
+			mode: 'nearest',
 			callbacks: {
 				title: function(tooltipItems, data) {
 					var tgl=new Date(tooltipItems[0].xLabel);
@@ -76,7 +73,11 @@ var ChartUsiaGTK = new Chart(C_konf, {
 				}
 			}
 		},
-		scales:{yAxes:[{ticks: {beginAtZero: true}}]}
+		elements: {
+			point:{
+				radius: 0
+			}
+		},
 	}
 });
 </script>
