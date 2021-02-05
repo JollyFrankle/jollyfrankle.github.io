@@ -65,7 +65,7 @@ var ChartUsiaGTK = new Chart(C_konf, {
 	options: {
 		tooltips: {
 			enabled: true,
-			mode: 'nearest',
+			mode: 'average',
 			callbacks: {
 				title: function(tooltipItems, data) {
 					var tgl=new Date(tooltipItems[0].xLabel);
