@@ -36,10 +36,10 @@ var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
 	type: 'line',
 	data: {
-		labels: JSON.parse(Tanggal),
+		labels: Tanggal,
 		datasets: [{
 			label: 'Jumlah Terkonfirmasi',
-			data: JSON.parse(KonfJumlah),
+			data: KonfJumlah,
 			backgroundColor: 'rgba(0,123,255,.2)',
 			borderColor: 'rgba(0,123,255,1)',
 			pointBorderColor: 'rgba(0,123,255,1)',
