@@ -41,28 +41,16 @@ var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
 var ChartUsiaGTK = new Chart(C_konf, {
 	type: 'line',
 	data: {
-		labels: Tanggal,
+		labels: Tanggal.slice(-90),
 		datasets: [{
 			label: 'Jumlah Terkonfirmasi',
-			data: KonfJuml,
+			data: KonfJuml.slice(-90),
 			backgroundColor: 'rgba(0,123,255,.2)',
 			borderColor: 'rgba(0,123,255,1)',
 			pointBorderColor: 'rgba(0,123,255,1)',
 			borderWidth: 1
 		}]
 	},
-	options: {
-		scales: {
-			xAxes: [{
-				type: "time",
-				time: {
-					min: start,
-					max: end,
-					unit: "day"
-				}
-			}]
-		}
-	}
 	/*options: {
 		tooltips: {
 			enabled: true,
