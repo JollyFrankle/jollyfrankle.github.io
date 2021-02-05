@@ -197,10 +197,15 @@ var GET_day_plain = url.searchParams.get("day");
 if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
 $("#RangeSel").val(GET_day_plain);
 $(".GET_day-html").text(GET_day_plain+" hari");
-$.ajax({
-	url:	'data.json',
-	dataType: "json", 
-});
+var json = (function () {
+	var json = null;
+	$.ajax({
+		url:	'data.json',
+		dataType: "json",
+		success:function(data){json=data}
+	});
+	return json;
+})(); 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
