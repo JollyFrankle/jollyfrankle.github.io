@@ -232,7 +232,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 var url = new URL(window.location.href);
 var GET_day = -url.searchParams.get("day");
 var GET_day_plain = url.searchParams.get("day");
-if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
+if(GET_day_plain<=0) {var GET_day=-90; var GET_day_plain=90;}
+if(GET_day_plain>Tanggal.length) {var GET_day=-Tanggal.length; var GET_day_plain=Tanggal.length;}
 $("#RangeSel").val(GET_day_plain);
 $(".GET_day-html").text(GET_day_plain+" hari");
 const delay = ms => new Promise(res => setTimeout(res, ms));
