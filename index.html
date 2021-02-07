@@ -183,7 +183,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<small id="TBA_MengHighestDate">Memuat</small>
 					</div>
 					Penambahan terendah <span class="GET_day-html"></span>:
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between mb-2">
 						<strong id="TBA_MengLowest">...</strong>
 						<small id="TBA_MengLowestDate">Memuat</small>
 					</div>
@@ -415,7 +415,7 @@ $(document).ready(async function(){
 	var $Arr_day=SembBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(1,Semb7day[TanggalLen-1]-Semb7day[TanggalLen-2]);
+	$Trend=TrendInd(2,Semb7day[TanggalLen-1]-Semb7day[TanggalLen-2]);
 	$("#TBA_SembHighest").text($Arr_day[IndexH]);
 	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
