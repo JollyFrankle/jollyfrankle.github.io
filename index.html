@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}[class^=logo]::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}[class^=logo]::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -164,16 +164,19 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <h2 class="border-bottom"><small>1.</small> Grafik Harian</h2>
 <h4 class="text-center">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
 <div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
 	<canvas id="ChartKonfirmasi"></canvas>
 </div>
 
 <h4 class="text-center">Penambahan Kasus Positif Baru</h4>
 <div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
 	<canvas id="ChartNewKonf"></canvas>
 </div>
 
 <h4 class="text-center">Penambahan Kasus Sembuh</h4>
 <div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
 	<canvas id="ChartNewSemb"></canvas>
 </div>
 
@@ -515,7 +518,7 @@ $("#TP_Tabel tbody").html("");
 var $PostMean="<small class='d-block text-muted'>kasus per hari</small>",
 $PreH="<small class='d-block'>Tertinggi:</small>",
 $PreL="<small class='d-block'>Terendah:</small>";
-$.each($ArrTw,function(i,val)
+$.each($ArrTw,async function(i,val)
 {
 	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
