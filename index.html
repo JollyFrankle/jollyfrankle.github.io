@@ -410,7 +410,7 @@ $(document).ready(async function(){
 	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
 	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
-	$("#TBA_KonfTrend").text($Trend[0]);
+	$("#TBA_KonfTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 
 	var $Arr_day=SembBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
@@ -420,7 +420,7 @@ $(document).ready(async function(){
 	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
-	$("#TBA_SembTrend").text($Trend[0]);
+	$("#TBA_SembTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
@@ -430,7 +430,7 @@ $(document).ready(async function(){
 	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
-	$("#TBA_MengTrend").text($Trend[0]);
+	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 
 	var PersenAktif = (AktifJuml[TanggalLen-1] / KonfJuml[TanggalLen-1])*100;
 	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
