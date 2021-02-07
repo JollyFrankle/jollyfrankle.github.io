@@ -372,7 +372,7 @@ $(document).ready(async function(){
 	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
 
 	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
-	if(SelisihAktif<0) SelAkInd="logodec"; else SelAkInd="logoinc";
+	if(SelisihAktif<0) SelAkInd="logodec text-success"; else SelAkInd="logoinc text-danger";
 	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
 	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
