@@ -274,7 +274,7 @@ function getMinMax(arr) {
 	}
 	return { min, max };
 }
-function Ind(mode,val) {
+function IndC(mode,val) {
 	// Mode 1: Buruk ketika mengalami kenaikan
 	c="<span class='text-";
 	if(mode==1) {
@@ -291,8 +291,8 @@ function Ind(mode,val) {
 	c+="'>"; post="%</span>";
 		return c+val.toFixed(2).replace(".",",")+post;
 }
-function PreInd(val) {
-	return (val<0?"":"+")+val;
+function PreIndC(val) {
+	return (val<0?"":"+")+val.toFixed(2).replace(".",",");
 }
 $(document).ready(async function(){
 	$.each(Tanggal.slice(GET_day),function(key,val){
@@ -515,13 +515,13 @@ $.each($ArrTw,function(i,val){
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
 	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
 	colKM="<td>"+$ArrMKw[i].replace(".",",")+"</td>";
-	colKP="<td>"+Ind(1,$DiffKP)+"<small class='d-block'>"+(PreInd($DiffK)).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colKP="<td>"+IndC(1,$DiffKP)+"<small class='d-block'>"+PreIndC($DiffK)+"</small>"+"</td>";
 	colKE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHKw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLKw[i]+"</td>";
 	colSM="<td>"+$ArrMSw[i].replace(".",",")+"</td>";
-	colSP="<td>"+Ind(2,$DiffSP)+"<small class='d-block'>"+(PreInd($DiffS)).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colSP="<td>"+IndC(2,$DiffSP)+"<small class='d-block'>"+PreIndC($DiffS)+"</small>"+"</td>";
 	colSE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHSw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLSw[i]+"</td>";
 	colMM="<td>"+$ArrMMw[i].replace(".",",")+"</td>";
-	colMP="<td>"+Ind(1,$DiffMP)+"<small class='d-block'>"+(PreInd($DiffM)).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colMP="<td>"+IndC(1,$DiffMP)+"<small class='d-block'>"+PreIndC($DiffM)+"</small>"+"</td>";
 	colME="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHMw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLMw[i]+"</td>";
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
