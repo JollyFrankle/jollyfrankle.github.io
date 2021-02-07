@@ -375,11 +375,10 @@ function TrendInd(mode,val) {
 $(document).ready(async function(){
 	var AktifJuml=[], $TmpJK=KonfJuml.slice(GET_day), $TmpJS=SembJuml.slice(GET_day), $TmpJM=MengJuml.slice(GET_day);
 	$.each(Tanggal.slice(GET_day),function(key,val){
-		$TmpJS!=null ? AktifJuml.push($TmpJK[key]-($TmpJS[key]+$TmpJM[key])) : AktifJuml.push(null);
+		AktifJuml.push($TmpJK[key]-($TmpJS[key]+$TmpJM[key]));
 	});
 	var JlhYestPre = "Kemarin: ", TanggalLen=Tanggal.length;
 	await delay(500);
-	$IncK=KonfBaru[TanggalLen-1]; $IncK==0
 	$("#TB_JlhKonf").text(KonfJuml[TanggalLen-1]);
 	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[TanggalLen-2]);
 	$("#TB_JlhKonfInc").text(KonfBaru[TanggalLen-1]);
