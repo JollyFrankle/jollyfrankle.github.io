@@ -130,7 +130,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<small id="TBA_KonfLowestDate">Memuat</small>
 					</div>
 					Indikator trend:
-					<strong class="d-block" id="TBA_KonfTrend">Memuat...</span>
+					<strong class="d-block" id="TBA_KonfTrend">Memuat...</strong>
 				</div>
 			</div>
 		</div>
@@ -143,7 +143,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 					<hr class="my-1"/>
 					<div class="d-flex justify-content-between text-muted">
 						<span id="TB_JlhSembYest">Memuat</span>
-						<span class="logoinc" id="TB_JlhSembInc">Memuat</strong>
+						<span class="logoinc" id="TB_JlhSembInc">Memuat</span>
 					</div>
 				</div>
 				<div class="bg-secondary pb-1"></div>
@@ -359,60 +359,80 @@ function IndC(mode,val) {
 function PreIndC(val) {
 	return (val<0?"":"+")+val.toFixed(2).replace(".",",");
 }
+
+function TrendInd(mode,val) {
+	if(mode==1) {
+		if(val > 0) {i="Meningkat";c="danger";l="logoinc"}
+		if(val== 0) {i="Stabil";c="muted";l="logonet"}
+		if(val < 0) {i="Menurun";c="success";l="logodec"}
+	}
+	if(mode==2) {
+		if(val > 0) {i="Meningkat";c="success";l="logoinc"}
+		if(val== 0) {i="Stabil";c="muted";l="logonet"}
+		if(val < 0) {i="Menurun";c="danger";l="logodec"}
+	}
+	return [i,c,l];
+}
 $(document).ready(async function(){
 	$.each(Tanggal.slice(GET_day),function(key,val){
 		AktifJuml.push(KonfJuml.slice(GET_day)[key]-(SembJuml.slice(GET_day)[key]+MengJuml.slice(GET_day)[key]));
 	});
-	var JlhYestPre = "Kemarin: ";
+	var JlhYestPre = "Kemarin: "; var TanggalLen=Tanggal.length;
 	await delay(500);
-	$IncK=KonfBaru[KonfBaru.length-1]; $IncK==0
-	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
-	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
-	$("#TB_JlhKonfInc").text(KonfBaru[KonfBaru.length-1]);
+	$IncK=KonfBaru[TanggalLen-1]; $IncK==0
+	$("#TB_JlhKonf").text(KonfJuml[TanggalLen-1]);
+	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[TanggalLen-2]);
+	$("#TB_JlhKonfInc").text(KonfBaru[TanggalLen-1]);
 
-	$("#TB_JlhSemb").text(SembJuml[SembJuml.length-1]);
-	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[SembJuml.length-2]);
-	$("#TB_JlhSembInc").text(SembBaru[SembBaru.length-1]);
+	$("#TB_JlhSemb").text(SembJuml[TanggalLen-1]);
+	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[TanggalLen-2]);
+	$("#TB_JlhSembInc").text(SembBaru[TanggalLen-1]);
 
-	$("#TB_JlhMeng").text(MengJuml[MengJuml.length-1]);
-	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[MengJuml.length-2]);
-	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
+	$("#TB_JlhMeng").text(MengJuml[TanggalLen-1]);
+	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[TanggalLen-2]);
+	$("#TB_JlhMengInc").text(MengBaru[TanggalLen-1]);
 
-	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
+	var SelisihAktif = AktifJuml[TanggalLen-1]-AktifJuml[TanggalLen-2];
 	SelisihAktif<0?SelAkInd="logodec text-success":SelAkInd="logoinc text-danger";
-	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
-	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
+	$("#TB_JlhAktif").text(AktifJuml[TanggalLen-1]);
+	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[TanggalLen-2]));
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
 
-	$(".LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
+	$(".LastData").text(DateIndo(Tanggal[TanggalLen-1]));
 	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
 
 	await delay(500);
 	var $Arr_day=KonfBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
-	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
+	$Trend=TrendInd(1,Konf7day[TanggalLen-1]-Konf7day[TanggalLen-2]);
 	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
 	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
 	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+	$("#TBA_KonfTrend").text($Trend[0]);
 
 	var $Arr_day=SembBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
-	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
+	$Trend=TrendInd(1,Semb7day[TanggalLen-1]-Semb7day[TanggalLen-2]);
 	$("#TBA_SembHighest").text($Arr_day[IndexH]);
 	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+	$("#TBA_SembTrend").text($Trend[0]);
 
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
-	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b);
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
+	$Trend=TrendInd(1,Meng7day[TanggalLen-1]-Meng7day[TanggalLen-2]);
 	$("#TBA_MengHighest").text($Arr_day[IndexH]);
 	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+	$("#TBA_MengTrend").text($Trend[0]);
 
-	var PersenAktif = (AktifJuml[AktifJuml.length-1] / KonfJuml[KonfJuml.length-1])*100;
+	var PersenAktif = (AktifJuml[TanggalLen-1] / KonfJuml[TanggalLen-1])*100;
 	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
 
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
@@ -528,8 +548,8 @@ var ChartNewMeng = new Chart(C_NewMeng, {
 });
 
 // Tabel:
-	var TglAwal=new Date(Tanggal[Tanggal.length+GET_day]);
-	var TglAkhir=new Date(Tanggal[Tanggal.length-1]);
+	var TglAwal=new Date(Tanggal[TanggalLen+GET_day]);
+	var TglAkhir=new Date(Tanggal[TanggalLen-1]);
 	$("#TP_Tgl").text("("+DateIndo(TglAwal)+" – "+DateIndo(TglAkhir)+")");
 // Dapatkan hari minggu terakhir sebelum data
 var KeyMinggu=0;
@@ -594,18 +614,22 @@ $.each($ArrTw,function(i,val)
 	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
+	$IndKP=TrendInd(1,$DiffKP); $IndSP=TrendInd(2,$DiffSP); $IndMP=TrendInd(1,$DiffMP);
 	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>s.d.<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
 
+	var $IndKPc="<span class='text-"+$IndKP[1]+" "+$IndKP[2]+"'>"+$DiffKP.toFixed(2).replace(".",",")+"%</span>";
 	colKM="<td>"+$ArrMKw[i].replace(".",",")+$PostMean+"</td>";
-	colKP=isNaN($DiffKP)?"<td>–</td>":"<td>"+IndC(1,$DiffKP)+"<div class='small'>"+PreIndC($DiffK)+" ks/hr</div>"+"</td>";
+	colKP=isNaN($DiffKP)?"<td>–</td>":"<td>"+$IndKPc+"<div class='small'>"+PreIndC($DiffK)+" ks/hr</div>"+"</td>";
 	colKE="<td>"+$PreH+$ArrHKw[i]+$PostHL+$PreL+$ArrLKw[i]+$PostHL+"</td>";
 
+	var $IndSPc="<span class='text-"+$IndSP[1]+" "+$IndSP[2]+"'>"+$DiffSP.toFixed(2).replace(".",",")+"%</span>";
 	colSM="<td>"+$ArrMSw[i].replace(".",",")+$PostMean+"</td>";
-	colSP=isNaN($DiffSP)?"<td>–</td>":"<td>"+IndC(2,$DiffSP)+"<div class='small'>"+PreIndC($DiffS)+" ks/hr</div>"+"</td>";
+	colSP=isNaN($DiffSP)?"<td>–</td>":"<td>"+$IndSPc+"<div class='small'>"+PreIndC($DiffS)+" ks/hr</div>"+"</td>";
 	colSE="<td>"+$PreH+$ArrHSw[i]+$PostHL+$PreL+$ArrLSw[i]+$PostHL+"</td>";
 
+	var $IndMPc="<span class='text-"+$IndMP[1]+" "+$IndMP[2]+"'>"+$DiffMP.toFixed(2).replace(".",",")+"%</span>";
 	colMM="<td>"+$ArrMMw[i].replace(".",",")+$PostMean+"</td>";
-	colMP=isNaN($DiffMP)?"<td>–</td>":"<td>"+IndC(1,$DiffMP)+"<div class='small'>"+PreIndC($DiffM)+" ks/hr</div>"+"</td>";
+	colMP=isNaN($DiffMP)?"<td>–</td>":"<td>"+$IndMPc+"<div class='small'>"+PreIndC($DiffM)+" ks/hr</div>"+"</td>";
 	colME="<td>"+$PreH+$ArrHMw[i]+$PostHL+$PreL+$ArrLMw[i]+$PostHL+"</td>";
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
