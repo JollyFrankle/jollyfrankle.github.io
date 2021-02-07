@@ -322,7 +322,6 @@ const DefChartOpt = {
 		defaultFontFamily: "Roboto",
 		defaultFontSize: 14,
 	};
-var AktifJuml=[];
 function DateIndo(date)
 {
 	var tgl=new Date(date);
@@ -393,10 +392,10 @@ $(document).ready(async function(){
 	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[TanggalLen-2]);
 	$("#TB_JlhMengInc").text(MengBaru[TanggalLen-1]);
 
-	var SelisihAktif = AktifJuml[TanggalLen-1]-AktifJuml[TanggalLen-2];
+	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
 	SelisihAktif<0?SelAkInd="logodec text-success":SelAkInd="logoinc text-danger";
-	$("#TB_JlhAktif").text(AktifJuml[TanggalLen-1]);
-	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[TanggalLen-2]));
+	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
+	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
 
 	$(".LastData").text(DateIndo(Tanggal[TanggalLen-1]));
@@ -433,7 +432,7 @@ $(document).ready(async function(){
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 
-	var PersenAktif = (AktifJuml[TanggalLen-1] / KonfJuml[TanggalLen-1])*100;
+	var PersenAktif = (AktifJuml[AktifJuml.length-1] / KonfJuml[TanggalLen-1])*100;
 	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
 
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
