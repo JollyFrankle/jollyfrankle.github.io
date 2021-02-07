@@ -28,7 +28,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div class="d-block d-md-flex justify-content-between align-items-center mb-4">
 	<div>
 		<h1>COVID-19 NTT Tracker</h1>
-		<p class="mb-0">Info dan analisis kasus COVID-19 NTT.</p>
+		<p class="mb-0">Informasi dan analisa kasus COVID-19 NTT.</p>
 	</div>
 	<form method="GET" style="max-width:330px" class="m-md-0 m-auto">
 		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
@@ -44,124 +44,128 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</form>
 </div>
-<button class="btn btn-sm btn-danger btn-block mb-2" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
+<button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
 <div class="collapse" id="ILL_atas">
 	<div class="alert alert-danger text-justify">
 		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-19.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 19.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga. (Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021).</p>
 		<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
 	</div>
 </div>
-<div class="alert alert-info text-center h6">
-	Data per: <strong id="LastData">Memuat</strong><br/>
-	<!--Terakhir diperbarui: <strong id="LastMod">Memuat</strong>-->
-</div>
-<div class="form-row">
-	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
-			<div style="background:#BF9000" class="pb-1"></div>
-			<div class="card-body">
-				<h5 class="card-title mb-1 text-truncate" style="color:#BF9000">Jumlah kasus positif</h5>
-				<p class="display-4 mb-1" id="TB_JlhKonf">...</p>
-				<hr class="my-1"/>
-				<div class="d-flex justify-content-between text-muted">
-					<span id="TB_JlhKonfYest">Memuat</span>
-					<span class="logoinc" id="TB_JlhKonfInc">Memuat</span>
+<
+<h2 class="border-bottom"><small>1.</small> Rekapitulasi</h2>
+<div class="container_rekap">
+	<div class="alert alert-info text-center h6" style="position:sticky;top:3rem">
+		Data per <strong id="LastData">Memuat...</strong><br/>
+		<!--Terakhir diperbarui: <strong id="LastMod">Memuat</strong>-->
+	</div>
+	<div class="form-row">
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#BF9000" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#BF9000">Jumlah kasus positif</h5>
+					<p class="display-4 mb-1" id="TB_JlhKonf">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhKonfYest">Memuat</span>
+						<span class="logoinc" id="TB_JlhKonfInc">Memuat</span>
+					</div>
 				</div>
-			</div>
-			<div class="bg-secondary pb-1"></div>
-			<div class="card-body">
-				Penambahan tertinggi <span class="GET_day-html"></span>:
-				<div class="d-flex justify-content-between mb-2">
-					<strong id="TBA_KonfHighest">...</strong>
-					<small id="TBA_KonfHighestDate">Memuat</small>
-				</div>
-				Penambahan terendah <span class="GET_day-html"></span>:
-				<div class="d-flex justify-content-between">
-					<strong id="TBA_KonfLowest">...</strong>
-					<small id="TBA_KonfLowestDate">Memuat</small>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Penambahan tertinggi <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_KonfHighest">...</strong>
+						<small id="TBA_KonfHighestDate">Memuat</small>
+					</div>
+					Penambahan terendah <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between">
+						<strong id="TBA_KonfLowest">...</strong>
+						<small id="TBA_KonfLowestDate">Memuat</small>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
-			<div style="background:#002060" class="pb-1"></div>
-			<div class="card-body">
-				<h5 class="card-title mb-1 text-truncate" style="color:#002060">Jumlah sembuh</h5>
-				<p class="display-4 mb-1" id="TB_JlhSemb">...</p>
-				<hr class="my-1"/>
-				<div class="d-flex justify-content-between text-muted">
-					<span id="TB_JlhSembYest">Memuat</span>
-					<span class="logoinc" id="TB_JlhSembInc">Memuat</span>
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#002060" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#002060">Jumlah sembuh</h5>
+					<p class="display-4 mb-1" id="TB_JlhSemb">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhSembYest">Memuat</span>
+						<span class="logoinc" id="TB_JlhSembInc">Memuat</span>
+					</div>
 				</div>
-			</div>
-			<div class="bg-secondary pb-1"></div>
-			<div class="card-body">
-				Penambahan tertinggi <span class="GET_day-html"></span>:
-				<div class="d-flex justify-content-between mb-2">
-					<strong id="TBA_SembHighest">...</strong>
-					<small id="TBA_SembHighestDate">Memuat</small>
-				</div>
-				Penambahan terendah <span class="GET_day-html"></span>:
-				<div class="d-flex justify-content-between">
-					<strong id="TBA_SembLowest">...</strong>
-					<small id="TBA_SembLowestDate">Memuat</small>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
-			<div style="background:#C00000" class="pb-1"></div>
-			<div class="card-body">
-				<h5 class="card-title mb-1 text-truncate" style="color:#C00000">Jumlah meninggal</h5>
-				<p class="display-4 mb-1" id="TB_JlhMeng">...</p>
-				<hr class="my-1"/>
-				<div class="d-flex justify-content-between text-muted">
-					<span id="TB_JlhMengYest">Memuat</span>
-					<span class="logoinc" id="TB_JlhMengInc">Memuat</span>
-				</div>
-			</div>
-			<div class="bg-secondary pb-1"></div>
-			<div class="card-body">
-				Penambahan tertinggi <span class="GET_day-html"></span>:
-				<div class="d-flex justify-content-between mb-2">
-					<strong id="TBA_MengHighest">...</strong>
-					<small id="TBA_MengHighestDate">Memuat</small>
-				</div>
-				Penambahan terendah <span class="GET_day-html"></span>:
-				<div class="d-flex justify-content-between">
-					<strong id="TBA_MengLowest">...</strong>
-					<small id="TBA_MengLowestDate">Memuat</small>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Penambahan tertinggi <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_SembHighest">...</strong>
+						<small id="TBA_SembHighestDate">Memuat</small>
+					</div>
+					Penambahan terendah <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between">
+						<strong id="TBA_SembLowest">...</strong>
+						<small id="TBA_SembLowestDate">Memuat</small>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-sm-6 col-lg-3 mb-3">
-		<div class="card">
-			<div style="background:#00B050" class="pb-1"></div>
-			<div class="card-body">
-				<h5 class="card-title mb-1 text-truncate" style="color:#00B050">Kasus aktif</h5>
-				<p class="display-4 mb-1" id="TB_JlhAktif">...</p>
-				<hr class="my-1"/>
-				<div class="d-flex justify-content-between text-muted">
-					<span id="TB_JlhAktifYest">Memuat</span>
-					<span class="" id="TB_JlhAktifSelisih">Memuat</span>
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#C00000" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#C00000">Jumlah meninggal</h5>
+					<p class="display-4 mb-1" id="TB_JlhMeng">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhMengYest">Memuat</span>
+						<span class="logoinc" id="TB_JlhMengInc">Memuat</span>
+					</div>
+				</div>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Penambahan tertinggi <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_MengHighest">...</strong>
+						<small id="TBA_MengHighestDate">Memuat</small>
+					</div>
+					Penambahan terendah <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between">
+						<strong id="TBA_MengLowest">...</strong>
+						<small id="TBA_MengLowestDate">Memuat</small>
+					</div>
 				</div>
 			</div>
-			<div class="bg-secondary pb-1"></div>
-			<div class="card-body">
-				Persentase pasien dirawat:
-				<strong class="d-block" id="TBA_AktifPersen">...</strong>
-				<!--<div class="d-flex justify-content-between mb-2">
-					<strong id="TBA_AktifPersen">...</strong>
-				</div>-->
+		</div>
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#00B050" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#00B050">Kasus aktif</h5>
+					<p class="display-4 mb-1" id="TB_JlhAktif">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhAktifYest">Memuat</span>
+						<span class="" id="TB_JlhAktifSelisih">Memuat</span>
+					</div>
+				</div>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Persentase pasien dirawat:
+					<strong class="d-block" id="TBA_AktifPersen">...</strong>
+					<!--<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_AktifPersen">...</strong>
+					</div>-->
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<h2 class="border-bottom"><small>1.</small> Grafik Harian</h2>
+<h2 class="border-bottom"><small>2.</small> Grafik Harian</h2>
 <h4 class="text-center">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<div>Memuat grafik (berurutan)...</div>
@@ -186,10 +190,10 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	<canvas id="ChartNewMeng"></canvas>
 </div>
 
-<h2 class="border-bottom"><small>2.</small> Tabel Pekanan</h2>
+<h2 class="border-bottom"><small>3.</small> Tabel Pekanan</h2>
 <p>Ditampilkan: <span class="GET_day-html"></span> terakhir <span class="text-nowrap" id="TP_Tgl"></span></p>
 <div class="alert alert-info">
-	<p><strong>INFORMASI:</strong> Data pekanan yang ditampilkan adalah data yang dihitung dari hari Minggu hingga Sabtu. Apabila data hari Sabtu berikutnya belum tersedia, maka data pekanan untuk pekan tersebut belum tersedia.</p>
+	<p><strong>INFORMASI:</strong> Data pekanan yang ditampilkan adalah data yang dihitung dari hari Minggu hingga Sabtu. Apabila data hingga hari Sabtu belum tersedia/belum lengkap, maka data pekanan untuk pekan tersebut belum akan dikalkulasi.</p>
 	<p class="font-italic">Contoh: Data hari Minggu, 31 Januari 2021 hingga Jumat, 5 Februari 2021 tersedia, namun data hari Sabtu, 6 Februari 2021 belum tersedia, maka belum akan ada kalkulasi untuk pekan tersebut.</p>
 </div>
 <div class="table-responsive">
