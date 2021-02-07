@@ -372,7 +372,7 @@ $(document).ready(async function(){
 	$("#TB_JlhMengInc").text(MengBaru[MengBaru.length-1]);
 
 	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
-	if(SelisihAktif<0) SelAkInd="logodec text-success"; else SelAkInd="logoinc text-danger";
+	SelisihAktif<0?SelAkInd="logodec text-success":SelAkInd="logoinc text-danger";
 	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
 	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
@@ -530,7 +530,7 @@ $.each(Tanggal.slice(-7),function(key,val) {
 	var Tgl=new Date(val);
 	if(Tgl.getDay()==0) {KeyMinggu=7-key; return false}
 });
-KeyMinggu==7?KeyMinggu=0:KeyMinggu=7;
+if(KeyMinggu==7) KeyMinggu=0;
 
 $ArrT=Tanggal.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
 -($ArrT.length % -7)==0?$ATl=GET_day:$ATl=$ArrT.length%-7;
