@@ -1,19 +1,18 @@
 <!doctype html>
 <html>
 <head>
-	<title></title>
 	<meta charset="utf-8">
 	<meta name="theme-color" content="#343a40">
 	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
-	<link rel="icon" href="../storage/media/icon.png" type="image/x-icon">
+	<link rel="icon" href="assets/icon.png" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Expires" content="30"/>
-	<noscript><meta http-equiv="refresh" content="0; url=../no-js.html"/></noscript>
+	<title>JollyFrankle Projects: Home</title>
+	<noscript><meta http-equiv="refresh" content="0; url=no-js.html"/></noscript>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%;}.logoinc::before {display:inline-block;content:"▲";font-size:14px;margin-right:4px;}.logodec::before {display:inline-block;content:"▼";font-size:14px;margin-right:4px;}.card{overflow:hidden}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}[class^=logo]::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -28,10 +27,10 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	<main class="container my-4">
 <div class="d-block d-md-flex justify-content-between align-items-center mb-4">
 	<div>
-		<h1>COVID-19 NTT Tracking</h1>
-		<p class="lead mb-0">Tracking Kasus COVID-19 NTT harian.</p>
+		<h1>COVID-19 NTT Tracker</h1>
+		<p class="mb-0">Info dan analisis kasus COVID-19 NTT.</p>
 	</div>
-	<form method="GET" style="max-width:300px" class="m-md-0 m-auto">
+	<form method="GET" style="max-width:330px" class="m-md-0 m-auto">
 		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
 		<div class="btn-group w-100">
 			<select name="day" class="form-control custom-select" id="RangeSel">
@@ -41,7 +40,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				<option value=60>60 hari terakhir</option>
 				<option value=30>30 hari terakhir</option>
 			</select>
-			<input type="submit" class="btn btn-primary"/>
+			<input type="submit" class="btn btn-primary" value="Tampilkan"/>
 		</div>
 	</form>
 </div>
@@ -162,27 +161,53 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</div>
 </div>
 
+<h2 class="border-bottom"><small>1.</small> Grafik Harian</h2>
 <h4 class="text-center">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartKonfirmasi"></canvas>
 </div>
 
-<hr class="my-2"/>
 <h4 class="text-center">Penambahan Kasus Positif Baru</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartNewKonf"></canvas>
 </div>
 
-<hr class="my-2"/>
 <h4 class="text-center">Penambahan Kasus Sembuh</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartNewSemb"></canvas>
 </div>
 
-<hr class="my-2"/>
 <h4 class="text-center">Penambahan Kasus Meninggal</h4>
 <div class="chart-container" style="height:500px;width:600px;">
 	<canvas id="ChartNewMeng"></canvas>
+</div>
+
+<h2 class="border-bottom"><small>2.</small> Tabel Pekanan</h2>
+<p>Ditampilkan: <span class="GET_day-html"></span> terakhir - <span class="text-nowrap" id="TP_Tgl"></span></p>
+<div class="table-responsive">
+	<table class="table table-hover table-border">
+		<thead class="bg-light">
+			<tr>
+				<th rowspan=2>Tanggal</th>
+				<th colspan=3>Kasus Positif</th>
+				<th colspan=3>Sembuh</th>
+				<th colspan=3>Meninggal</th>
+			</tr>
+			<tr>
+				<th>Rata-rata</th>
+				<th>Perubahan</th>
+				<th>Titik ekstrim</th>
+				<th>Rata-rata</th>
+				<th>Perubahan</th>
+				<th>Titik ekstrim</th>
+				<th>Rata-rata</th>
+				<th>Perubahan</th>
+				<th>Titik ekstrim</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
 </div>
 
 	</main>
@@ -198,15 +223,6 @@ var GET_day_plain = url.searchParams.get("day");
 if(!GET_day) {var GET_day=-90; var GET_day_plain=90;}
 $("#RangeSel").val(GET_day_plain);
 $(".GET_day-html").text(GET_day_plain+" hari");
-/*var DataJSON = $.ajax({
-	async:false,
-	url: "data.json",
-	dataType: "json",
-});
-var Tanggal=DataJSON.Tanggal;
-var KonfBaru=DataJSON.KonfBaru; var KonfBaru=DataJSON.KonfBaru; var Konf7day=DataJSON.Konf7day;
-var SembBaru=DataJSON.SembBaru; var SembBaru=DataJSON.SembBaru; var Semb7day=DataJSON.Semb7day;
-var MengBaru=DataJSON.MengBaru; var MengBaru=DataJSON.MengBaru; var Meng7day=DataJSON.Meng7day;*/
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -242,6 +258,37 @@ function DateIndo(date)
 {
 	var tgl=new Date(date);
 	return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear();
+}
+function getMinMax(arr) {
+	let min = arr[0];
+	let max = arr[0];
+	let i = arr.length;
+		
+	while (i--) {
+		min = arr[i] < min ? arr[i] : min;
+		max = arr[i] > max ? arr[i] : max;
+	}
+	return { min, max };
+}
+function Ind(mode,val) {
+	// Mode 1: Buruk ketika mengalami kenaikan
+	c="<span class='text-";
+	if(mode==1) {
+		if(val > 0) c+='danger logoinc';
+		if(val== 0) c+='muted logonet';
+		if(val < 0) c+='success logodec';
+	}
+		// Mode 2: Buruk ketika mengalami penurunan
+	if(mode==2) {
+		if(val > 0) c+='success logoinc';
+		if(val== 0) c+='muted logonet';
+		if(val < 0) c+='danger logodec';
+	}
+	c+="'>"; post="</span>";
+		return c+val.toFixed(2).replace(".",",")+post;
+}
+function PreInd(val) {
+	return (val<0?"":"+")+val;
 }
 $(document).ready(async function(){
 	$.each(Tanggal.slice(GET_day),function(key,val){
@@ -405,6 +452,77 @@ var ChartNewMeng = new Chart(C_NewMeng, {
 	},
 	options: DefChartOpt 
 });
+
+await delay(500);
+	var TglAwal=new Date(Tanggal[Tanggal.length+GET_day]);
+	var TglAkhir=new Date(Tanggal[Tanggal.length-1]);
+	$("#TP_Tgl").text("("+DateIndo(TglAwal)+" – "+Date(TglAkhir)+")");
+// Dapatkan hari minggu terakhir sebelum data
+var KeyMinggu=null;
+$.each(Tanggal.slice(-7),function(key,val) {
+	var Tgl=new Date(val);
+	if(Tgl.getDay()==0) {KeyMinggu=7-key; return false}
 });
+
+$ArrT=Tanggal.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+$ArrT=$ArrT.slice($ArrT.length % 7, -GET_day)
+
+$ArrKB=KonfBaru.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+$ArrKB=$ArrKB.slice($ArrKB.length % 7, -GET_day);
+
+$ArrSB=SembBaru.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+$ArrSB=$ArrSB.slice($ArrSB.length % 7, -GET_day);
+
+$ArrMB=MengBaru.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+$ArrMB=$ArrMB.slice($ArrMB.length % 7, -GET_day);
+
+// Array [Konf/Semb/Meng] weekly (reset setiap 7 hari):
+var $ArrKw=[], $ArrSw=[], $ArrMw=[];
+// Array Mean [Konf/Semb/Meng] weekly:
+var $ArrMKw=[], $ArrMSw=[], $ArrMMw=[];
+// Array Highest [Konf/Semb/Meng] weekly:
+var $ArrHKw=[], $ArrHSw=[], $ArrHMw=[];
+// Array Lowest [Konf/Semb/Meng] weekly:
+var $ArrLKw=[], $ArrLSw=[], $ArrLMw=[];
+var JlKonf=0,JlSemb=0,JlMeng=0, i=0, $ArrTw=[];
+$.each($ArrT,function(key,val)
+{
+	JlKonf+=$ArrKB[key]; JlSemb+=$ArrSB[key]; JlMeng+=$ArrMB[key];
+	$ArrKw.push($ArrKB[key]); $ArrSw.push($ArrKB[key]); $ArrMw.push($ArrKB[key]);
+	if((key+1) % 7 == 0) {
+		$ArrMKw.push((JlKonf/7).toFixed(2));
+		$ArrMSw.push((JlSemb/7).toFixed(2));
+		$ArrMMw.push((JlMeng/7).toFixed(2));
+		$ArrHKw.push(getMinMax($ArrKw)["max"]);
+		$ArrHSw.push(getMinMax($ArrSw)["max"]);
+		$ArrHMw.push(getMinMax($ArrMw)["max"]);
+		$ArrLKw.push(getMinMax($ArrKw)["min"]);
+		$ArrLSw.push(getMinMax($ArrSw)["min"]);
+		$ArrLMw.push(getMinMax($ArrMw)["min"]);
+		JlKonf=0,JlSemb=0,JlMeng=0;
+		$ArrTw.push($ArrT[key]);
+		$ArrKw=[], $ArrSw=[], $ArrMw=[];
+	}
+});
+var cl="Info:\n\nyyyy-mm-dd - yyyy-mm-dd: Konf | Semb | Meng\n";
+$.each($ArrTw,function(i,val){
+	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1]; PreInd(val);
+	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
+	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
+	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
+	colKM="<td>"+$ArrMKw[i]+"</td>";
+	colKP="<td>"+Ind(1,$DiffKP)+"<small class='d-block'>"+PreInd($DiffK)+"</small>"+"</td>";
+	colKE="<td>"+"Max:"+$ArrHKw[i]+"<br>Min:"+$ArrLKw[i]+"</td>";
+	colSM="<td>"+$ArrMSw[i]+"</td>";
+	colSP="<td>"+Ind(1,$DiffSP)+"<small class='d-block'>"+PreInd($DiffS)+"</small>"+"</td>";
+	colSE="<td>"+"Max:"+$ArrHSw[i]+"<br>Min:"+$ArrLSw[i]+"</td>";
+	colMM="<td>"+$ArrMMw[i]+"</td>";
+	colMP="<td>"+Ind(1,$DiffMP)+"<small class='d-block'>"+PreInd($DiffM)+"</small>"+"</td>";
+	colME="<td>"+"Max:"+$ArrHMw[i]+"<br>Min:"+$ArrLMw[i]+"</td>";
+	$("#TP_Tabel tbody").append(ColT+ColKM+KolKP+ColKE+ColSM+KolSP+ColSE+ColMM+KolMP+ColME);
+});
+console.log(cl);
+});
+
 </script>
 </html>
