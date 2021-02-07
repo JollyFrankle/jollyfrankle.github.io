@@ -182,6 +182,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 
 <h4 class="text-center">Penambahan Kasus Meninggal</h4>
 <div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
 	<canvas id="ChartNewMeng"></canvas>
 </div>
 
@@ -358,6 +359,7 @@ var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
 var C_NewSemb = document.getElementById('ChartNewSemb').getContext('2d');
 var C_NewMeng = document.getElementById('ChartNewMeng').getContext('2d');
 await delay(500);
+$("#ChartKonfirmasi").siblings("div").remove();
 var ChartKonfirmasi = new Chart(C_konf, {
 	type: 'line',
 	data: {
@@ -395,6 +397,7 @@ var ChartKonfirmasi = new Chart(C_konf, {
 	options: DefChartOpt 
 });
 await delay(1500);
+$("#ChartNewKonf").siblings("div").remove();
 var ChartNewKonf = new Chart(C_NewKonf, {
 	type: 'line',
 	data: {
@@ -417,6 +420,7 @@ var ChartNewKonf = new Chart(C_NewKonf, {
 	options: DefChartOpt 
 });
 await delay(1500);
+$("#ChartNewSemb").siblings("div").remove();
 var ChartNewSemb = new Chart(C_NewSemb, {
 	type: 'line',
 	data: {
@@ -439,6 +443,7 @@ var ChartNewSemb = new Chart(C_NewSemb, {
 	options: DefChartOpt 
 });
 await delay(1500);
+$("#ChartNewMeng").siblings("div").remove();
 var ChartNewMeng = new Chart(C_NewMeng, {
 	type: 'line',
 	data: {
@@ -518,7 +523,7 @@ $("#TP_Tabel tbody").html("");
 var $PostMean="<small class='d-block text-muted'>kasus per hari (ks/hr)</small>",
 $PreH="<small class='d-block'>Tertinggi:</small>", $PostHL=" ks";
 $PreL="<small class='d-block'>Terendah:</small>";
-$.each($ArrTw,async function(i,val)
+$.each($ArrTw,function(i,val)
 {
 	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
@@ -537,7 +542,6 @@ $.each($ArrTw,async function(i,val)
 	colMP=isNaN($DiffMP)?"<td>–</td>":"<td>"+IndC(1,$DiffMP)+"<div class='small'>"+PreIndC($DiffM)+" ks/hr</div>"+"</td>";
 	colME="<td>"+$PreH+$ArrHMw[i]+$PostHL+$PreL+$ArrLMw[i]+$PostHL+"</td>";
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
-	await delay(100);
 });
 });
 
