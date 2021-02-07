@@ -24,7 +24,7 @@
   gtag('config', 'UA-167603452-2');
 </script>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}[class^=logo]::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_Tabel td:nth-child(2),#TP_Tabel td:nth-child(5),#TP_Tabel td:nth-child(8) {border-left:1px solid #dee2e6}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -249,18 +249,18 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<thead class="bg-light">
 			<tr>
 				<th rowspan=2 style="min-width:165px">Tanggal</th>
-				<th colspan=3>Kasus Positif</th>
-				<th colspan=3>Sembuh</th>
-				<th colspan=3>Meninggal</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Kasus Positif</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Sembuh</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Meninggal</th>
 			</tr>
 			<tr>
-				<th>Rata-rata</th>
+				<th style="border-left:1px solid #dee2e6">Rata-rata</th>
 				<th>Perubahan</th>
 				<th>Titik ekstrim</th>
-				<th>Rata-rata</th>
+				<th style="border-left:1px solid #dee2e6">Rata-rata</th>
 				<th>Perubahan</th>
 				<th>Titik ekstrim</th>
-				<th>Rata-rata</th>
+				<th style="border-left:1px solid #dee2e6">Rata-rata</th>
 				<th>Perubahan</th>
 				<th>Titik ekstrim</th>
 			</tr>
