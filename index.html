@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}[class^=logo]::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}[class^=logo]::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -189,7 +189,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	<p class="font-italic">Contoh: Data hari Minggu, 31 Januari 2021 hingga Jumat, 5 Februari 2021 tersedia, namun data hari Sabtu, 6 Februari 2021 belum tersedia, maka belum akan ada kalkulasi untuk pekan tersebut.</p>
 </div>
 <div class="table-responsive">
-	<table class="table table-hover table-border" id="TP_Tabel">
+	<table class="table table-hover table-border" id="TP_Tabel" style="min-width:970px">
 		<thead class="bg-light">
 			<tr>
 				<th rowspan=2>Tanggal</th>
@@ -508,24 +508,29 @@ $.each($ArrT,function(key,val)
 		$ArrKw=[], $ArrSw=[], $ArrMw=[];
 	}
 });
-var cl="Info:\n\nyyyy-mm-dd - yyyy-mm-dd: Konf | Semb | Meng\n";
+
+var $PostMean="<small class='d-block text-muted'>kasus per hari</small>",
+$PreH="<small class='d-block'>Tertinggi:</small>",
+$PreL="<small class='d-block'>Terendah:</small>";
 $.each($ArrTw,function(i,val){
 	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
-	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
-	colKM="<td>"+$ArrMKw[i].replace(".",",")+"</td>";
-	colKP="<td>"+IndC(1,$DiffKP)+"<small class='d-block'>"+PreIndC($DiffK)+"</small>"+"</td>";
-	colKE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHKw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLKw[i]+"</td>";
-	colSM="<td>"+$ArrMSw[i].replace(".",",")+"</td>";
-	colSP="<td>"+IndC(2,$DiffSP)+"<small class='d-block'>"+PreIndC($DiffS)+"</small>"+"</td>";
-	colSE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHSw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLSw[i]+"</td>";
-	colMM="<td>"+$ArrMMw[i].replace(".",",")+"</td>";
-	colMP="<td>"+IndC(1,$DiffMP)+"<small class='d-block'>"+PreIndC($DiffM)+"</small>"+"</td>";
-	colME="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHMw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLMw[i]+"</td>";
+	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>s.d.<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
+
+	colKM="<td>"+$ArrMKw[i].replace(".",",")+$PostMean+"</td>";
+	colKP=isNAN($DiffKP)?"<td>–</td>":"<td>"+IndC(1,$DiffKP)+"<div class='small'>"+PreIndC($DiffK)+"</div>"+"</td>";
+	colKE="<td>"+$PreH+$ArrHKw[i]+$PreL+$ArrLKw[i]+"</td>";
+
+	colSM="<td>"+$ArrMSw[i].replace(".",",")+$PostMean+"</td>";
+	colSP=isNAN($DiffSP)?"<td>–</td>":"<td>"+IndC(2,$DiffSP)+"<div class='small'>"+PreIndC($DiffS)+"</div>"+"</td>";
+	colSE="<td>"+$PreH+$ArrHSw[i]+$PreL+$ArrLSw[i]+"</td>";
+
+	colMM="<td>"+$ArrMMw[i].replace(".",",")+$PostMean+"</td>";
+	colMP=isNAN($DiffMP)?"<td>–</td>":"<td>"+IndC(1,$DiffMP)+"<div class='small'>"+PreIndC($DiffM)+"</div>"+"</td>";
+	colME="<td>"+$PreH+$ArrHMw[i]+$PreL+$ArrLMw[i]+"</td>";
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
-console.log(cl);
 });
 
 </script>
