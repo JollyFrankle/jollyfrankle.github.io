@@ -519,6 +519,7 @@ $.each(Tanggal.slice(-7),function(key,val) {
 	var Tgl=new Date(val);
 	if(Tgl.getDay()==0) {KeyMinggu=7-key; return false}
 });
+KeyMinggu==7?KeyMinggu=0:KeyMinggu=7;
 
 $ArrT=Tanggal.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
 -($ArrT.length % -7)==0?$ATl=GET_day:$ATl=$ArrT.length%-7;
