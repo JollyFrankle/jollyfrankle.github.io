@@ -510,18 +510,18 @@ $.each($ArrT,function(key,val)
 });
 var cl="Info:\n\nyyyy-mm-dd - yyyy-mm-dd: Konf | Semb | Meng\n";
 $.each($ArrTw,function(i,val){
-	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1]; PreInd(val);
+	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
 	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
 	colKM="<td>"+$ArrMKw[i].replace(".",",")+"</td>";
-	colKP="<td>"+Ind(1,$DiffKP)+"<small class='d-block'>"+PreInd($DiffK).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colKP="<td>"+Ind(1,$DiffKP)+"<small class='d-block'>"+(PreInd($DiffK)).toFixed(2).replace(".",",")+"</small>"+"</td>";
 	colKE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHKw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLKw[i]+"</td>";
 	colSM="<td>"+$ArrMSw[i].replace(".",",")+"</td>";
-	colSP="<td>"+Ind(2,$DiffSP)+"<small class='d-block'>"+PreInd($DiffS).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colSP="<td>"+Ind(2,$DiffSP)+"<small class='d-block'>"+(PreInd($DiffS)).toFixed(2).replace(".",",")+"</small>"+"</td>";
 	colSE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHSw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLSw[i]+"</td>";
 	colMM="<td>"+$ArrMMw[i].replace(".",",")+"</td>";
-	colMP="<td>"+Ind(1,$DiffMP)+"<small class='d-block'>"+PreInd($DiffM).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colMP="<td>"+Ind(1,$DiffMP)+"<small class='d-block'>"+(PreInd($DiffM)).toFixed(2).replace(".",",")+"</small>"+"</td>";
 	colME="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHMw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLMw[i]+"</td>";
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
