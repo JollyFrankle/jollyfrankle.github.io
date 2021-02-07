@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
-<!-- Global site tag (gtag.js) - Google Analytics -->
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/solid.min.css" onload="if(media!='all')media='all'"/>-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -125,10 +125,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<small id="TBA_KonfHighestDate">Memuat</small>
 					</div>
 					Penambahan terendah <span class="GET_day-html"></span>:
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between mb-2">
 						<strong id="TBA_KonfLowest">...</strong>
 						<small id="TBA_KonfLowestDate">Memuat</small>
 					</div>
+					Indikator trend:
+					<strong class="d-block" id="TBA_KonfTrend">Memuat...</span>
 				</div>
 			</div>
 		</div>
@@ -152,10 +154,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<small id="TBA_SembHighestDate">Memuat</small>
 					</div>
 					Penambahan terendah <span class="GET_day-html"></span>:
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between mb-2">
 						<strong id="TBA_SembLowest">...</strong>
 						<small id="TBA_SembLowestDate">Memuat</small>
 					</div>
+					Indikator trend:
+					<strong class="d-block" id="TBA_SembTrend">Memuat...</span>
 				</div>
 			</div>
 		</div>
@@ -183,6 +187,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<strong id="TBA_MengLowest">...</strong>
 						<small id="TBA_MengLowestDate">Memuat</small>
 					</div>
+					Indikator trend:
+					<strong class="d-block" id="TBA_MengTrend">Memuat...</span>
 				</div>
 			</div>
 		</div>
@@ -359,6 +365,7 @@ $(document).ready(async function(){
 	});
 	var JlhYestPre = "Kemarin: ";
 	await delay(500);
+	$IncK=KonfBaru[KonfBaru.length-1]; $IncK==0
 	$("#TB_JlhKonf").text(KonfJuml[KonfJuml.length-1]);
 	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[KonfJuml.length-2]);
 	$("#TB_JlhKonfInc").text(KonfBaru[KonfBaru.length-1]);
