@@ -519,7 +519,7 @@ $.each($ArrTw,function(i,val){
 	colMM="<td>"+$ArrMMw[i]+"</td>";
 	colMP="<td>"+Ind(1,$DiffMP)+"<small class='d-block'>"+PreInd($DiffM)+"</small>"+"</td>";
 	colME="<td>"+"Max:"+$ArrHMw[i]+"<br>Min:"+$ArrLMw[i]+"</td>";
-	$("#TP_Tabel tbody").append(colT+colKM+KolKP+colKE+colSM+KolSP+colSE+colMM+KolMP+colME);
+	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
 console.log(cl);
 });
