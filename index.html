@@ -210,6 +210,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</tr>
 		</thead>
 		<tbody>
+			<tr><td colspan=10 style="text-align:center">Data akan dimuat setelah grafik.</td></tr>
 		</tbody>
 	</table>
 </div>
@@ -457,7 +458,7 @@ var ChartNewMeng = new Chart(C_NewMeng, {
 	options: DefChartOpt 
 });
 
-await delay(500);
+// Tabel:
 	var TglAwal=new Date(Tanggal[Tanggal.length+GET_day]);
 	var TglAkhir=new Date(Tanggal[Tanggal.length-1]);
 	$("#TP_Tgl").text("("+DateIndo(TglAwal)+" – "+DateIndo(TglAkhir)+")");
@@ -489,6 +490,7 @@ var $ArrHKw=[], $ArrHSw=[], $ArrHMw=[];
 // Array Lowest [Konf/Semb/Meng] weekly:
 var $ArrLKw=[], $ArrLSw=[], $ArrLMw=[];
 var JlKonf=0,JlSemb=0,JlMeng=0, i=0, $ArrTw=[];
+await delay(500);
 $.each($ArrT,function(key,val)
 {
 	JlKonf+=$ArrKB[key]; JlSemb+=$ArrSB[key]; JlMeng+=$ArrMB[key];
@@ -509,27 +511,30 @@ $.each($ArrT,function(key,val)
 	}
 });
 
+$("#TP_Tabel tbody").html("");
 var $PostMean="<small class='d-block text-muted'>kasus per hari</small>",
 $PreH="<small class='d-block'>Tertinggi:</small>",
 $PreL="<small class='d-block'>Terendah:</small>";
-$.each($ArrTw,function(i,val){
+$.each($ArrTw,function(i,val)
+{
 	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
 	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>s.d.<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
 
 	colKM="<td>"+$ArrMKw[i].replace(".",",")+$PostMean+"</td>";
-	colKP=isNAN($DiffKP)?"<td>–</td>":"<td>"+IndC(1,$DiffKP)+"<div class='small'>"+PreIndC($DiffK)+"</div>"+"</td>";
+	colKP=isNaN($DiffKP)?"<td>–</td>":"<td>"+IndC(1,$DiffKP)+"<div class='small'>"+PreIndC($DiffK)+"</div>"+"</td>";
 	colKE="<td>"+$PreH+$ArrHKw[i]+$PreL+$ArrLKw[i]+"</td>";
 
 	colSM="<td>"+$ArrMSw[i].replace(".",",")+$PostMean+"</td>";
-	colSP=isNAN($DiffSP)?"<td>–</td>":"<td>"+IndC(2,$DiffSP)+"<div class='small'>"+PreIndC($DiffS)+"</div>"+"</td>";
+	colSP=isNaN($DiffSP)?"<td>–</td>":"<td>"+IndC(2,$DiffSP)+"<div class='small'>"+PreIndC($DiffS)+"</div>"+"</td>";
 	colSE="<td>"+$PreH+$ArrHSw[i]+$PreL+$ArrLSw[i]+"</td>";
 
 	colMM="<td>"+$ArrMMw[i].replace(".",",")+$PostMean+"</td>";
-	colMP=isNAN($DiffMP)?"<td>–</td>":"<td>"+IndC(1,$DiffMP)+"<div class='small'>"+PreIndC($DiffM)+"</div>"+"</td>";
+	colMP=isNaN($DiffMP)?"<td>–</td>":"<td>"+IndC(1,$DiffMP)+"<div class='small'>"+PreIndC($DiffM)+"</div>"+"</td>";
 	colME="<td>"+$PreH+$ArrHMw[i]+$PreL+$ArrLMw[i]+"</td>";
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
+	await delay(100);
 });
 });
 
