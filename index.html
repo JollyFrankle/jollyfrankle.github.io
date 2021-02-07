@@ -183,7 +183,11 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </div>
 
 <h2 class="border-bottom"><small>2.</small> Tabel Pekanan</h2>
-<p>Ditampilkan: <span class="GET_day-html"></span> terakhir - <span class="text-nowrap" id="TP_Tgl"></span></p>
+<p>Ditampilkan: <span class="GET_day-html"></span> terakhir <span class="text-nowrap" id="TP_Tgl"></span></p>
+<div class="alert alert-info">
+	<p><strong>INFORMASI:</strong> Data pekanan yang ditampilkan adalah data yang dihitung dari hari Minggu hingga Sabtu. Apabila data hari Sabtu berikutnya belum tersedia, maka data pekanan untuk pekan tersebut belum tersedia.</p>
+	<p class="font-italic">Contoh: Data hari Minggu, 31 Januari 2021 hingga Jumat, 5 Februari 2021 tersedia, namun data hari Sabtu, 6 Februari 2021 belum tersedia, maka belum akan ada kalkulasi untuk pekan tersebut.</p>
+</div>
 <div class="table-responsive">
 	<table class="table table-hover table-border" id="TP_Tabel">
 		<thead class="bg-light">
@@ -284,7 +288,7 @@ function Ind(mode,val) {
 		if(val== 0) c+='muted logonet';
 		if(val < 0) c+='danger logodec';
 	}
-	c+="'>"; post="</span>";
+	c+="'>"; post="%</span>";
 		return c+val.toFixed(2).replace(".",",")+post;
 }
 function PreInd(val) {
@@ -488,7 +492,7 @@ var JlKonf=0,JlSemb=0,JlMeng=0, i=0, $ArrTw=[];
 $.each($ArrT,function(key,val)
 {
 	JlKonf+=$ArrKB[key]; JlSemb+=$ArrSB[key]; JlMeng+=$ArrMB[key];
-	$ArrKw.push($ArrKB[key]); $ArrSw.push($ArrKB[key]); $ArrMw.push($ArrKB[key]);
+	$ArrKw.push($ArrKB[key]); $ArrSw.push($ArrSB[key]); $ArrMw.push($ArrMB[key]);
 	if((key+1) % 7 == 0) {
 		$ArrMKw.push((JlKonf/7).toFixed(2));
 		$ArrMSw.push((JlSemb/7).toFixed(2));
@@ -510,15 +514,15 @@ $.each($ArrTw,function(i,val){
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
 	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
-	colKM="<td>"+$ArrMKw[i]+"</td>";
-	colKP="<td>"+Ind(1,$DiffKP)+"<small class='d-block'>"+PreInd($DiffK)+"</small>"+"</td>";
-	colKE="<td>"+"Max:"+$ArrHKw[i]+"<br>Min:"+$ArrLKw[i]+"</td>";
-	colSM="<td>"+$ArrMSw[i]+"</td>";
-	colSP="<td>"+Ind(1,$DiffSP)+"<small class='d-block'>"+PreInd($DiffS)+"</small>"+"</td>";
-	colSE="<td>"+"Max:"+$ArrHSw[i]+"<br>Min:"+$ArrLSw[i]+"</td>";
-	colMM="<td>"+$ArrMMw[i]+"</td>";
-	colMP="<td>"+Ind(1,$DiffMP)+"<small class='d-block'>"+PreInd($DiffM)+"</small>"+"</td>";
-	colME="<td>"+"Max:"+$ArrHMw[i]+"<br>Min:"+$ArrLMw[i]+"</td>";
+	colKM="<td>"+$ArrMKw[i].replace(".",",")+"</td>";
+	colKP="<td>"+Ind(1,$DiffKP)+"<small class='d-block'>"+PreInd($DiffK).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colKE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHKw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLKw[i]+"</td>";
+	colSM="<td>"+$ArrMSw[i].replace(".",",")+"</td>";
+	colSP="<td>"+Ind(2,$DiffSP)+"<small class='d-block'>"+PreInd($DiffS).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colSE="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHSw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLSw[i]+"</td>";
+	colMM="<td>"+$ArrMMw[i].replace(".",",")+"</td>";
+	colMP="<td>"+Ind(1,$DiffMP)+"<small class='d-block'>"+PreInd($DiffM).toFixed(2).replace(".",",")+"</small>"+"</td>";
+	colME="<td>"+"<small class='d-block'>Tertinggi:</small>"+$ArrHMw[i]+"<small class='d-block'>Terendah:</small>"+$ArrLMw[i]+"</td>";
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
 console.log(cl);
