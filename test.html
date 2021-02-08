@@ -129,8 +129,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<strong id="TBA_KonfLowest">...</strong>
 						<small id="TBA_KonfLowestDate">Memuat</small>
 					</div>
-					Indikator trend:
-					<strong class="d-block" id="TBA_KonfTrend">Memuat...</strong>
+					<div class="d-flex">
+						<div class="">
+							Trend:
+							<strong class="d-block" id="TBA_KonfTrend">Memuat</strong>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -158,8 +162,16 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<strong id="TBA_SembLowest">...</strong>
 						<small id="TBA_SembLowestDate">Memuat</small>
 					</div>
-					Indikator trend:
-					<strong class="d-block" id="TBA_SembTrend">Memuat...</strong>
+					<div class="d-flex">
+						<div class="w-50 mr-1">
+							Trend:
+							<strong class="d-block" id="TBA_SembTrend">Memuat</strong>
+						</div>
+						<div class="w-50 ml-1">
+							Tingk. kesembuhan
+							<strong class="d-block" id="TBA_CRR">Memuat</strong>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -187,8 +199,16 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<strong id="TBA_MengLowest">...</strong>
 						<small id="TBA_MengLowestDate">Memuat</small>
 					</div>
-					Indikator trend:
-					<strong class="d-block" id="TBA_MengTrend">Memuat...</strong>
+					<div class="d-flex">
+						<div class="w-50 mr-1">
+							Trend:
+							<strong class="d-block" id="TBA_MengTrend">Memuat</strong>
+						</div>
+						<div class="w-50 ml-1">
+							Tingk. kematian
+							<strong class="d-block" id="TBA_CFR">Memuat</strong>
+						</div>
+					</div>>
 				</div>
 			</div>
 		</div>
@@ -379,12 +399,13 @@ function TrendInd(mode,val) {
 	return [i,c,l];
 }
 $(document).ready(async function(){
-	var AktifJuml=[], TingkMeng=[], TingkSemb=[], $TmpJK=KonfJuml.slice(GET_day), $TmpJS=SembJuml.slice(GET_day), $TmpJM=MengJuml.slice(GET_day);
+	var AktifJuml=[], TingkMeng=[], TingkSemb=[], TingkAktf=[], $TmpJK=KonfJuml.slice(GET_day), $TmpJS=SembJuml.slice(GET_day), $TmpJM=MengJuml.slice(GET_day);
 	$.each(Tanggal.slice(GET_day),function(key,val){
-		var AddMS=$TmpJS[key]+$TmpJM[key];
-		AktifJuml.push($TmpJK[key]-AddMS);
-		TingkMeng.push((($TmpJM[key]/AddMS)*100).toFixed(2));
-		TingkSemb.push((($TmpJS[key]/AddMS)*100).toFixed(2));
+		var AktifToday=$TmpJK[key]-($TmpJS[key]+$TmpJM[key]);
+		AktifJuml.push(AktifToday);
+		TingkMeng.push((($TmpJM[key]/$TmpJK[key])*100).toFixed(2));
+		TingkSemb.push((($TmpJS[key]/$TmpJK[key])*100).toFixed(2));
+		TingkAktf.push(((AktifToday/$TmpJK[key])*100).toFixed(2));
 	});
 	var JlhYestPre = "Kemarin: ", TanggalLen=Tanggal.length;
 	await delay(500);
@@ -429,6 +450,7 @@ $(document).ready(async function(){
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 	$("#TBA_SembTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
+	$("$TBA_CRR").text(TingkSemb[TingkSemb.length-1]+"%");
 
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
@@ -439,6 +461,7 @@ $(document).ready(async function(){
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
+	$("#TBA_CFR").text(TingkMeng[TingkMeng.length-1]+"%");
 
 	var PersenAktif = (AktifJuml[AktifJuml.length-1] / KonfJuml[TanggalLen-1])*100;
 	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
@@ -504,6 +527,13 @@ var ChartDRRate = new Chart(C_RateDR, {
 			data: TingkMeng,
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#C00000',
+			borderWidth: 2
+		},
+		{
+			label: "Kasus aktif (%)",
+			data: TingkAktf,
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#00B050',
 			borderWidth: 2
 		}]
 	},
@@ -647,7 +677,8 @@ $.each($ArrTw,function(i,val)
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
 	$IndKP=TrendInd(1,$DiffKP); $IndSP=TrendInd(2,$DiffSP); $IndMP=TrendInd(1,$DiffMP);
-	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>s.d.<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
+	$DetailPekan="<a class='d-block badge badge-pill badge-dark'>+ Data Harian</a>";
+	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<div class='small'>s.d.</div>"+DateIndo(new Date($ArrT[i*7]))+"<br>"++"</td>";
 
 	var $IndKPc="<span class='text-"+$IndKP[1]+" "+$IndKP[2]+"'>"+$DiffKP.toFixed(2).replace(".",",")+"%</span>";
 	colKM="<td>"+$ArrMKw[i].replace(".",",")+$PostMean+"</td>";
