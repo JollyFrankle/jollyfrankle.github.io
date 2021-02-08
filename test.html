@@ -1,0 +1,669 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#343a40">
+	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+	<link rel="icon" href="assets/icon.png" type="image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<title>JollyFrankle Projects: Home</title>
+	<noscript><meta http-equiv="refresh" content="0; url=no-js.html"/></noscript>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/solid.min.css" onload="if(media!='all')media='all'"/>-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167603452-2');
+</script>
+	<style>
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_Tabel td:nth-child(2),#TP_Tabel td:nth-child(5),#TP_Tabel td:nth-child(8) {border-left:1px solid #dee2e6}
+@media (max-width:576px) {.chart-container{max-height:45vh;}}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
+		<div class="container">
+			<a class="navbar-brand text-truncate">
+				JollyFrankle Projects: COVID-19 NTT Tracker
+			</a>
+		</div>
+	</nav>
+	<main class="container my-4">
+<div class="d-block d-md-flex justify-content-between align-items-center mb-4">
+	<div>
+		<h1>COVID-19 NTT Tracker</h1>
+		<p class="mb-0">Informasi dan analisa kasus COVID-19 NTT.</p>
+	</div>
+	<form method="GET" style="max-width:330px" class="m-md-0 m-auto">
+		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
+		<div class="btn-group w-100">
+			<select name="day" class="form-control custom-select" id="RangeSel">
+				<option value=90>90 hari terakhir (default)</option>
+				<option value=365>1 tahun terakhir</option>
+				<option value=180>180 hari terakhir</option>
+				<option value=60>60 hari terakhir</option>
+				<option value=30>30 hari terakhir</option>
+			</select>
+			<input type="submit" class="btn btn-primary" value="Tampilkan"/>
+		</div>
+	</form>
+</div>
+<button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
+<div class="collapse" id="ILL_atas">
+	<div class="alert alert-danger text-justify">
+		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-19.21.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 21.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga.</p>
+		<p class="font-italic mb-0">Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021.</p>
+		<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
+	</div>
+</div>
+<div class="card mb-4">
+	<div class="card-body text-justify">
+		<h4 class="border-bottom">Informasi</h4>
+		<ul class="pl-4">
+			<li>Ganti jumlah hari yang dianalisis melalui <em>dropdown</em> yang tersedia di atas halaman, di bawah judul (pada ponsel) atau sebelah kanan judul (pada PC). Saat ini menampilkan analisis dari <span class="GET_day-html">...</span> terakhir.</li>
+			<li>Apabila Anda menggunakan perangkat yang kurang mendukung, disarankan untuk memilih data dari 180 hari atau kurang, sebab banyak perhitungan dan <em>rendering</em> pada grafik yang memakan banyak kekuatan perangkat.</li>
+			<li>Informasi terakhir pada halaman ini diperbarui pada <span class="LastData">...</span>. Data dari Satgas COVID-19 NTT diperbarui setiap pukul 17.00 WITA. Apabila data pada situs ini belum diperbarui, data akan diperbarui paling lambat pada pukul 21.00 WITA pada hari yang sama.</li>
+			<li><strong>PENTING:</strong> Data sembuh dan meninggal direkam mulai 1 Agustus 2020.</li>
+		</ul>
+		<h4 class="border-bottom">Daftar isi</h4>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">1.</div>
+				<a class="h5 mb-1" href="#Bg1_Rekap">Kasus Hari Ini</a>
+			</div>
+			Jumlah kasus positif, sembuh, meninggal, dan aktif yang direkam pada <strong class="LastData">...</strong> oleh Satuan Tugas Penanganan COVID-19 NTT. Tersedia juga informasi tentang pertambahan kasus, kasus tertinggi dan terendah selama <span class="GET_day-html">...</span> terakhir, dan persentase pasien yang masih dirawat.
+		</div>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">2.</div>
+				<a class="h5 mb-1" href="#Bg2_Grafik">Grafik Harian</a>
+			</div>
+			Grafik jumlah kasus positif, sembuh, meninggal, dan kasus aktif COVID-19 di Nusa Tenggara Timur, serta pertambahan kasus positif harian, sembuh harian, dan meninggal harian selama <span class="GET_day-html">...</span> terakhir.
+		</div>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">3.</div>
+				<a class="h5 mb-1" href="#Bg3_Tabel">Tabel Pekanan</a>
+			</div>
+			Perbandingan rata-rata penambahan kasus positif, sembuh, dan meninggal setiap pekan (Minggu-Sabtu) selama <span class="GET_day-html">...</span> terakhir. Tersedia persentase perubahan dari pekan-ke-pekan serta jumlah penambahan tertinggi dan terendah selama sepekan.
+		</div>
+	</div>
+</div>
+<div id="Bg1_Rekap" class="anchor"></div>
+<h2 class="border-bottom"><small>1.</small> Kasus Hari Ini</h2>
+<div class="container_rekap">
+	<div class="alert alert-info text-center h6" style="position:sticky;top:3.5rem;z-index:9">
+		INFORMASI: Data harian <strong class="LastData">Memuat...</strong><br/>
+		<!--Terakhir diperbarui: <strong id="LastMod">Memuat</strong>-->
+	</div>
+	<div class="form-row">
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#BF9000" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#BF9000">Jumlah kasus positif</h5>
+					<p class="display-4 mb-1" id="TB_JlhKonf">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhKonfYest">Memuat</span>
+						<span class="logoinc" id="TB_JlhKonfInc">Memuat</span>
+					</div>
+				</div>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Penambahan tertinggi <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_KonfHighest">...</strong>
+						<small id="TBA_KonfHighestDate">Memuat</small>
+					</div>
+					Penambahan terendah <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_KonfLowest">...</strong>
+						<small id="TBA_KonfLowestDate">Memuat</small>
+					</div>
+					Indikator trend:
+					<strong class="d-block" id="TBA_KonfTrend">Memuat...</strong>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#002060" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#002060">Jumlah sembuh</h5>
+					<p class="display-4 mb-1" id="TB_JlhSemb">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhSembYest">Memuat</span>
+						<span class="logoinc" id="TB_JlhSembInc">Memuat</span>
+					</div>
+				</div>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Penambahan tertinggi <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_SembHighest">...</strong>
+						<small id="TBA_SembHighestDate">Memuat</small>
+					</div>
+					Penambahan terendah <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_SembLowest">...</strong>
+						<small id="TBA_SembLowestDate">Memuat</small>
+					</div>
+					Indikator trend:
+					<strong class="d-block" id="TBA_SembTrend">Memuat...</strong>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#C00000" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#C00000">Jumlah meninggal</h5>
+					<p class="display-4 mb-1" id="TB_JlhMeng">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhMengYest">Memuat</span>
+						<span class="logoinc" id="TB_JlhMengInc">Memuat</span>
+					</div>
+				</div>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Penambahan tertinggi <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_MengHighest">...</strong>
+						<small id="TBA_MengHighestDate">Memuat</small>
+					</div>
+					Penambahan terendah <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_MengLowest">...</strong>
+						<small id="TBA_MengLowestDate">Memuat</small>
+					</div>
+					Indikator trend:
+					<strong class="d-block" id="TBA_MengTrend">Memuat...</strong>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-lg-3 mb-3">
+			<div class="card">
+				<div style="background:#00B050" class="pb-1"></div>
+				<div class="card-body">
+					<h5 class="card-title mb-1 text-truncate" style="color:#00B050">Kasus aktif</h5>
+					<p class="display-4 mb-1" id="TB_JlhAktif">...</p>
+					<hr class="my-1"/>
+					<div class="d-flex justify-content-between text-muted">
+						<span id="TB_JlhAktifYest">Memuat</span>
+						<span class="" id="TB_JlhAktifSelisih">Memuat</span>
+					</div>
+				</div>
+				<div class="bg-secondary pb-1"></div>
+				<div class="card-body">
+					Persentase pasien dirawat:
+					<strong class="d-block" id="TBA_AktifPersen">...</strong>
+					<!--<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_AktifPersen">...</strong>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="Bg2_Grafik" class="anchor"></div>
+<h2 class="border-bottom"><small>2.</small> Grafik Harian</h2>
+<h4 class="text-center">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
+<div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
+	<canvas id="ChartKonfirmasi"></canvas>
+</div>
+
+<h4 class="text-center">Tingkat Kematian dan Kesembuhan</h4>
+<div class="chart-container" style="height:400px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
+	<canvas id="ChartDRRate"></canvas>
+</div>
+
+<h4 class="text-center">Penambahan Kasus Positif Baru</h4>
+<div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
+	<canvas id="ChartNewKonf"></canvas>
+</div>
+
+<h4 class="text-center">Penambahan Kasus Sembuh</h4>
+<div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
+	<canvas id="ChartNewSemb"></canvas>
+</div>
+
+<h4 class="text-center">Penambahan Kasus Meninggal</h4>
+<div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
+	<canvas id="ChartNewMeng"></canvas>
+</div>
+
+<div id="Bg3_Tabel" class="anchor"></div>
+<h2 class="border-bottom"><small>3.</small> Tabel Pekanan</h2>
+<p>Ditampilkan: <span class="GET_day-html"></span> terakhir <span class="text-nowrap" id="TP_Tgl"></span></p>
+<div class="alert alert-info">
+	<p><strong>INFORMASI:</strong> Data pekanan yang ditampilkan adalah data yang dihitung dari hari Minggu hingga Sabtu. Apabila data hingga hari Sabtu belum tersedia/belum lengkap, maka data pekanan untuk pekan tersebut belum akan dikalkulasi.</p>
+	<p class="font-italic mb-0">Contoh: Data hari Minggu, 31 Januari 2021 hingga Jumat, 5 Februari 2021 tersedia, namun data hari Sabtu, 6 Februari 2021 belum tersedia, maka belum akan ada kalkulasi untuk pekan tersebut.</p>
+</div>
+<div class="table-responsive">
+	<table class="table table-hover" id="TP_Tabel" style="min-width:970px">
+		<thead class="bg-light">
+			<tr>
+				<th rowspan=2 style="min-width:165px">Tanggal</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Kasus Positif</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Sembuh</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Meninggal</th>
+			</tr>
+			<tr>
+				<th style="border-left:1px solid #dee2e6">Rata-rata</th>
+				<th>Perubahan</th>
+				<th>Titik ekstrim</th>
+				<th style="border-left:1px solid #dee2e6">Rata-rata</th>
+				<th>Perubahan</th>
+				<th>Titik ekstrim</th>
+				<th style="border-left:1px solid #dee2e6">Rata-rata</th>
+				<th>Perubahan</th>
+				<th>Titik ekstrim</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td colspan=10 style="text-align:center">Data akan dimuat setelah grafik.</td></tr>
+		</tbody>
+	</table>
+</div>
+
+	</main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script src="data.js"></script>
+<script>
+var url = new URL(window.location.href);
+var GET_day = -url.searchParams.get("day");
+var GET_day_plain = url.searchParams.get("day");
+$("#RangeSel").val(GET_day_plain);
+if(GET_day_plain<=0) {var GET_day=-90; var GET_day_plain=90;}
+if(GET_day_plain>Tanggal.length) {var GET_day=-Tanggal.length; var GET_day_plain=Tanggal.length;}
+
+$(".GET_day-html").text(GET_day_plain+" hari");
+const delay = ms => new Promise(res => setTimeout(res, ms));
+const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+
+const DefChartOpt = {
+		tooltips: {
+			enabled: true,
+			mode: 'index',
+			intersect: false,
+			callbacks: {
+				title: function(tooltipItems, data) {
+					var tgl=new Date(tooltipItems[0].xLabel);
+					return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
+				}
+			}
+		},
+		hover: {
+			mode: "nearest",
+			intersect: true
+		},
+		elements: {
+			point:{
+				radius: 1
+			}
+		},
+		maintainAspectRatio: false,
+		aspectRatio: 1.5,
+		defaultFontFamily: "Roboto",
+		defaultFontSize: 14,
+	};
+function DateIndo(date)
+{
+	var tgl=new Date(date);
+	return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear();
+}
+function getMinMax(arr) {
+	let min = arr[0];
+	let max = arr[0];
+	let i = arr.length;
+		
+	while (i--) {
+		min = arr[i] < min ? arr[i] : min;
+		max = arr[i] > max ? arr[i] : max;
+	}
+	return { min, max };
+}
+function IndC(mode,val) {
+	// Mode 1: Buruk ketika mengalami kenaikan
+	c="<span class='text-";
+	if(mode==1) {
+		if(val > 0) c+='danger logoinc';
+		if(val== 0) c+='muted logonet';
+		if(val < 0) c+='success logodec';
+	}
+		// Mode 2: Buruk ketika mengalami penurunan
+	if(mode==2) {
+		if(val > 0) c+='success logoinc';
+		if(val== 0) c+='muted logonet';
+		if(val < 0) c+='danger logodec';
+	}
+	c+="'>"; post="%</span>";
+		return c+val.toFixed(2).replace(".",",")+post;
+}
+function PreIndC(val) {
+	return (val<0?"":"+")+val.toFixed(2).replace(".",",");
+}
+
+function TrendInd(mode,val) {
+	if(mode==1) {
+		if(val > 0) {i="Meningkat";c="danger";l="logoinc"}
+		if(val== 0) {i="Stabil";c="muted";l="logonet"}
+		if(val < 0) {i="Menurun";c="success";l="logodec"}
+	}
+	if(mode==2) {
+		if(val > 0) {i="Meningkat";c="success";l="logoinc"}
+		if(val== 0) {i="Stabil";c="muted";l="logonet"}
+		if(val < 0) {i="Menurun";c="danger";l="logodec"}
+	}
+	return [i,c,l];
+}
+$(document).ready(async function(){
+	var AktifJuml=[], TingkMeng=[], TingSemb=[], $TmpJK=KonfJuml.slice(GET_day), $TmpJS=SembJuml.slice(GET_day), $TmpJM=MengJuml.slice(GET_day);
+	$.each(Tanggal.slice(GET_day),function(key,val){
+		AktifJuml.push($TmpJK[key]-($TmpJS[key]+$TmpJM[key]));
+		TingkMeng.push($TmpJM/($TmpJM+$TmpJS)); TingkSemb.push($TmpJS/($TmpJM+$TmpJS));
+	});
+	var JlhYestPre = "Kemarin: ", TanggalLen=Tanggal.length;
+	await delay(500);
+	$("#TB_JlhKonf").text(KonfJuml[TanggalLen-1]);
+	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[TanggalLen-2]);
+	$("#TB_JlhKonfInc").text(KonfBaru[TanggalLen-1]);
+
+	$("#TB_JlhSemb").text(SembJuml[TanggalLen-1]);
+	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[TanggalLen-2]);
+	$("#TB_JlhSembInc").text(SembBaru[TanggalLen-1]);
+
+	$("#TB_JlhMeng").text(MengJuml[TanggalLen-1]);
+	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[TanggalLen-2]);
+	$("#TB_JlhMengInc").text(MengBaru[TanggalLen-1]);
+
+	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
+	SelisihAktif<0?SelAkInd="logodec text-success":SelAkInd="logoinc text-danger";
+	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
+	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
+	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
+
+	$(".LastData").text(DateIndo(Tanggal[TanggalLen-1]));
+	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
+
+	await delay(500);
+	var $Arr_day=KonfBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
+	$Trend=TrendInd(1,Konf7day[TanggalLen-1]-Konf7day[TanggalLen-2]);
+	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
+	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
+	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+	$("#TBA_KonfTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
+
+	var $Arr_day=SembBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
+	$Trend=TrendInd(2,Semb7day[TanggalLen-1]-Semb7day[TanggalLen-2]);
+	$("#TBA_SembHighest").text($Arr_day[IndexH]);
+	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_SembLowest").text($Arr_day[IndexL]);
+	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+	$("#TBA_SembTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
+
+	var $Arr_day=MengBaru.slice(GET_day),
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
+	$Trend=TrendInd(1,Meng7day[TanggalLen-1]-Meng7day[TanggalLen-2]);
+	$("#TBA_MengHighest").text($Arr_day[IndexH]);
+	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_MengLowest").text($Arr_day[IndexL]);
+	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
+
+	var PersenAktif = (AktifJuml[AktifJuml.length-1] / KonfJuml[TanggalLen-1])*100;
+	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
+
+var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
+var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
+var C_NewSemb = document.getElementById('ChartNewSemb').getContext('2d');
+var C_NewMeng = document.getElementById('ChartNewMeng').getContext('2d');
+var C_RateDR = document.getElementById("ChartDRRate").getContext("2d");
+await delay(500);
+$("#ChartKonfirmasi").siblings("div").remove();
+var ChartKonfirmasi = new Chart(C_konf, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Terkonfirmasi',
+			data: KonfJuml.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#BF9000',
+			borderWidth: 1
+		},
+		{
+			label: 'Sembuh',
+			data: SembJuml.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#002060',
+			borderWidth: 1
+		},
+		{
+			label: 'Meninggal',
+			data: MengJuml.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#C00000',
+			borderWidth: 1
+		},
+		{
+			label: 'Kasus Aktif',
+			data: AktifJuml,
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#00B050',
+			borderDash: [5,5],
+			borderWidth: 1
+		}]
+	},
+	options: DefChartOpt 
+});
+await delay(1500);
+$("#ChartDRRate").siblings("div").remove();
+var ChartDRRate = new Chart(C_RateDR, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Sembuh (%)',
+			data: TingkMeng,
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#002060',
+			borderWidth: 2
+		},
+		{
+			label: 'Meninggal (%)',
+			data: TingkMeng,
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#C00000',
+			borderWidth: 2
+		}]
+	},
+	options: DefChartOpt 
+});
+await delay(1500);
+$("#ChartNewKonf").siblings("div").remove();
+var ChartNewKonf = new Chart(C_NewKonf, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Penambahan',
+			data: KonfBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#BF9000',
+			borderWidth: 2
+		},
+		{
+			label: 'Rata-rata 7 hari',
+			data: Konf7day.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#3B3838',
+			borderWidth: 1
+		}]
+	},
+	options: DefChartOpt 
+});
+await delay(1500);
+$("#ChartNewSemb").siblings("div").remove();
+var ChartNewSemb = new Chart(C_NewSemb, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Penambahan',
+			data: SembBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#002060',
+			borderWidth: 2
+		},
+		{
+			label: 'Rata-rata 7 hari',
+			data: Semb7day.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#3B3838',
+			borderWidth: 1
+		}]
+	},
+	options: DefChartOpt 
+});
+await delay(1500);
+$("#ChartNewMeng").siblings("div").remove();
+var ChartNewMeng = new Chart(C_NewMeng, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Penambahan',
+			data: MengBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#C00000',
+			borderWidth: 2
+		},
+		{
+			label: 'Rata-rata 7 hari',
+			data: Meng7day.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#3B3838',
+			borderWidth: 1
+		}]
+	},
+	options: DefChartOpt 
+});
+
+// Tabel:
+	var TglAwal=new Date(Tanggal[TanggalLen+GET_day]);
+	var TglAkhir=new Date(Tanggal[TanggalLen-1]);
+	$("#TP_Tgl").text("("+DateIndo(TglAwal)+" – "+DateIndo(TglAkhir)+")");
+// Dapatkan hari minggu terakhir sebelum data
+var KeyMinggu=0;
+$.each(Tanggal.slice(-7),function(key,val) {
+	var Tgl=new Date(val);
+	if(Tgl.getDay()==0) {KeyMinggu=7-key; return false}
+});
+if(KeyMinggu==7) KeyMinggu=0;
+
+$ArrT=Tanggal.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+-($ArrT.length % -7)==0?$ATl=GET_day:$ATl=$ArrT.length%-7;
+$ArrT=$ArrT.slice(0,-$ATl);
+
+$ArrKB=KonfBaru.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+-($ArrKB.length % -7)==0?$AKBl=GET_day:$AKBl=$ArrKB.length%-7;
+$ArrKB=$ArrKB.slice(0,-$AKBl);
+
+$ArrSB=SembBaru.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+-($ArrSB.length % -7)==0?$ASBl=GET_day:$ASBl=$ArrSB.length%-7;
+$ArrSB=$ArrSB.slice(0,-$ASBl);
+
+$ArrMB=MengBaru.slice(GET_day).reverse().slice(-(-GET_day-KeyMinggu));
+-($ArrMB.length % -7)==0?$AMBl=GET_day:$AMBl=$ArrMB.length%-7;
+$ArrMB=$ArrMB.slice(0,-$AMBl);
+
+// Array [Konf/Semb/Meng] weekly (reset setiap 7 hari):
+var $ArrKw=[], $ArrSw=[], $ArrMw=[];
+// Array Mean [Konf/Semb/Meng] weekly:
+var $ArrMKw=[], $ArrMSw=[], $ArrMMw=[];
+// Array Highest [Konf/Semb/Meng] weekly:
+var $ArrHKw=[], $ArrHSw=[], $ArrHMw=[];
+// Array Lowest [Konf/Semb/Meng] weekly:
+var $ArrLKw=[], $ArrLSw=[], $ArrLMw=[];
+var JlKonf=0,JlSemb=0,JlMeng=0, i=0, $ArrTw=[];
+await delay(500);
+$.each($ArrT,function(key,val)
+{
+	JlKonf+=$ArrKB[key]; JlSemb+=$ArrSB[key]; JlMeng+=$ArrMB[key];
+	$ArrKw.push($ArrKB[key]); $ArrSw.push($ArrSB[key]); $ArrMw.push($ArrMB[key]);
+	if((key+1) % 7 == 0) {
+		$ArrMKw.push((JlKonf/7).toFixed(2));
+		$ArrMSw.push((JlSemb/7).toFixed(2));
+		$ArrMMw.push((JlMeng/7).toFixed(2));
+		$ArrHKw.push(getMinMax($ArrKw)["max"]);
+		$ArrHSw.push(getMinMax($ArrSw)["max"]);
+		$ArrHMw.push(getMinMax($ArrMw)["max"]);
+		$ArrLKw.push(getMinMax($ArrKw)["min"]);
+		$ArrLSw.push(getMinMax($ArrSw)["min"]);
+		$ArrLMw.push(getMinMax($ArrMw)["min"]);
+		JlKonf=0,JlSemb=0,JlMeng=0;
+		$ArrTw.push($ArrT[key]);
+		$ArrKw=[], $ArrSw=[], $ArrMw=[];
+	}
+});
+
+$("#TP_Tabel tbody").html("");
+var $PostMean="<small class='d-block text-muted'>kasus per hari (ks/hr)</small>",
+$PreH="<small class='d-block'>Tertinggi:</small>", $PostHL=" ks";
+$PreL="<small class='d-block'>Terendah:</small>";
+$.each($ArrTw,function(i,val)
+{
+	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
+	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
+	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
+	$IndKP=TrendInd(1,$DiffKP); $IndSP=TrendInd(2,$DiffSP); $IndMP=TrendInd(1,$DiffMP);
+	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<br>s.d.<br>"+DateIndo(new Date($ArrT[i*7]))+"</td>";
+
+	var $IndKPc="<span class='text-"+$IndKP[1]+" "+$IndKP[2]+"'>"+$DiffKP.toFixed(2).replace(".",",")+"%</span>";
+	colKM="<td>"+$ArrMKw[i].replace(".",",")+$PostMean+"</td>";
+	colKP=isNaN($DiffKP)?"<td>–</td>":"<td>"+$IndKPc+"<div class='small'>"+PreIndC($DiffK)+" ks/hr</div>"+"</td>";
+	colKE="<td>"+$PreH+$ArrHKw[i]+$PostHL+$PreL+$ArrLKw[i]+$PostHL+"</td>";
+
+	var $IndSPc="<span class='text-"+$IndSP[1]+" "+$IndSP[2]+"'>"+$DiffSP.toFixed(2).replace(".",",")+"%</span>";
+	colSM="<td>"+$ArrMSw[i].replace(".",",")+$PostMean+"</td>";
+	colSP=isNaN($DiffSP)?"<td>–</td>":"<td>"+$IndSPc+"<div class='small'>"+PreIndC($DiffS)+" ks/hr</div>"+"</td>";
+	colSE="<td>"+$PreH+$ArrHSw[i]+$PostHL+$PreL+$ArrLSw[i]+$PostHL+"</td>";
+
+	var $IndMPc="<span class='text-"+$IndMP[1]+" "+$IndMP[2]+"'>"+$DiffMP.toFixed(2).replace(".",",")+"%</span>";
+	colMM="<td>"+$ArrMMw[i].replace(".",",")+$PostMean+"</td>";
+	colMP=isNaN($DiffMP)?"<td>–</td>":"<td>"+$IndMPc+"<div class='small'>"+PreIndC($DiffM)+" ks/hr</div>"+"</td>";
+	colME="<td>"+$PreH+$ArrHMw[i]+$PostHL+$PreL+$ArrLMw[i]+$PostHL+"</td>";
+	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
+});
+});
+
+</script>
+</html>
