@@ -17,11 +17,11 @@
 	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/solid.min.css" onload="if(media!='all')media='all'"/>-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
 <script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-	gtag('config', 'UA-167603452-2');
+  gtag('config', 'UA-167603452-2');
 </script>
 	<style>
 body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_Tabel td:nth-child(2),#TP_Tabel td:nth-child(5),#TP_Tabel td:nth-child(8) {border-left:1px solid #dee2e6}
@@ -349,18 +349,13 @@ const DefChartOpt = {
 		},
 		hover: {
 			mode: "nearest",
-			intersect: true,
-			animationDuration: 0
+			intersect: true
 		},
 		elements: {
 			point:{
 				radius: 1
 			}
 		},
-		animation: {
-			duration: 0
-		},
-		responsiveAnimationDuration: 0,
 		maintainAspectRatio: false,
 		aspectRatio: 1.5,
 		defaultFontFamily: "Roboto",
