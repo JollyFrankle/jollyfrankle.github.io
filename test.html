@@ -383,8 +383,8 @@ $(document).ready(async function(){
 	$.each(Tanggal.slice(GET_day),function(key,val){
 		var AddMS=$TmpJS[key]+$TmpJM[key];
 		AktifJuml.push($TmpJK[key]-AddMS);
-		TingkMeng.push($TmpJM[key]/AddMS);
-		TingkSemb.push($TmpJS[key]/AddMS);
+		TingkMeng.push((($TmpJM[key]/AddMS)*100).toFixed(2));
+		TingkSemb.push((($TmpJS[key]/AddMS)*100).toFixed(2));
 	});
 	var JlhYestPre = "Kemarin: ", TanggalLen=Tanggal.length;
 	await delay(500);
