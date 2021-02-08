@@ -696,7 +696,8 @@ $.each($ArrTw,function(i,val)
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
 	$IndKP=TrendInd(1,$DiffKP); $IndSP=TrendInd(2,$DiffSP); $IndMP=TrendInd(1,$DiffMP);
-	$DetailPekan="<a class='d-block badge badge-pill badge-dark BtnWeek' data-week='"+val+"' href='#Week"+val+"'>+ Data Harian</a>";
+	//$DetailPekan="<a class='badge badge-pill badge-dark BtnWeek' data-week='"+val+"' href='javascript:void(0)'>+ Data Harian</a>";
+	$DetailPekan="";
 	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<div class='small'>s.d.</div>"+DateIndo(new Date($ArrT[i*7]))+$DetailPekan+"</td>";
 
 	var $IndKPc="<span class='text-"+$IndKP[1]+" "+$IndKP[2]+"'>"+$DiffKP.toFixed(2).replace(".",",")+"%</span>";
