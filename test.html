@@ -95,6 +95,13 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 			Perbandingan rata-rata penambahan kasus positif, sembuh, dan meninggal setiap pekan (Minggu-Sabtu) selama <span class="GET_day-html">...</span> terakhir. Tersedia persentase perubahan dari pekan-ke-pekan serta jumlah penambahan tertinggi dan terendah selama sepekan.
 		</div>
+		<!--<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">4.</div>
+				<a class="h5 mb-1" href="#Bg4_Harian">Informasi Harian</a>
+			</div>
+			Grafik, tabel dan laporan harian perkembangan kasus COVID-19 di Nusa Tenggara Timur pada jenjang waktu yang dipilih pada
+		</div>-->
 	</div>
 </div>
 <div id="Bg1_Rekap" class="anchor"></div>
@@ -131,7 +138,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 					</div>
 					<div class="d-flex">
 						<div class="">
-							Trend:
+							Trend/Kecenderungan:
 							<strong class="d-block" id="TBA_KonfTrend">Memuat</strong>
 						</div>
 					</div>
@@ -162,12 +169,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<strong id="TBA_SembLowest">...</strong>
 						<small id="TBA_SembLowestDate">Memuat</small>
 					</div>
-					<div class="d-flex">
-						<div class="w-50 mr-1">
-							Trend:
+					<div class="d-flex justify-content-between">
+						<div class="mr-1">
+							Trend/Kecenderungan:
 							<strong class="d-block" id="TBA_SembTrend">Memuat</strong>
 						</div>
-						<div class="w-50 ml-1">
+						<div class="ml-1 text-right">
 							<abbr title="Tingkat kesembuhan/Case recovery rate">CRR:</abbr>
 							<strong class="d-block" id="TBA_CRR">Memuat</strong>
 						</div>
@@ -199,12 +206,12 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<strong id="TBA_MengLowest">...</strong>
 						<small id="TBA_MengLowestDate">Memuat</small>
 					</div>
-					<div class="d-flex">
-						<div class="w-50 mr-1">
-							Trend:
+					<div class="d-flex justify-content-between">
+						<div class="mr-1">
+							Trend/Kecenderungan:
 							<strong class="d-block" id="TBA_MengTrend">Memuat</strong>
 						</div>
-						<div class="w-50 ml-1">
+						<div class="ml-1 text-right">
 							<abbr title="Tingkat kematian/Case fatality rate">CFR:</abbr>
 							<strong class="d-block" id="TBA_CFR">Memuat</strong>
 						</div>
@@ -408,10 +415,17 @@ $(document).ready(async function(){
 	var AktifJuml=[], TingkMeng=[], TingkSemb=[], TingkAktf=[], $TmpJK=KonfJuml.slice(GET_day), $TmpJS=SembJuml.slice(GET_day), $TmpJM=MengJuml.slice(GET_day);
 	$.each(Tanggal.slice(GET_day),function(key,val){
 		var AktifToday=$TmpJK[key]-($TmpJS[key]+$TmpJM[key]);
-		AktifJuml.push(AktifToday);
-		TingkMeng.push((($TmpJM[key]/$TmpJK[key])*100).toFixed(2));
-		TingkSemb.push((($TmpJS[key]/$TmpJK[key])*100).toFixed(2));
-		TingkAktf.push(((AktifToday/$TmpJK[key])*100).toFixed(2));
+		if($TmpJM[key]!==null) {
+			AktifJuml.push(AktifToday);
+			TingkMeng.push((($TmpJM[key]/$TmpJK[key])*100).toFixed(2));
+			TingkSemb.push((($TmpJS[key]/$TmpJK[key])*100).toFixed(2));
+			TingkAktf.push(((AktifToday/$TmpJK[key])*100).toFixed(2));
+		} else {
+			AktifJuml.push(null);
+			TingkMeng.push(null);
+			TingkSemb.push(null);
+			TingkAktf.push(null);
+		}
 	});
 	var JlhYestPre = "Kemarin: ", TanggalLen=Tanggal.length;
 	await delay(500);
@@ -509,7 +523,6 @@ var ChartKonfirmasi = new Chart(C_konf, {
 			data: AktifJuml,
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#00B050',
-			borderDash: [5,5],
 			borderWidth: 1
 		}]
 	},
