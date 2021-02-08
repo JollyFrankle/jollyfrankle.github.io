@@ -379,7 +379,7 @@ function TrendInd(mode,val) {
 	return [i,c,l];
 }
 $(document).ready(async function(){
-	var AktifJuml=[], TingkMeng=[], TingSemb=[], $TmpJK=KonfJuml.slice(GET_day), $TmpJS=SembJuml.slice(GET_day), $TmpJM=MengJuml.slice(GET_day);
+	var AktifJuml=[], TingkMeng=[], TingkSemb=[], $TmpJK=KonfJuml.slice(GET_day), $TmpJS=SembJuml.slice(GET_day), $TmpJM=MengJuml.slice(GET_day);
 	$.each(Tanggal.slice(GET_day),function(key,val){
 		AktifJuml.push($TmpJK[key]-($TmpJS[key]+$TmpJM[key]));
 		TingkMeng.push($TmpJM/($TmpJM+$TmpJS)); TingkSemb.push($TmpJS/($TmpJM+$TmpJS));
@@ -499,7 +499,7 @@ var ChartDRRate = new Chart(C_RateDR, {
 		},
 		{
 			label: 'Meninggal (%)',
-			data: TingkMeng,
+			data: TingkSemb,
 			backgroundColor: 'rgba(0,0,0,0)',
 			borderColor: '#C00000',
 			borderWidth: 2
