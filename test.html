@@ -168,7 +168,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 							<strong class="d-block" id="TBA_SembTrend">Memuat</strong>
 						</div>
 						<div class="w-50 ml-1">
-							Tingk. kesembuhan
+							<abbr title="Tingkat kesembuhan/Case recovery rate">CRR:</abbr>
 							<strong class="d-block" id="TBA_CRR">Memuat</strong>
 						</div>
 					</div>
@@ -205,10 +205,10 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 							<strong class="d-block" id="TBA_MengTrend">Memuat</strong>
 						</div>
 						<div class="w-50 ml-1">
-							Tingk. kematian
+							<abbr title="Tingkat kematian/Case fatality rate">CFR:</abbr>
 							<strong class="d-block" id="TBA_CFR">Memuat</strong>
 						</div>
-					</div>>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -450,7 +450,7 @@ $(document).ready(async function(){
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 	$("#TBA_SembTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
-	$("$TBA_CRR").text(TingkSemb[TingkSemb.length-1]+"%");
+	$("#TBA_CRR").text(TingkSemb[TingkSemb.length-1]+"%");
 
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
