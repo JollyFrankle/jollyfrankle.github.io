@@ -323,13 +323,11 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <!--<script src="data.js"></script>-->
 <script>
-var $dt=$.ajax({
+var $dt=JSON.parse($.ajax({
 	url:	'data.json',
 	dataType: "json", 
-	global: false,
 	async: false,
-	success: function(data){return data}
-}).responseText;
+}).responseText);
 const Tanggal=$dt.Tanggal,
 KonfJuml=$dt.KonfJuml, KonfBaru=$dt.KonfBaru, Konf7day=$dt.Konf7day,
 SembJuml=$dt.SembJuml, SembBaru=$dt.SembBaru, Semb7day=$dt.Semb7day,
