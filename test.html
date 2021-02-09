@@ -326,7 +326,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 $dt=JSON.parse($.ajax({
 	url:	'data.json',
 	dataType: "json", 
-	async: false
+	async: false,
+	success: function(data){return data}
 }).responseText);
 return $dt;
 /*$.each($dt,function(key,val){
