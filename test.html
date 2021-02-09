@@ -323,21 +323,18 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <!--<script src="data.js"></script>-->
 <script>
-var AJAXdt=$.ajax({
+var $dt=$.ajax({
 	url:	'data.json',
 	dataType: "json", 
 	global: false,
 	async: false,
 	success: function(data){return data}
 }).responseText;
-return AJAXdt;
-/*$.each($dt,function(key,val){
-	const key=
-});
 const Tanggal=$dt.Tanggal,
 KonfJuml=$dt.KonfJuml, KonfBaru=$dt.KonfBaru, Konf7day=$dt.Konf7day,
-KonfJuml=$dt.KonfJuml, KonfBaru=$dt.KonfBaru, Semb7day=$dt.Semb7day,
-KonfJuml=$dt.KonfJuml, KonfBaru=$dt.KonfBaru, Meng7day=$dt.Meng7day,*/
+SembJuml=$dt.SembJuml, SembBaru=$dt.SembBaru, Semb7day=$dt.Semb7day,
+MengJuml=$dt.MengJuml, MengBaru=$dt.MengBaru, Meng7day=$dt.Meng7day;
+
 var url = new URL(window.location.href);
 var GET_day = -url.searchParams.get("day");
 var GET_day_plain = url.searchParams.get("day");
