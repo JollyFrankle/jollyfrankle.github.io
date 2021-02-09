@@ -323,13 +323,14 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <!--<script src="data.js"></script>-->
 <script>
-$dt=$.ajax({
+var AJAXdt=$.ajax({
 	url:	'data.json',
 	dataType: "json", 
+	global: false,
 	async: false,
 	success: function(data){return data}
 }).responseText;
-return $dt;
+return AJAXdt;
 /*$.each($dt,function(key,val){
 	const key=
 });
