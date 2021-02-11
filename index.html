@@ -470,7 +470,7 @@ $(document).ready(async function(){
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 	$("#TBA_SembTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
-	$("#TBA_CRR").text(TingkSemb[TingkSemb.length-1]+"%");
+	$("#TBA_CRR").text(TingkSemb[TingkSemb.length-1].replace(".",",")+"%");
 
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
@@ -481,9 +481,9 @@ $(document).ready(async function(){
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
-	$("#TBA_CFR").text(TingkMeng[TingkMeng.length-1]+"%");
+	$("#TBA_CFR").text(TingkMeng[TingkMeng.length-1].replace(".",",")+"%");
 
-	var PersenAktif = (AktifJuml[AktifJuml.length-1] / KonfJuml[TanggalLen-1])*100;
+	var PersenAktif = (AktifJuml[AktifJuml.length-1]/KonfJuml[TanggalLen-1])*100;
 	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
 
 var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
@@ -628,6 +628,7 @@ var ChartNewMeng = new Chart(C_NewMeng, {
 	options: DefChartOpt 
 });
 
+await delay(500);
 // Tabel:
 	var TglAwal=new Date(Tanggal[TanggalLen+GET_day]);
 	var TglAkhir=new Date(Tanggal[TanggalLen-1]);
@@ -665,7 +666,7 @@ var $ArrHKw=[], $ArrHSw=[], $ArrHMw=[];
 // Array Lowest [Konf/Semb/Meng] weekly:
 var $ArrLKw=[], $ArrLSw=[], $ArrLMw=[];
 var JlKonf=0,JlSemb=0,JlMeng=0, i=0, $ArrTw=[];
-await delay(500);
+await delay(1000);
 $.each($ArrT,function(key,val)
 {
 	JlKonf+=$ArrKB[key]; JlSemb+=$ArrSB[key]; JlMeng+=$ArrMB[key];
@@ -674,12 +675,10 @@ $.each($ArrT,function(key,val)
 		$ArrMKw.push((JlKonf/7).toFixed(2));
 		$ArrMSw.push((JlSemb/7).toFixed(2));
 		$ArrMMw.push((JlMeng/7).toFixed(2));
-		$ArrHKw.push(getMinMax($ArrKw)["max"]);
-		$ArrHSw.push(getMinMax($ArrSw)["max"]);
-		$ArrHMw.push(getMinMax($ArrMw)["max"]);
-		$ArrLKw.push(getMinMax($ArrKw)["min"]);
-		$ArrLSw.push(getMinMax($ArrSw)["min"]);
-		$ArrLMw.push(getMinMax($ArrMw)["min"]);
+		$MMKw=getMinMax($ArrKw); $MMSw=getMinMax($ArrSw); $MMMw=getMinMax($ArrMw);
+		$ArrHKw.push($MMKw["max"]); $ArrLKw.push($MMKw["min"]);
+		$ArrHSw.push($MMSw["max"]); $ArrLSw.push($MMSw["min"]);
+		$ArrHMw.push($MMMw["max"]); $ArrLMw.push($MMMw["min"]);
 		JlKonf=0,JlSemb=0,JlMeng=0;
 		$ArrTw.push($ArrT[key]);
 		$ArrKw=[], $ArrSw=[], $ArrMw=[];
