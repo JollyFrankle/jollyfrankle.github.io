@@ -56,10 +56,6 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</form>
 </div>
-<div class="alert alert-primary">
-	<h5>Informasi pembaruan:</h5>
-	Akan ada pembaruan tampilan pada pukul 20.00 WITA, dengan perubahan pada grafik jumlah kasus positif, sembuh, dan meninggal harian, serta penambahan grafik penambahan kasus positif, sembuh, dan meninggal (gabungan) harian.
-</div>
 <button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
 <div class="collapse" id="ILL_atas">
 	<div class="alert alert-danger text-justify">
@@ -75,6 +71,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			<li>Ganti jumlah hari yang dianalisis melalui <em>dropdown</em> yang tersedia di atas halaman, di bawah judul (pada ponsel) atau sebelah kanan judul (pada PC). Saat ini menampilkan analisis dari <span class="GET_day-html">...</span> terakhir.</li>
 			<li>Apabila Anda menggunakan perangkat yang kurang mendukung, disarankan untuk memilih data dari 180 hari atau kurang, sebab banyak perhitungan dan <em>rendering</em> pada grafik yang memakan banyak kekuatan perangkat.</li>
 			<li>Informasi terakhir pada halaman ini diperbarui pada <span class="LastData">...</span>. Data dari Satgas COVID-19 NTT diperbarui setiap pukul 17.00 WITA. Apabila data pada situs ini belum diperbarui, data akan diperbarui paling lambat pada pukul 21.00 WITA pada hari yang sama.</li>
+			<li>Klik pada legenda di bawah judul, di atas setiap grafik untuk menghilangkan/menampilkan <em>dataset</em> tertentu.</li>
 			<li><strong>PENTING:</strong> Data sembuh dan meninggal direkam mulai 1 Agustus 2020.</li>
 		</ul>
 		<h4 class="border-bottom">Daftar isi</h4>
@@ -251,11 +248,11 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div id="Bg2_Grafik" class="anchor"></div>
 <h2 class="border-bottom"><small>2.</small> Grafik Harian</h2>
 
-<h4 class="text-center mb-1 mt-2">Jumlah Kasus Positif, Sembuh, dan Meninggal Harian</h4>
-<p class="text-center text-muted mb-0">Kasus aktif didefinisikan sebagai selisih jumlah kasus dan kasus tuntas (kasus sembuh dan meninggal).</p>
+<h4 class="text-center mb-1 mt-2">Akumulasi Data Harian</h4>
+<p class="text-center text-muted mb-0">Klik pada salah satu legenda untuk menghilangkan data tersebut.</p>
 <div class="chart-container" style="height:500px;width:600px;">
 	<div>Memuat grafik (berurutan)...</div>
-	<canvas id="ChartKonfirmasi"></canvas>
+	<canvas id="ChartStacked"></canvas>
 </div>
 
 <h4 class="text-center mb-1 mt-2">Tingkat Kematian dan Kesembuhan</h4>
@@ -263,6 +260,13 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div class="chart-container" style="height:400px;width:600px;">
 	<div>Memuat grafik (berurutan)...</div>
 	<canvas id="ChartDRRate"></canvas>
+</div>
+
+<h4 class="text-center mb-1 mt-2">Pergerakan Kasus Positif, Sembuh, dan Meninggal</h4>
+<p class="text-center text-muted mb-0">Kasus aktif didefinisikan sebagai selisih jumlah kasus dan kasus tuntas (kasus sembuh dan meninggal).</p>
+<div class="chart-container" style="height:500px;width:600px;">
+	<div>Memuat grafik (berurutan)...</div>
+	<canvas id="ChartNewAll"></canvas>
 </div>
 
 <h4 class="text-center mb-1 mt-2">Pergerakan Kasus Positif Baru</h4>
@@ -315,7 +319,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</tr>
 		</thead>
 		<tbody>
-			<tr><td colspan=10 style="text-align:center">Data akan dimuat setelah grafik.</td></tr>
+			<tr><td colspan=10 class="text-center">Data akan dimuat setelah grafik.</td></tr>
 		</tbody>
 	</table>
 </div>
@@ -335,36 +339,36 @@ if(GET_day_plain<=0) {var GET_day=-90; var GET_day_plain=90;}
 if(GET_day_plain>Tanggal.length) {var GET_day=-Tanggal.length; var GET_day_plain=Tanggal.length;}
 
 $(".GET_day-html").text(GET_day_plain+" hari");
-const delay = ms => new Promise(res => setTimeout(res, ms));
+const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
-const DefChartOpt = {
-		tooltips: {
-			enabled: true,
-			mode: 'index',
-			intersect: false,
-			callbacks: {
-				title: function(tooltipItems, data) {
-					var tgl=new Date(tooltipItems[0].xLabel);
-					return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
-				}
+var DefChartOpt = {
+	tooltips: {
+		enabled: true,
+		mode: 'index',
+		intersect: false,
+		callbacks: {
+			title: function(tooltipItems, data) {
+				var tgl=new Date(tooltipItems[0].xLabel);
+				return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
 			}
-		},
-		hover: {
-			mode: "nearest",
-			intersect: true
-		},
-		elements: {
-			point:{
-				radius: 1
-			}
-		},
-		maintainAspectRatio: false,
-		aspectRatio: 1.5,
-		defaultFontFamily: "Roboto",
-		defaultFontSize: 14,
-	};
+		}
+	},
+	hover: {
+		mode: "nearest",
+		intersect: true
+	},
+	elements: {
+		point:{
+			radius: 1
+		}
+	},
+	maintainAspectRatio: false,
+	aspectRatio: 1.5,
+	defaultFontFamily: "Roboto",
+	defaultFontSize: 14,
+};
 function DateIndo(date)
 {
 	var tgl=new Date(date);
@@ -490,48 +494,84 @@ $(document).ready(async function(){
 	var PersenAktif = (AktifJuml[AktifJuml.length-1]/KonfJuml[TanggalLen-1])*100;
 	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
 
-var C_konf = document.getElementById('ChartKonfirmasi').getContext('2d');
+var C_konf = document.getElementById('ChartNewAll').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
 var C_NewSemb = document.getElementById('ChartNewSemb').getContext('2d');
 var C_NewMeng = document.getElementById('ChartNewMeng').getContext('2d');
 var C_RateDR = document.getElementById("ChartDRRate").getContext("2d");
+var C_Stacked = document.getElementById("ChartStacked").getContext("2d");
+
 await delay(500);
-$("#ChartKonfirmasi").siblings("div").remove();
-var ChartKonfirmasi = new Chart(C_konf, {
-	type: 'line',
+$("#ChartStacked").siblings("div").remove();
+var ChartStacked = new Chart(C_Stacked, {
+	type: 'bar',
 	data: {
 		labels: Tanggal.slice(GET_day),
 		datasets: [{
-			label: 'Terkonfirmasi',
-			data: KonfJuml.slice(GET_day),
-			backgroundColor: 'rgba(0,0,0,0)',
-			borderColor: '#BF9000',
-			borderWidth: 1
+		    label: "Jumlah",
+		    data: KonfJuml.slice(GET_day),
+		    borderWidth: 3,
+		    borderColor: "#BF9000",
+		    backgroundColor: "rgba(0,0,0,0)",
+		    type: 'line',
+		    pointRadius: 0
 		},
 		{
-			label: 'Sembuh',
-			data: SembJuml.slice(GET_day),
-			backgroundColor: 'rgba(0,0,0,0)',
-			borderColor: '#002060',
-			borderWidth: 1
-		},
-		{
-			label: 'Meninggal',
+			label: "Meninggal",
 			data: MengJuml.slice(GET_day),
-			backgroundColor: 'rgba(0,0,0,0)',
-			borderColor: '#C00000',
-			borderWidth: 1
+			backgroundColor: 'rgba(192,0,0,.7)',
+			borderWidth: 0,
+			categoryPercentage: 1.0,
+            barPercentage: 1.0
 		},
 		{
-			label: 'Kasus Aktif',
-			data: AktifJuml,
-			backgroundColor: 'rgba(0,0,0,0)',
-			borderColor: '#00B050',
-			borderWidth: 1
+			label: "Sembuh",
+			data: SembJuml.slice(GET_day),
+			backgroundColor: 'rgba(0,32,96,.7)',
+			borderWidth: 0,
+			categoryPercentage: 1.0,
+            barPercentage: 1.0
+		},
+		{
+		    label: "Aktif",
+		    data: AktifJuml,
+		    backgroundColor: "rgba(0,176,80,.7)",
+		    borderWidth: 0,
+		    categoryPercentage: 1.0,
+            barPercentage: 1.0
 		}]
 	},
-	options: DefChartOpt 
+	options: {
+	    tooltips: {
+			enabled: true,
+			mode: 'index',
+			intersect: false,
+			callbacks: {
+				title: function(tooltipItems, data) {
+					var tgl=new Date(tooltipItems[0].xLabel);
+					return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
+				}
+			}
+		},
+		hover: {
+			mode: "nearest",
+			intersect: true
+		},
+        scales: {
+            xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        },
+        maintainAspectRatio: false,
+		aspectRatio: 1.5,
+		defaultFontFamily: "Roboto",
+		defaultFontSize: 14,
+	}
 });
+
 await delay(1500);
 $("#ChartDRRate").siblings("div").remove();
 var ChartDRRate = new Chart(C_RateDR, {
@@ -562,6 +602,38 @@ var ChartDRRate = new Chart(C_RateDR, {
 	},
 	options: DefChartOpt 
 });
+
+await delay(1500);
+$("#ChartNewAll").siblings("div").remove();
+var ChartNewAll = new Chart(C_konf, {
+	type: 'line',
+	data: {
+		labels: Tanggal.slice(GET_day),
+		datasets: [{
+			label: 'Terkonfirmasi',
+			data: KonfBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#BF9000',
+			borderWidth: 1
+		},
+		{
+			label: 'Sembuh',
+			data: SembBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#002060',
+			borderWidth: 1
+		},
+		{
+			label: 'Meninggal',
+			data: MengBaru.slice(GET_day),
+			backgroundColor: 'rgba(0,0,0,0)',
+			borderColor: '#C00000',
+			borderWidth: 1
+		}]
+	},
+	options: DefChartOpt 
+});
+
 await delay(1500);
 $("#ChartNewKonf").siblings("div").remove();
 var ChartNewKonf = new Chart(C_NewKonf, {
