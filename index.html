@@ -30,10 +30,13 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </head>
 <body>
 	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
-		<div class="container">
+		<div class="container d-md-flex justify-content-between text-center">
 			<a class="navbar-brand text-truncate">
 				JollyFrankle Projects: COVID-19 NTT Tracker
 			</a>
+			<div class="d-none d-md-block text-light">
+			    Data terakhir: <strong class="LastData">Memuat...</strong>
+			</div>
 		</div>
 	</nav>
 	<main class="container my-4">
@@ -111,8 +114,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div id="Bg1_Rekap" class="anchor"></div>
 <h2 class="border-bottom"><small>1.</small> Kasus Hari Ini</h2>
 <div class="container_rekap">
-	<div class="alert alert-info text-center h6" style="position:sticky;top:3.5rem;z-index:9">
-		INFORMASI: Data harian <strong class="LastData">Memuat...</strong><br/>
+	<div class="alert alert-info text-center" style="position:sticky;top:3.5rem;z-index:9">
+		Data harian <strong class="LastData">Memuat...</strong>
 		<!--Terakhir diperbarui: <strong id="LastMod">Memuat</strong>-->
 	</div>
 	<div class="form-row">
@@ -339,51 +342,29 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<script src="data.js"></script>
+<!--<script src="data.js"></script>-->
 <script>
 var url = new URL(window.location.href);
-var GET_day = -url.searchParams.get("day");
-var GET_day_plain = url.searchParams.get("day");
-$("#RangeSel").val(GET_day_plain);
-if(GET_day_plain<=0) {var GET_day=-90; var GET_day_plain=90;}
-if(GET_day_plain>Tanggal.length) {var GET_day=-Tanggal.length; var GET_day_plain=Tanggal.length;}
+var day = url.searchParams.get("day");
+$("#RangeSel").val(day?day:90);
+
+$.getScript("data.js",AJAX_Complete);
+function AJAX_Complete(){
+if(day<=0) var GET_day=-90, GET_day_plain=90;
+if(day>Tanggal.length) var GET_day=-Tanggal.length, GET_day_plain=Tanggal.length;
 
 $(".GET_day-html").text(GET_day_plain+" hari");
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
-var DefChartOpt = {
-	tooltips: {
-		enabled: true,
-		mode: 'index',
-		intersect: false,
-		callbacks: {
-			title: function(tooltipItems, data) {
-				var tgl=new Date(tooltipItems[0].xLabel);
-				return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
-			}
-		}
-	},
-	hover: {
-		mode: "nearest",
-		intersect: true
-	},
-	elements: {
-		point:{
-			radius: 1
-		}
-	},
-	maintainAspectRatio: false,
-	aspectRatio: 1.5,
-	defaultFontFamily: "Roboto",
-	defaultFontSize: 14,
-};
-function DateIndo(date)
-{
+function DateIndo(date) {
 	var tgl=new Date(date);
 	return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear();
 }
+Chart.defaults.global.defaultFontFamily="Roboto,sans-serif";
+Chart.defaults.global.defaultFontSize=14;
+var DefChartOpt={tooltips:{enabled:!0,mode:"index",intersect:!1,callbacks:{title:function(e,t){return DateIndo(e[0].xLabel)}}},hover:{mode:"nearest",intersect:!0},elements:{point:{radius:1}},maintainAspectRatio:!1};
 function getMinMax(arr) {
 	let min = arr[0];
 	let max = arr[0];
@@ -810,6 +791,7 @@ $.each($ArrTw,function(i,val)
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
 });
+}
 
 </script>
 </html>
