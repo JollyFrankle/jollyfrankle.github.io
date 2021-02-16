@@ -59,7 +59,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
 <div class="collapse" id="ILL_atas">
 	<div class="alert alert-danger text-justify">
-		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-19.21.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 21.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga.</p>
+		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-21.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 21.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga.</p>
 		<p class="font-italic mb-0">Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021.</p>
 		<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
 	</div>
@@ -229,16 +229,23 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 					<hr class="my-1"/>
 					<div class="d-flex justify-content-between text-muted">
 						<span id="TB_JlhAktifYest">Memuat</span>
-						<span class="" id="TB_JlhAktifSelisih">Memuat</span>
+						<span id="TB_JlhAktifSelisih">Memuat</span>
 					</div>
 				</div>
 				<div class="bg-secondary pb-1"></div>
 				<div class="card-body">
-					Persentase pasien dirawat:
-					<strong class="d-block" id="TBA_AktifPersen">...</strong>
-					<!--<div class="d-flex justify-content-between mb-2">
-						<strong id="TBA_AktifPersen">...</strong>
-					</div>-->
+				    Persentase tertinggi <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_AktfHighest">...</strong>
+						<small id="TBA_AktfHighestDate">Memuat</small>
+					</div>
+					Persentase terendah <span class="GET_day-html"></span>:
+					<div class="d-flex justify-content-between mb-2">
+						<strong id="TBA_AktfLowest">...</strong>
+						<small id="TBA_AktfLowestDate">Memuat</small>
+					</div>
+					Persentase saat ini:
+					<strong class="d-block mb-2" id="TBA_AktfPersen">...</strong>
 				</div>
 			</div>
 		</div>
@@ -491,8 +498,16 @@ $(document).ready(async function(){
 	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 	$("#TBA_CFR").text(TingkMeng[TingkMeng.length-1].replace(".",",")+"%");
 
-	var PersenAktif = (AktifJuml[AktifJuml.length-1]/KonfJuml[TanggalLen-1])*100;
-	$("#TBA_AktifPersen").text(PersenAktif.toFixed(2).replace(".",",")+"%");
+	var $Arr_day=TingkAktf,
+	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
+	$Trend=TrendInd(1,Meng7day[TanggalLen-1]-Meng7day[TanggalLen-2]);
+	$("#TBA_AktfHighest").text($Arr_day[IndexH].replace(".",",")+"%");
+	$("#TBA_AktfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
+	$("#TBA_AktfLowest").text($Arr_day[IndexL].replace(".",",")+"%");
+	$("#TBA_AktfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
+	$("#TBA_AktfPersen").text(TingkAktf[TingkAktf.length-1].replace(".",",")+"%");
+	//$("#TBA_AktfLowest").text(TingkAktf.replace(".",",")+"%");
 
 var C_konf = document.getElementById('ChartNewAll').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
