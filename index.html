@@ -472,7 +472,7 @@ $(document).ready(async function(){
 	var $Arr_day=KonfBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(1,Konf7day[TanggalLen-1]-Konf7day[TanggalLen-2]);
+	$Trend=TrendInd(1,Konf7day[TanggalLen-1]-Konf7day[TanggalLen-7]);
 	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
 	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
@@ -482,7 +482,7 @@ $(document).ready(async function(){
 	var $Arr_day=SembBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(2,Semb7day[TanggalLen-1]-Semb7day[TanggalLen-2]);
+	$Trend=TrendInd(2,Semb7day[TanggalLen-1]-Semb7day[TanggalLen-7]);
 	$("#TBA_SembHighest").text($Arr_day[IndexH]);
 	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
@@ -493,7 +493,7 @@ $(document).ready(async function(){
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(1,Meng7day[TanggalLen-1]-Meng7day[TanggalLen-2]);
+	$Trend=TrendInd(1,Meng7day[TanggalLen-1]-Meng7day[TanggalLen-7]);
 	$("#TBA_MengHighest").text($Arr_day[IndexH]);
 	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
