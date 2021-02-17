@@ -14,7 +14,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
-	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/solid.min.css" onload="if(media!='all')media='all'"/>-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -30,10 +29,13 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </head>
 <body>
 	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
-		<div class="container">
+		<div class="container d-md-flex justify-content-between text-center">
 			<a class="navbar-brand text-truncate">
 				JollyFrankle Projects: COVID-19 NTT Tracker
 			</a>
+			<div class="d-none d-md-block text-light">
+			    Data terakhir: <strong class="LastData">Memuat...</strong>
+			</div>
 		</div>
 	</nav>
 	<main class="container my-4">
@@ -111,8 +113,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div id="Bg1_Rekap" class="anchor"></div>
 <h2 class="border-bottom"><small>1.</small> Kasus Hari Ini</h2>
 <div class="container_rekap">
-	<div class="alert alert-info text-center h6" style="position:sticky;top:3.5rem;z-index:9">
-		INFORMASI: Data harian <strong class="LastData">Memuat...</strong><br/>
+	<div class="alert alert-info text-center" style="position:sticky;top:3.5rem;z-index:9">
+		Data harian <strong class="LastData">Memuat...</strong>
 		<!--Terakhir diperbarui: <strong id="LastMod">Memuat</strong>-->
 	</div>
 	<div class="form-row">
@@ -253,6 +255,11 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 		</div>
 	</div>
+	<!--<div class="text-center mb-3">
+	    <a class="btn btn-primary btn-sm" href="javascript:void(0)">Rincian per Kabupaten
+	    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
+	    </a>
+	</div>-->
 </div>
 
 <div id="Bg2_Grafik" class="anchor"></div>
@@ -339,51 +346,29 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<script src="data.js"></script>
+<!--<script src="data.js"></script>-->
 <script>
 var url = new URL(window.location.href);
-var GET_day = -url.searchParams.get("day");
-var GET_day_plain = url.searchParams.get("day");
-$("#RangeSel").val(GET_day_plain);
-if(GET_day_plain<=0) {var GET_day=-90; var GET_day_plain=90;}
-if(GET_day_plain>Tanggal.length) {var GET_day=-Tanggal.length; var GET_day_plain=Tanggal.length;}
+var day = url.searchParams.get("day");
+$("#RangeSel").val(day?day:90);
+
+$.getScript("data.js",AJAX_Complete);
+function AJAX_Complete(){
+if(day<=0) var GET_day=-90, GET_day_plain=90;
+else if(day>Tanggal.length) var GET_day=-Tanggal.length, GET_day_plain=Tanggal.length;
+else var GET_day=-day, GET_day_plain=day;
 
 $(".GET_day-html").text(GET_day_plain+" hari");
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
-var DefChartOpt = {
-	tooltips: {
-		enabled: true,
-		mode: 'index',
-		intersect: false,
-		callbacks: {
-			title: function(tooltipItems, data) {
-				var tgl=new Date(tooltipItems[0].xLabel);
-				return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+':';
-			}
-		}
-	},
-	hover: {
-		mode: "nearest",
-		intersect: true
-	},
-	elements: {
-		point:{
-			radius: 1
-		}
-	},
-	maintainAspectRatio: false,
-	aspectRatio: 1.5,
-	defaultFontFamily: "Roboto",
-	defaultFontSize: 14,
-};
-function DateIndo(date)
-{
-	var tgl=new Date(date);
-	return tgl.getDate()+" "+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear();
+function DateIndo(d) {
+	var t=new Date(d); return t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear();
 }
+Chart.defaults.global.defaultFontFamily="Roboto,sans-serif";
+Chart.defaults.global.defaultFontSize=14;
+var DefChartOpt={tooltips:{enabled:!0,mode:"index",intersect:!1,callbacks:{title:function(e,t){return DateIndo(e[0].xLabel)}}},hover:{mode:"nearest",intersect:!0},elements:{point:{radius:1}},maintainAspectRatio:!1};
 function getMinMax(arr) {
 	let min = arr[0];
 	let max = arr[0];
@@ -502,15 +487,13 @@ $(document).ready(async function(){
 	$("#TBA_CFR").text(TingkMeng[TingkMeng.length-1].replace(".",",")+"%");
 
 	var $Arr_day=TingkAktf,
-	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
-	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(1,Meng7day[TanggalLen-1]-Meng7day[TanggalLen-2]);
+	IndexH=Object.keys($Arr_day).reduce((a, b) => Number($Arr_day[a]) > Number($Arr_day[b]) ? a : b),
+	IndexL=Object.keys($Arr_day).reduce((a, b) => Number($Arr_day[a]) < Number($Arr_day[b]) && $Arr_day[a]!==null ? a : b);
 	$("#TBA_AktfHighest").text($Arr_day[IndexH].replace(".",",")+"%");
 	$("#TBA_AktfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
-	$("#TBA_AktfLowest").text($Arr_day[IndexL].replace(".",",")+"%");
+	$("#TBA_AktfLowest").text($Arr_day[IndexL]===null?"0%":$Arr_day[IndexL].replace(".",",")+"%");
 	$("#TBA_AktfLowestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexL]));
 	$("#TBA_AktfPersen").text(TingkAktf[TingkAktf.length-1].replace(".",",")+"%");
-	//$("#TBA_AktfLowest").text(TingkAktf.replace(".",",")+"%");
 
 var C_konf = document.getElementById('ChartNewAll').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
@@ -810,6 +793,7 @@ $.each($ArrTw,function(i,val)
 	$("#TP_Tabel tbody").append("<tr>"+colT+colKM+colKP+colKE+colSM+colSP+colSE+colMM+colMP+colME+"</tr>");
 });
 });
+}
 
 </script>
 </html>
