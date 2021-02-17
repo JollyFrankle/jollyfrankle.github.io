@@ -114,8 +114,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <h2 class="border-bottom"><small>1.</small> Kasus Hari Ini</h2>
 <div class="container_rekap">
 	<div class="alert alert-info text-center" style="position:sticky;top:3.5rem;z-index:9">
-		Data harian <strong class="LastData">Memuat...</strong>
-		<!--Terakhir diperbarui: <strong id="LastMod">Memuat</strong>-->
+		<div class="d-inline-block">Data harian <strong class="LastData">Memuat...</strong>,</div>
+		<div class="d-inline-block">Terakhir diperbarui: <strong class="LastMod">Memuat...</strong></div>
 	</div>
 	<div class="form-row">
 		<div class="col-sm-6 col-lg-3 mb-3">
@@ -256,7 +256,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<!--<div class="text-center mb-3">
-	    <a class="btn btn-primary btn-sm" href="javascript:void(0)">Rincian per Kabupaten
+	    <a class="btn btn-primary btn-sm" href="harian">Rincian per Kabupaten
 	    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
 	    </a>
 	</div>-->
@@ -348,24 +348,33 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <!--<script src="data.js"></script>-->
 <script>
+const delay = ms => new Promise(res=>setTimeout(res,ms));
+const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+function NolAwal(num, padlen) {
+	var pad_char = '0';
+	var pad = new Array(1 + padlen).join(pad_char);
+	return (pad + num).slice(-pad.length);
+}
 var url = new URL(window.location.href);
 var day = url.searchParams.get("day");
-$("#RangeSel").val(day?day:90);
-
-$.getScript("data.js",AJAX_Complete);
-function AJAX_Complete(){
+$("#RangeSel").val(day?day:90);//data[0].commit.author.date
+function DateIndo(d) {var t=new Date(d); return t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear();}
+$.ajax({
+	url:'https://api.github.com/repos/jollyfrankle/jollyfrankle.github.io/commits?path=data.js&page=1&per_page=1',
+	dataType: "json",
+	success: function(data){
+	    var t=new Date(data[0].commit.author.date);
+	    -t.getTimezoneOffset()/60>0?TimeZone="+"+(-t.getTimezoneOffset()/60):TimeZone=-t.getTimezoneOffset()/60;
+	    $(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" (UTC"+TimeZone+")");
+	}
+});
+$.getScript("data.js",AJAX_Complete); function AJAX_Complete(){
 if(day<=0) var GET_day=-90, GET_day_plain=90;
 else if(day>Tanggal.length) var GET_day=-Tanggal.length, GET_day_plain=Tanggal.length;
 else var GET_day=-day, GET_day_plain=day;
 
 $(".GET_day-html").text(GET_day_plain+" hari");
-const delay = ms => new Promise(res=>setTimeout(res,ms));
-const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-
-function DateIndo(d) {
-	var t=new Date(d); return t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear();
-}
 Chart.defaults.global.defaultFontFamily="Roboto,sans-serif";
 Chart.defaults.global.defaultFontSize=14;
 var DefChartOpt={tooltips:{enabled:!0,mode:"index",intersect:!1,callbacks:{title:function(e,t){return DateIndo(e[0].xLabel)}}},hover:{mode:"nearest",intersect:!0},elements:{point:{radius:1}},maintainAspectRatio:!1};
@@ -451,7 +460,6 @@ $(document).ready(async function(){
 	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
 
 	$(".LastData").text(DateIndo(Tanggal[TanggalLen-1]));
-	//$("#LastMod").text(Tanggal[Tanggal.length-1]);
 
 	await delay(500);
 	var $Arr_day=KonfBaru.slice(GET_day),
