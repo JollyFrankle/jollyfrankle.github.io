@@ -34,7 +34,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				JollyFrankle Projects: COVID-19 NTT Tracker
 			</a>
 			<div class="d-none d-md-block text-light">
-			    Data terakhir: <strong class="LastData">Memuat...</strong>
+				Data terakhir: <strong class="LastData">Memuat...</strong>
 			</div>
 		</div>
 	</nav>
@@ -59,7 +59,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</form>
 </div>
 <div class="alert alert-info">
-	<strong>PENGUMUMAN:</strong> Akan ada penambahan fitur: Rekapitulasi data harian, perubahan data harian setiap Kabupaten/Kota. Diperkirakan tersedia pada Rabu, 17 Februari 2021 mendatang.
+	<strong>PENGUMUMAN:</strong> Akan ada penambahan fitur: Rekapitulasi data harian, perubahan data harian setiap Kabupaten/Kota. Diperkirakan tersedia pada Rabu, 17 Februari 2021 malam.
 </div>
 <button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
 <div class="collapse" id="ILL_atas">
@@ -115,7 +115,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div class="container_rekap">
 	<div class="alert alert-info text-center" style="position:sticky;top:3.5rem;z-index:9">
 		<div class="d-inline-block">Data harian <strong class="LastData">Memuat...</strong>,</div>
-		<div class="d-inline-block">Terakhir diperbarui: <strong class="LastMod">Memuat...</strong></div>
+		<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
 	</div>
 	<div class="form-row">
 		<div class="col-sm-6 col-lg-3 mb-3">
@@ -239,7 +239,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 				</div>
 				<div class="bg-secondary pb-1"></div>
 				<div class="card-body">
-				    Persentase tertinggi <span class="GET_day-html"></span>:
+					Persentase tertinggi <span class="GET_day-html"></span>:
 					<div class="d-flex justify-content-between mb-2">
 						<strong id="TBA_AktfHighest">...</strong>
 						<small id="TBA_AktfHighestDate">Memuat</small>
@@ -256,9 +256,9 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</div>
 	<!--<div class="text-center mb-3">
-	    <a class="btn btn-primary btn-sm" href="harian">Rincian per Kabupaten
-	    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
-	    </a>
+		<a class="btn btn-primary btn-sm" href="harian">Rincian per Kabupaten
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
+		</a>
 	</div>-->
 </div>
 
@@ -341,12 +341,16 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</table>
 </div>
 
-	</main>
-</body>
+</main>
+<footer class="bg-dark text-light">
+	<div class="container p-3">
+		<strong>Jolly Frankle @ GitHub</strong>
+		<div class="small">Kontak: jollyfrankle3@gmail.com</div>
+	</div>
+</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<!--<script src="data.js"></script>-->
 <script>
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
@@ -358,15 +362,19 @@ function NolAwal(num, padlen) {
 }
 var url = new URL(window.location.href);
 var day = url.searchParams.get("day");
-$("#RangeSel").val(day?day:90);//data[0].commit.author.date
+$("#RangeSel").val(day?day:90);
 function DateIndo(d) {var t=new Date(d); return t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear();}
 $.ajax({
 	url:'https://api.github.com/repos/jollyfrankle/jollyfrankle.github.io/commits?path=data.js&page=1&per_page=1',
 	dataType: "json",
 	success: function(data){
-	    var t=new Date(data[0].commit.author.date);
-	    -t.getTimezoneOffset()/60>0?TimeZone="+"+(-t.getTimezoneOffset()/60):TimeZone=-t.getTimezoneOffset()/60;
-	    $(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" (UTC"+TimeZone+")");
+		var t=new Date(data[0].commit.author.date);
+		TZp=-t.getTimezoneOffset()/60; TZu=NolAwal(Math.floor(TZp),2)+":"+NolAwal(TZp%1*60,2);
+		TZp>=0 ? TZ="+"+TZu : TZ=TZu;
+		TZ=="+08:00" ? TZc="WITA" :
+		TZ=="+07:00" ? TZc="WIB" :
+		TZ=="+09:00" ? TZc="WIT" : TZc="(UTC"+TZ+")";
+		$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" "+TZc);
 	}
 });
 $.getScript("data.js",AJAX_Complete); function AJAX_Complete(){
@@ -376,7 +384,6 @@ else var GET_day=-day, GET_day_plain=day;
 
 $(".GET_day-html").text(GET_day_plain+" hari");
 Chart.defaults.global.defaultFontFamily="Roboto,sans-serif";
-Chart.defaults.global.defaultFontSize=14;
 var DefChartOpt={tooltips:{enabled:!0,mode:"index",intersect:!1,callbacks:{title:function(e,t){return DateIndo(e[0].xLabel)}}},hover:{mode:"nearest",intersect:!0},elements:{point:{radius:1}},maintainAspectRatio:!1};
 function getMinMax(arr) {
 	let min = arr[0];
@@ -517,13 +524,13 @@ var ChartStacked = new Chart(C_Stacked, {
 	data: {
 		labels: Tanggal.slice(GET_day),
 		datasets: [{
-		    label: "Jumlah",
-		    data: KonfJuml.slice(GET_day),
-		    borderWidth: 3,
-		    borderColor: "#BF9000",
-		    backgroundColor: "rgba(0,0,0,0)",
-		    type: 'line',
-		    pointRadius: 0
+			label: "Jumlah",
+			data: KonfJuml.slice(GET_day),
+			borderWidth: 3,
+			borderColor: "#BF9000",
+			backgroundColor: "rgba(0,0,0,0)",
+			type: 'line',
+			pointRadius: 0
 		},
 		{
 			label: "Meninggal",
@@ -531,7 +538,7 @@ var ChartStacked = new Chart(C_Stacked, {
 			backgroundColor: 'rgba(192,0,0,.7)',
 			borderWidth: 0,
 			categoryPercentage: 1.0,
-            barPercentage: 1.0
+			barPercentage: 1.0
 		},
 		{
 			label: "Sembuh",
@@ -539,19 +546,19 @@ var ChartStacked = new Chart(C_Stacked, {
 			backgroundColor: 'rgba(0,32,96,.7)',
 			borderWidth: 0,
 			categoryPercentage: 1.0,
-            barPercentage: 1.0
+			barPercentage: 1.0
 		},
 		{
-		    label: "Aktif",
-		    data: AktifJuml,
-		    backgroundColor: "rgba(0,176,80,.7)",
-		    borderWidth: 0,
-		    categoryPercentage: 1.0,
-            barPercentage: 1.0
+			label: "Aktif",
+			data: AktifJuml,
+			backgroundColor: "rgba(0,176,80,.7)",
+			borderWidth: 0,
+			categoryPercentage: 1.0,
+			barPercentage: 1.0
 		}]
 	},
 	options: {
-	    tooltips: {
+		tooltips: {
 			enabled: true,
 			mode: 'index',
 			intersect: false,
@@ -566,15 +573,15 @@ var ChartStacked = new Chart(C_Stacked, {
 			mode: "nearest",
 			intersect: true
 		},
-        scales: {
-            xAxes: [{
-                stacked: true
-            }],
-            yAxes: [{
-                stacked: true
-            }]
-        },
-        maintainAspectRatio: false,
+		scales: {
+			xAxes: [{
+				stacked: true
+			}],
+			yAxes: [{
+				stacked: true
+			}]
+		},
+		maintainAspectRatio: false,
 		aspectRatio: 1.5,
 		defaultFontFamily: "Roboto",
 		defaultFontSize: 14,
@@ -802,6 +809,6 @@ $.each($ArrTw,function(i,val)
 });
 });
 }
-
 </script>
+</body>
 </html>
