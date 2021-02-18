@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#343a40">
+	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+	<link rel="icon" href="assets/icon.png" type="image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<title>JFP – Data Harian COVID-19 NTT</title>
+	<noscript><meta http-equiv="refresh" content="0; url=no-js.html"/></noscript>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
+</script>
+	<style>
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}#TP_TblHarian td{vertical-align:middle;text-align:center}#TP_TblHarian td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}#TP_TblHarian td .flbet{display:flex;justify-content:space-between;align-items:center}
+@media (max-width:576px) {.chart-container{max-height:45vh;}}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
+		<div class="container d-md-flex justify-content-between text-center">
+			<a class="navbar-brand text-truncate">
+				JollyFrankle Projects: COVID-19 NTT Tracker
+			</a>
+			<div class="d-none d-md-block text-light">
+				Data terakhir: <strong class="LastData">Memuat...</strong>
+			</div>
+		</div>
+	</nav>
+	<main class="container my-4">
+<div class="d-block d-md-flex justify-content-between align-items-center mb-4">
+	<div>
+		<h1>COVID-19 NTT Tracker</h1>
+		<p class="mb-0">Perkembangan harian kasus COVID-19 NTT.</p>
+	</div>
+	<form method="GET" style="max-width:330px" class="m-md-0 m-auto">
+		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
+		<div class="btn-group w-100">
+			<select name="day" class="form-control custom-select" id="RangeSel">
+				<option value=90>90 hari terakhir (default)</option>
+				<option value=365>1 tahun terakhir</option>
+				<option value=180>180 hari terakhir</option>
+				<option value=60>60 hari terakhir</option>
+				<option value=30>30 hari terakhir</option>
+			</select>
+			<input type="submit" class="btn btn-primary" value="Tampilkan"/>
+		</div>
+	</form>
+</div>
+
+<button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
+<div class="collapse" id="ILL_atas">
+	<div class="alert alert-danger text-justify">
+		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-21.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 21.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga.</p>
+		<p class="font-italic mb-0">Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021.</p>
+		<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
+	</div>
+</div>
+
+<div class="card mb-4">
+	<div class="card-body text-justify">
+		<h4 class="border-bottom">Informasi</h4>
+		<ul class="pl-4 mb-3">
+			<li>Ganti jumlah hari yang dianalisis melalui <em>dropdown</em> yang tersedia di atas halaman, di bawah judul (pada ponsel) atau sebelah kanan judul (pada PC). Saat ini menampilkan analisis dari <span class="GET_day-html">...</span> terakhir.</li>
+			<li>Halaman ini memuat daftar kasus harian dari Briefing Satuan Tugas Penanganan COVID-19 Nusa Tenggara Timur. Data mungkin tidak 100% akurat, informasi pada situs Satgas mungkin diperbarui setelah pembaruan data di sistem ini.</li>
+		</ul>
+		<h4 class="border-bottom">Daftar isi</h4>
+		<div class="pl-4 mb-3">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">1.</div>
+				<a class="h5 mb-1" href="#Bg1_Harian">Perkembangan Kasus Harian</a>
+			</div>
+			Perkembangan kasus COVID-19 harian untuk seluruh Nusa Tenggara Timur selama <span class="GET_day-html">...</span> terakhir. Terdapat pula jumlah pertambahan kasus selama satu pekan tersebut.
+		</div>
+		<h4 class="border-bottom">Halaman lain</h4>
+		<div class="pl-4">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">1.</div>
+				<a class="h5 mb-1" href="harian.html">Beranda: Analisis dan grafik COVID-19 NTT</a>
+			</div>
+			Tersedia analisis harian, rekapitulasi data pekanan, dan grafik visualisasi perkembangan kasus COVID-19 Nusa Tenggara Timur.
+		</div>
+	</div>
+</div>
+
+<div id="Bg1_Harian" class="anchor"></div>
+<h2 class="border-bottom"><small>1.</small> Perkembangan Kasus Harian</h2>
+<div class="alert alert-info">
+	Lambang warna yang ditampilkan di sebelah kanan indikator penambahan kasus merupakan indikator seberapa tingginya peningkatan kasus pada hari itu dibandingkan penambahan kasus terbanyak sepanjang <span class="GET_day-html">...</span> terakhir. Semakin gelap/<em>solid</em> warna, semakin tinggi peningkatan.
+</div>
+<div class="table-responsive">
+	<table class="table table-hover" id="TP_TblHarian" style="min-width:830px">
+		<thead class="bg-light">
+			<tr>
+				<th rowspan=2 style="min-width:165px">Hari, Tanggal</th>
+				<th colspan=2 style="border-left:1px solid #dee2e6">Kasus Positif</th>
+				<th colspan=2 style="border-left:1px solid #dee2e6">Sembuh</th>
+				<th colspan=2 style="border-left:1px solid #dee2e6">Meninggal</th>
+				<th colspan=2 style="border-left:1px solid #dee2e6">Kasus Aktif</th>
+			</tr>
+			<tr>
+				<th style="border-left:1px solid #dee2e6">Baru</th>
+				<th>Jumlah</th>
+				<th style="border-left:1px solid #dee2e6">Baru</th>
+				<th>Jumlah</th>
+				<th style="border-left:1px solid #dee2e6">Baru</th>
+				<th>Jumlah</th>
+				<th style="border-left:1px solid #dee2e6">%</th>
+				<th>Jumlah</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td colspan=10 class="text-center">Data akan dimuat setelah grafik.</td></tr>
+		</tbody>
+	</table>
+</div>
+</main>
+<footer class="bg-dark text-light">
+	<div class="container p-3">
+		<strong>Jolly Frankle @ GitHub</strong>
+		<div class="small">Kontak: jollyfrankle3@gmail.com</div>
+	</div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+const delay = ms => new Promise(res=>setTimeout(res,ms));
+const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+function NolAwal(num, padlen) {
+	var pad_char = '0';
+	var pad = new Array(1 + padlen).join(pad_char);
+	return (pad + num).slice(-pad.length);
+}
+var url = new URL(window.location.href);
+var day = url.searchParams.get("day");
+$("#RangeSel").val(day?day:90);
+function DateIndo(d,mode) {var t=new Date(d);var o="";o=mode==2?NamaHari[t.getDay()]+", " : ""; o+=t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear(); return o;}
+/*$.ajax({
+	url:'https://api.github.com/repos/jollyfrankle/jollyfrankle.github.io/commits?path=data.js&page=1&per_page=1',
+	dataType: "json",
+	success: function(data){
+		var t=new Date(data[0].commit.author.date);
+		TZp=-t.getTimezoneOffset()/60; TZu=NolAwal(Math.floor(TZp),2)+":"+NolAwal(TZp%1*60,2);
+		TZp>=0 ? TZ="+"+TZu : TZ=TZu;
+		TZ=="+08:00" ? TZc="WITA" :
+		TZ=="+07:00" ? TZc="WIB" :
+		TZ=="+09:00" ? TZc="WIT" : TZc="(UTC"+TZ+")";
+		$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" "+TZc);
+	}
+});*/
+Date.prototype.getWeek = function() {
+	var date = new Date(this.getTime());
+	date.setHours(0, 0, 0, 0);
+	// Thursday in current week decides the year.
+	date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+	// January 4 is always in week 1.
+	var week1 = new Date(date.getFullYear(), 0, 4);
+	// Adjust to Thursday in week 1 and count number of weeks from date to week1.
+	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+	- 3 + (week1.getDay() + 6) % 7) / 7);
+}
+Date.prototype.getWeekYear = function() {
+	var date = new Date(this.getTime());
+	date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+	return date.getFullYear();
+}
+$.getScript("data.js",AJAX_Complete); function AJAX_Complete(){
+if(day<=0) var GET_day=-90, GET_day_plain=90;
+else if(day>Tanggal.length) var GET_day=-Tanggal.length, GET_day_plain=Tanggal.length;
+else var GET_day=-day, GET_day_plain=day;
+$(".GET_day-html").text(GET_day_plain+" hari");
+
+function getMinMax(arr) {
+	let min = arr[0];
+	let max = arr[0];
+	let i = arr.length;
+		
+	while (i--) {
+		min = arr[i] < min ? arr[i] : min;
+		max = arr[i] > max ? arr[i] : max;
+	}
+	return { min, max };
+}
+
+$(".LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
+$("#TP_TblHarian tbody").html(""); var PersAktfYest=null, $RMK=0, $RMS=0, $RMM=0;
+$.each(Tanggal.slice(GET_day),function(key,val){
+	var $ArrKB=KonfBaru.slice(GET_day), $ArrKJ=KonfJuml.slice(GET_day),
+	$ArrSB=SembBaru.slice(GET_day), $ArrSJ=SembJuml.slice(GET_day),
+	$ArrMB=MengBaru.slice(GET_day), $ArrMJ=MengJuml.slice(GET_day),
+	PersAktf=(($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))/$ArrKJ[key])*100,
+	PAind=
+	PersAktf > PersAktfYest ? "logoinc logoright text-danger" : 
+	PersAktf < PersAktfYest ? "logodec logoright text-success":
+	"logonet logoright text-secondary";
+	$RMK+=$ArrKB[key]; $RMS+=$ArrSB[key]; $RMM+=$ArrMB[key];
+	var HLKind="rgba(191,144,0,"+($ArrKB[key]-getMinMax($ArrKB)["min"])/getMinMax($ArrKB)["max"]+")";
+	var HLSind="rgba(0,32,96,"+($ArrSB[key]-getMinMax($ArrSB)["min"])/getMinMax($ArrSB)["max"]+")";
+	var HLMind="rgba(192,0,0,"+($ArrMB[key]-getMinMax($ArrMB)["min"])/getMinMax($ArrMB)["max"]+")";
+	Col1="<td>"+DateIndo(val,2)+"</td>";
+	ColK1="<td><div class='flbet'><div>+<strong>"+$ArrKB[key]+"</strong></div><div class='rounded tbl-iti' style='background:"+HLKind+"'></div></div></td>";
+	ColK2="<td>"+$ArrKJ[key]+"</td>";
+	ColS1="<td><div class='flbet'><div>+<strong>"+$ArrSB[key]+"</strong></div><div class='rounded tbl-iti' style='background:"+HLSind+"'></div></div></td>";
+	ColS2="<td>"+$ArrSJ[key]+"</td>";
+	ColM1="<td><div class='flbet'><div>+<strong>"+$ArrMB[key]+"</strong></div><div class='rounded tbl-iti' style='background:"+HLMind+"'></div></div></td>";
+	ColM2="<td>"+$ArrMJ[key]+"</td>";
+	ColA1="<td><div class='flbet'>"+PersAktf.toFixed(2).replace(".",",")+"%<div class='"+PAind+"'></div></div></td>";
+	ColA2="<td>"+($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))+"</td>";
+	$("#TP_TblHarian tbody").prepend("<tr>"+Col1+ColK1+ColK2+ColS1+ColS2+ColM1+ColM2+ColA1+ColA2+"</tr>");
+	if(new Date(val).getDay()+1==7) {
+		var tgl=new Date(val);
+		ColRMTgl="<td><span class='text-info h6 mb-0'>Pekan ke-"+tgl.getWeek()+" tahun "+tgl.getWeekYear()+"</span></td>";
+		ColEmpty="<td></td>";
+		ColRMK="<td style='color:#BF9000;text-align:left'>+<strong>"+$RMK+"</strong></td>";
+		ColRMS="<td style='color:#002060;text-align:left'>+<strong>"+$RMS+"</strong></td>";
+		ColRMM="<td style='color:#C00000;text-align:left'>+<strong>"+$RMM+"</strong></td>";
+		$("#TP_TblHarian tbody").prepend("<tr style='border-top:3px solid var(--dark)'>"+ColRMTgl+ColRMK+ColEmpty+ColRMS+ColEmpty+ColRMM+ColEmpty+ColEmpty+ColEmpty+"</tr>");
+		$RMK=0; $RMS=0; $RMM=0;
+	}
+	PersAktfYest=PersAktf;
+});
+}
+</script>
+</body>
+</html>
