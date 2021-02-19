@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="id" dir="ltr">
 <head>
 	<meta charset="utf-8">
 	<meta name="theme-color" content="#343a40">
@@ -83,9 +83,16 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<div class="pl-4">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
 				<div style="width:1.5rem">1.</div>
-				<a class="h5 mb-1" href="../">Beranda: Analisis dan grafik COVID-19 NTT</a>
+				<a class="h5 mb-1" href="index.html">Beranda: Analisis dan grafik COVID-19 NTT</a>
 			</div>
 			Tersedia analisis harian, rekapitulasi data pekanan, dan grafik visualisasi perkembangan kasus COVID-19 Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">2.</div>
+				<a class="h5 mb-1" href="datakab.html">Kasus Per Wilayah</a>
+			</div>
+			Perkembangan data hari ini per Kabupaten/Kota di Nusa Tenggara Timur.
 		</div>
 	</div>
 </div>
@@ -143,19 +150,6 @@ var url = new URL(window.location.href);
 var day = url.searchParams.get("day");
 $("#RangeSel").val(day?day:90);
 function DateIndo(d,mode) {var t=new Date(d);var o="";o=mode==2?NamaHari[t.getDay()]+", " : ""; o+=t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear(); return o;}
-/*$.ajax({
-	url:'https://api.github.com/repos/jollyfrankle/jollyfrankle.github.io/commits?path=data.js&page=1&per_page=1',
-	dataType: "json",
-	success: function(data){
-		var t=new Date(data[0].commit.author.date);
-		TZp=-t.getTimezoneOffset()/60; TZu=NolAwal(Math.floor(TZp),2)+":"+NolAwal(TZp%1*60,2);
-		TZp>=0 ? TZ="+"+TZu : TZ=TZu;
-		TZ=="+08:00" ? TZc="WITA" :
-		TZ=="+07:00" ? TZc="WIB" :
-		TZ=="+09:00" ? TZc="WIT" : TZc="(UTC"+TZ+")";
-		$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" "+TZc);
-	}
-});*/
 Date.prototype.getWeek = function() {
 	var date = new Date(this.getTime());
 	date.setHours(0, 0, 0, 0);
