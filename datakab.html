@@ -19,8 +19,7 @@
 window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
 </script>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}#TP_TblHarian td{vertical-align:middle;text-align:center}#TP_TblHarian td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}
-@media (max-width:576px) {.chart-container{max-height:45vh;}}
+body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}.anchor{position:absolute;margin-top:-7rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}#ClosedCasesToday,#NewCasesToday{padding-left:1.25rem;margin-bottom:0}
 </style>
 </head>
 <body>
@@ -56,6 +55,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		<h4 class="border-bottom">Informasi</h4>
 		<ul class="pl-4 mb-3">
 			<li>Halaman ini memuat daftar kasus per Kabupaten/Kota dari Briefing Satuan Tugas Penanganan COVID-19 Nusa Tenggara Timur. Data mungkin tidak 100% akurat, informasi pada situs Satgas mungkin diperbarui setelah pembaruan data di sistem ini.</li>
+			<li>Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</li>
 		</ul>
 		<!--<h4 class="border-bottom">Daftar isi</h4>
 		<div class="pl-4 mb-3">
@@ -73,13 +73,35 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</div>
 			Tersedia analisis harian, rekapitulasi data pekanan, dan grafik visualisasi perkembangan kasus COVID-19 Nusa Tenggara Timur.
 		</div>
-		<div class="pl-4">
+		<div class="pl-4 mb-3">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
 				<div style="width:1.5rem">2.</div>
 				<a class="h5 mb-1" href="harian.html">Perkembangan Kasus</a>
 			</div>
 			Perkembangan kasus hari-demi-hari di Nusa Tenggara Timur.
 		</div>
+		<h4 class="border-bottom">Daftar Isi</h4>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">1.</div>
+				<a class="h5 mb-1" href="#Bg11_Baru">Pertambahan Kasus Baru</a>
+			</div>
+			Pertambahan kasus baru per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">2.</div>
+				<a class="h5 mb-1" href="#Bg12_Tuntas">Pertambahan Kasus Tuntas</a>
+			</div>
+			Pertambahan kasus tuntas (sembuh dan meninggal, tanpa dispesifikasi sembuh atau meninggal) per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">3.</div>
+				<span class="h5 mb-1">Perubahan kasus hari ini per wilayah:</span>
+			</div>
+		</div>
+		<ul id="TOC" style="column-width:185px;margin-left:1.5rem;padding-left:1.25rem;margin-bottom:0;display:none"></ul>
 	</div>
 </div>
 
@@ -90,6 +112,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 
 <div class="row">
     <div class="col-md-6 mb-3">
+        <div class="anchor" id="Bg11_Baru"></div>
         <div class="card h-100">
             <div class="pb-1" style="background:#BF9000"></div>
             <div class="card-body">
@@ -97,12 +120,13 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
                 <p class="mb-1 text-muted">Kasus terkonfirmasi baru per <span class="LastData">Memuat...</span>.</p>
                 <hr class="my-2"/>
                 <div class="font-weight-bold flbet" style="color:#BF9000">Nusa Tenggara Timur <span id="KonfIncNTT"></span></div>
-                <ul class="pl-4 mb-0" id="NewCasesToday">
+                <ul id="NewCasesToday">
                 </ul>
             </div>
         </div>
     </div>
     <div class="col-md-6 mb-3">
+        <div class="anchor" id="Bg12_Tuntas"></div>
         <div class="card h-100">
             <div class="d-flex">
                 <div class="pb-1 w-50" style="background:#002060"></div>
@@ -114,15 +138,17 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
                 <hr class="my-2"/>
                 <div class="font-weight-bold flbet" style="color:#002060">Nusa Tenggara Timur <span id="SembIncNTT"></span></div>
                 <div class="font-weight-bold flbet" style="color:#C00000">Nusa Tenggara Timur <span id="MengIncNTT"></span></div>
-                <ul class="pl-4 mb-0" id="ClosedCasesToday">
+                <ul id="ClosedCasesToday">
                 </ul>
             </div>
         </div>
     </div>
 </div>
+<div class="small pb-3 text-muted text-center">Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</div>
 <section id="SectWil"></section>
 
 <section id="TemplateWilayah" class="d-none">
+<div class="anchor" id="$Anchor$"></div>
 <div class="card mb-4 overflow-hidden">
     <div class="pb-1 bg-secondary"></div>
     <div class="card-body">
@@ -130,7 +156,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
         <div class="row">
             <div class="col-sm-6 col-lg-3 mb-2">
                 <h6 class="mb-1" style="color:#BF9000">Jumlah kasus positif:</h6>
-                <p class="display-4 mb-1" style="height:calc(100% - 3.5rem);display:flex;align-items:center;">$TotKonf$</p>
+                <p class="display-4 mb-1" style="height:calc(100% - 3rem);display:flex;align-items:center;">$TotKonf$</p>
                 <hr class="my-1"/>
                 <p class="mb-0"><strong>$PerKsNTT$</strong> kasus di NTT</p>
             </div>
@@ -138,7 +164,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
                 <h6 class="mb-1">Rincian</h6>
                 <div class="text-muted small">Jumlah kasus selama ini</div>
                 <hr class="my-1"/>
-                <div class="d-flex justify-content-between mb-1">
+                <div class="flbet mb-1">
                     <div class="info-kasus"><small>KONFIRMASI:</small> <strong>$TotKonf$</strong></div>
                     <span class="$TotKonfInd$">$TotKonfInc$</span>
                 </div>
@@ -146,15 +172,15 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
                     Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
                 </a>
                 <div id="InfoPSKTot_$Key$" class="collapse pt-1">
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>PROBABLE:</small> <strong>$TotProb$</strong></div>
                         <span class="$TotProbInd$">$TotProbInc$</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>SUSPEK:</small> <strong>$TotSusp$</strong></div>
                         <span class="$TotSuspInd$">$TotSuspInc$</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>KONT. ERAT:</small> <strong>$TotKont$</strong></div>
                         <span class="$TotKontInd$">$TotKontInc$</span>
                     </div>
@@ -164,23 +190,27 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
                 <h6 class="mb-1">Kasus aktif</h6>
                 <div class="text-muted small">Kasus yang masih ditangani</div>
                 <hr class="my-1"/>
-                <div class="d-flex justify-content-between mb-1">
+                <div class="flbet">
                     <div class="info-kasus"><small>KONFIRMASI:</small> <strong>$AktKonf$</strong></div>
                     <span class="$AktKonfInd$">$AktKonfInc$</span>
+                </div>
+                <div class="flbet mb-1">
+                    <small>Persentase Kasus Aktif:</small>
+                    <strong>$AktKonfPerc$</strong>
                 </div>
                 <a class="d-block small" type="button" data-toggle="collapse" href="#InfoPSKAkt_$Key$" draggable="false">
                     Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
                 </a>
                 <div id="InfoPSKAkt_$Key$" class="collapse pt-1">
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>PROBABLE:</small> <strong>$AktProb$</strong></div>
                         <span class="$AktProbInd$">$AktProbInc$</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>SUSPEK:</small> <strong>$AktSusp$</strong></div>
                         <span class="$AktSuspInd$">$AktSuspInc$</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>KONT. ERAT:</small> <strong>$AktKont$</strong></div>
                         <span class="$AktKontInd$">$AktKontInc$</span>
                     </div>
@@ -190,7 +220,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
                 <h6 class="mb-1">Kasus tuntas</h6>
                 <div class="text-muted small">Kasus sembuh/meninggal</div>
                 <hr class="my-1"/>
-                <div class="d-flex justify-content-between mb-1">
+                <div class="flbet mb-1">
                     <div class="info-kasus"><small>KONFIRMASI:</small> <strong>$TunKonf$</strong></div>
                     <span class="$TunKonfInd$">$TunKonfInc$</span>
                 </div>
@@ -198,15 +228,15 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
                     Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
                 </a>
                 <div id="InfoPSKTun_$Key$" class="collapse pt-1">
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>PROBABLE:</small> <strong>$TunProb$</strong></div>
                         <span class="$TunProbInd$">$TunProbInc$</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>SUSPEK:</small> <strong>$TunSusp$</strong></div>
                         <span class="$TunSuspInd$">$TunSuspInc$</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-1 text-muted">
+                    <div class="flbet mb-1 text-muted">
                         <div class="info-kasus"><small>KONT. ERAT:</small> <strong>$TunKont$</strong></div>
                         <span class="$TunKontInd$">$TunKontInc$</span>
                     </div>
@@ -216,7 +246,9 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
     </div>
 </div>
 </section>
-
+<section id="TemplateTOC" class="d-none">
+    <li><a href="$Anchor$">$NamaWil$</a></li>
+</section>
 </main>
 <footer class="bg-dark text-light">
 	<div class="container p-3">
@@ -271,6 +303,19 @@ var KonfJuml=null;
 $.each(TodTot,function(key,val){
     KonfJuml+=val[3];
 });
+function ChInd(x,mode)
+{
+    o1 = x != 0 ? x : "";
+    if(mode==1) o2 = x > 0 ? "logoinc text-danger" : x < 0 ? "logodec text-success" : "";
+    if(mode==2) o2 = x > 0 ? "logoinc text-success" : x < 0 ? "logodec text-danger" : "";
+    return [o1, o2];
+}
+function compare(a,b) {
+  if (a[0] > b[0]) return -1;
+  if (a[0] < b[0]) return 1;
+  return 0;
+}
+
 var KonfBaru=[], TuntBaru=[];
 $.each(NamaKab,function(key,val){
     val=val.substr(0,4)!="Kota"?"Kab. "+val:val;
@@ -279,37 +324,38 @@ $.each(NamaKab,function(key,val){
     SelSuspTot=TodTot[key][1]-YesTot[key][1], SelSuspAkt=TodAkt[key][1]-YesAkt[key][1], SelSuspTun=TodTun[key][1]-YesTun[key][1],
     SelKontTot=TodTot[key][0]-YesTot[key][0], SelKontAkt=TodAkt[key][0]-YesAkt[key][0], SelKontTun=TodTun[key][0]-YesTun[key][0],
     Input=$("#TemplateWilayah").html()
-    .replaceAll("$Key$",key)
-    .replaceAll("$NamaWil$",val)
+    .replaceAll("$Key$",key).replaceAll("$NamaWil$",val).replace("$Anchor$","Dati2"+key)
     .replaceAll("$TotKonf$",TodTot[key][3]).replaceAll("$TotProb$",TodTot[key][2]).replaceAll("$TotSusp$",TodTot[key][1]).replaceAll("$TotKont$",TodTot[key][0])
     .replaceAll("$AktKonf$",TodAkt[key][3]).replaceAll("$AktProb$",TodAkt[key][2]).replaceAll("$AktSusp$",TodAkt[key][1]).replaceAll("$AktKont$",TodAkt[key][0])
     .replaceAll("$TunKonf$",TodTun[key][3]).replaceAll("$TunProb$",TodTun[key][2]).replaceAll("$TunSusp$",TodTun[key][1]).replaceAll("$TunKont$",TodTun[key][0])
-    .replaceAll("$TotKonfInc$",SelKonfTot>0?SelKonfTot:"").replaceAll("$TotKonfInd$",SelKonfTot>0?"logoinc text-info":"")
-    .replaceAll("$AktKonfInc$",SelKonfAkt>0?SelKonfAkt:"").replaceAll("$AktKonfInd$",SelKonfAkt>0?"logoinc text-info":"")
-    .replaceAll("$TunKonfInc$",SelKonfTun>0?SelKonfTun:"").replaceAll("$TunKonfInd$",SelKonfTun>0?"logoinc text-info":"")
-    .replaceAll("$TotProbInc$",SelProbTot>0?SelProbTot:"").replaceAll("$TotProbInd$",SelProbTot>0?"logoinc text-info":"")
-    .replaceAll("$AktProbInc$",SelProbAkt>0?SelProbAkt:"").replaceAll("$AktProbInd$",SelProbAkt>0?"logoinc text-info":"")
-    .replaceAll("$TunProbInc$",SelProbTun>0?SelProbTun:"").replaceAll("$TunProbInd$",SelProbTun>0?"logoinc text-info":"")
-    .replaceAll("$TotSuspInc$",SelSuspTot>0?SelSuspTot:"").replaceAll("$TotSuspInd$",SelSuspTot>0?"logoinc text-info":"")
-    .replaceAll("$AktSuspInc$",SelSuspAkt>0?SelSuspAkt:"").replaceAll("$AktSuspInd$",SelSuspAkt>0?"logoinc text-info":"")
-    .replaceAll("$TunSuspInc$",SelSuspTun>0?SelSuspTun:"").replaceAll("$TunSuspInd$",SelSuspTun>0?"logoinc text-info":"")
-    .replaceAll("$TotKontInc$",SelKontTot>0?SelKontTot:"").replaceAll("$TotKontInd$",SelKontTot>0?"logoinc text-info":"")
-    .replaceAll("$AktKontInc$",SelKontAkt>0?SelKontAkt:"").replaceAll("$AktKontInd$",SelKontAkt>0?"logoinc text-info":"")
-    .replaceAll("$TunKontInc$",SelKontTun>0?SelKontTun:"").replaceAll("$TunKontInd$",SelKontTun>0?"logoinc text-info":"")
-    .replaceAll("$PerKsNTT$",((TodTot[key][3]/KonfJuml)*100).toFixed(2).replace(".",",")+"%");
+    .replace("$TotKonfInc$",ChInd(SelKonfTot,1)[0]).replace("$TotKonfInd$",ChInd(SelKonfTot,1)[1])
+    .replace("$AktKonfInc$",ChInd(SelKonfAkt,1)[0]).replace("$AktKonfInd$",ChInd(SelKonfAkt,1)[1])
+    .replace("$TunKonfInc$",ChInd(SelKonfTun,2)[0]).replace("$TunKonfInd$",ChInd(SelKonfTun,2)[1])
+    .replace("$TotProbInc$",ChInd(SelProbTot,1)[0]).replace("$TotProbInd$",ChInd(SelProbTot,1)[1])
+    .replace("$AktProbInc$",ChInd(SelProbAkt,1)[0]).replace("$AktProbInd$",ChInd(SelProbAkt,1)[1])
+    .replace("$TunProbInc$",ChInd(SelProbTun,2)[0]).replace("$TunProbInd$",ChInd(SelProbTun,2)[1])
+    .replace("$TotSuspInc$",ChInd(SelSuspTot,1)[0]).replace("$TotSuspInd$",ChInd(SelSuspTot,1)[1])
+    .replace("$AktSuspInc$",ChInd(SelSuspAkt,1)[0]).replace("$AktSuspInd$",ChInd(SelSuspAkt,1)[1])
+    .replace("$TunSuspInc$",ChInd(SelSuspTun,2)[0]).replace("$TunSuspInd$",ChInd(SelSuspTun,2)[1])
+    .replace("$TotKontInc$",ChInd(SelKontTot,1)[0]).replace("$TotKontInd$",ChInd(SelKontTot,1)[1])
+    .replace("$AktKontInc$",ChInd(SelKontAkt,1)[0]).replace("$AktKontInd$",ChInd(SelKontAkt,1)[1])
+    .replace("$TunKontInc$",ChInd(SelKontTun,2)[0]).replace("$TunKontInd$",ChInd(SelKontTun,2)[1])
+    .replaceAll("$PerKsNTT$",((TodTot[key][3]/KonfJuml)*100).toFixed(2).replace(".",",")+"%")
+    .replace("$AktKonfPerc$",((TodAkt[key][3]/TodTot[key][3])*100).toFixed(2).replace(".",",")+"%");
     if(SelKonfTot) KonfBaru.push([SelKonfTot,val]);
-    if(SelKonfTun) TuntBaru.push([SelKonfTun,val])
-    $("#SectWil").append(Input);
+    if(SelKonfTun) TuntBaru.push([SelKonfTun,val]);
+    TOC=$("#TemplateTOC").html().replace("$Anchor$","#Dati2"+key).replace("$NamaWil$",val);
+    $("#SectWil").append(Input); $("#TOC").append(TOC);
 });
-KonfBaru.sort(SortChild); TuntBaru.sort(SortChild);
-function SortChild(a,b){
-  return a[1][1].localeCompare(b[1][1]);
-}
-$.each(KonfBaru,function(key,val){
-    $("#NewCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>+"+val[0]+"</strong></div></li>");
+$("#TOC").slideDown();
+KonfBaru.sort(compare); TuntBaru.sort(compare);
+$.each(KonfBaru,function(key,val) {
+    val0 = val[0] < 0 ? val[0] : "+"+val[0];
+    $("#NewCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>"+val0+"</strong></div></li>");
 });
-$.each(TuntBaru,function(key,val){
-    $("#ClosedCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>+"+val[0]+"</strong></div></li>")
+$.each(TuntBaru,function(key,val) {
+    val0 = val[0] < 0 ? val[0] : "+"+val[0];
+    $("#ClosedCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>"+val0+"</strong></div></li>")
 });
 }
 </script>
