@@ -71,6 +71,21 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			<li>Apabila Anda menggunakan perangkat yang kurang mendukung, disarankan untuk memilih data dari 180 hari atau kurang, sebab banyak perhitungan dan <em>rendering</em> pada grafik yang memakan banyak kekuatan perangkat.</li>
 			<li>Informasi terakhir pada halaman ini diperbarui pada <span class="LastData">...</span>. Data dari Satgas COVID-19 NTT diperbarui setiap pukul 17.00 WITA. Apabila data pada situs ini belum diperbarui, data akan diperbarui paling lambat pada pukul 21.00 WITA pada hari yang sama.</li>
 			<li>Klik pada legenda di bawah judul, di atas setiap grafik untuk menghilangkan/menampilkan <em>dataset</em> tertentu.</li>
+			<li>Trend 7-hari dihitung dengan mencari perbedaan antara rata-rata 7-hari pada data hari ini, dan rata-rata 7-hari pada data 8 hari yang lalu. Indikator:
+			    <div class="row">
+			        <div class="col-md-6">
+			            <div><code>&nbsp; &nbsp; &nbsp;&gt; +50%</code>: Meningkat tajam</div>
+        			    <div><code>+11% – +50%</code>: Meningkat</div>
+        			    <div><code>&nbsp; 0% – +10%</code>: Meningkat tipis</div>
+			        </div>
+			        <div class="col-md-6">
+			            <div><code>&nbsp; 0% – -10%</code>: Menurun tipis</div>
+        			    <div><code>-11% – -50%</code>: Menurun</div>
+        			    <div><code>&nbsp; &nbsp; &nbsp;&lt; -50%</code>: Menurun tajam</div>
+			        </div>
+			    </div>
+			    <div class="text-muted small">Hubungi kreator apabila patokan indikator atau cara perhitungan tidak sesuai agar dapat diperbaiki. Mohon sertakan tata cara perhitungan yang benar.</div>
+			</li>
 			<li><strong>PENTING:</strong> Data sembuh dan meninggal direkam mulai 1 Agustus 2020.</li>
 		</ul>
 		<h4 class="border-bottom">Daftar isi</h4>
@@ -430,16 +445,31 @@ function PreIndC(val) {
 	return (val<0?"":"+")+val.toFixed(2).replace(".",",");
 }
 
-function TrendInd(mode,val) {
+function TrendInd(mode,val1,val2) {
+    var selisih = val1 - val2;
+    var perc = selisih / val2;
+    if(perc > 0) {
+        i="Meningkat "; l="logoinc";
+    }
+    if(perc < 0) {
+        i="Menurun "; l="logodec";
+    }
+    if(perc===0) {i+="Tidak ada perubahan";c="muted";l="logonet"}
 	if(mode==1) {
-		if(val > 0) {i="Meningkat";c="danger";l="logoinc"}
-		if(val== 0) {i="Stabil";c="muted";l="logonet"}
-		if(val < 0) {i="Menurun";c="success";l="logodec"}
+	    if(perc > 0.5) {i+="tajam";c="danger"}
+	    if(perc > 0.1 && perc <= 0.5) {c="danger"}
+	    if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+	    if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+	    if(perc <-0.1 && perc >=-0.5) {c="success"}
+	    if(perc <-0.5) {i+="tajam";c="success"}
 	}
 	if(mode==2) {
-		if(val > 0) {i="Meningkat";c="success";l="logoinc"}
-		if(val== 0) {i="Stabil";c="muted";l="logonet"}
-		if(val < 0) {i="Menurun";c="danger";l="logodec"}
+	    if(perc > 0.5) {i+="tajam";c="success"}
+	    if(perc > 0.1 && perc <= 0.5) {c="success"}
+	    if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+	    if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+	    if(perc <-0.1 && perc >=-0.5) {c="danger"}
+	    if(perc <-0.5) {i+="tajam";c="danger"}
 	}
 	return [i,c,l];
 }
@@ -485,7 +515,7 @@ $(document).ready(async function(){
 	var $Arr_day=KonfBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(1,Konf7day[TanggalLen-1]-Konf7day[TanggalLen-7]);
+	$Trend=TrendInd(1,Konf7day[TanggalLen-1],Konf7day[TanggalLen-8]);
 	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
 	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
@@ -495,7 +525,7 @@ $(document).ready(async function(){
 	var $Arr_day=SembBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(2,Semb7day[TanggalLen-1]-Semb7day[TanggalLen-7]);
+	$Trend=TrendInd(2,Semb7day[TanggalLen-1],Semb7day[TanggalLen-8]);
 	$("#TBA_SembHighest").text($Arr_day[IndexH]);
 	$("#TBA_SembHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
@@ -506,7 +536,7 @@ $(document).ready(async function(){
 	var $Arr_day=MengBaru.slice(GET_day),
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
-	$Trend=TrendInd(1,Meng7day[TanggalLen-1]-Meng7day[TanggalLen-7]);
+	$Trend=TrendInd(1,Meng7day[TanggalLen-1],Meng7day[TanggalLen-8]);
 	$("#TBA_MengHighest").text($Arr_day[IndexH]);
 	$("#TBA_MengHighestDate").text(DateIndo(Tanggal.slice(GET_day)[IndexH]));
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
@@ -799,7 +829,9 @@ $.each($ArrTw,function(i,val)
 	$DiffKP=(($ArrMKw[i]/$ArrMKw[i+1])-1)*100; $DiffK=$ArrMKw[i]-$ArrMKw[i+1];
 	$DiffSP=(($ArrMSw[i]/$ArrMSw[i+1])-1)*100; $DiffS=$ArrMSw[i]-$ArrMSw[i+1];
 	$DiffMP=(($ArrMMw[i]/$ArrMMw[i+1])-1)*100; $DiffM=$ArrMMw[i]-$ArrMMw[i+1];
-	$IndKP=TrendInd(1,$DiffKP); $IndSP=TrendInd(2,$DiffSP); $IndMP=TrendInd(1,$DiffMP);
+	$IndKP=TrendInd(1,$ArrMKw[i],$ArrMKw[i-1]);
+	$IndSP=TrendInd(2,$ArrMSw[i],$ArrMSw[i-1]);
+	$IndMP=TrendInd(1,$ArrMMw[i],$ArrMMw[i-1]);
 	//$DetailPekan="<a class='badge badge-pill badge-dark BtnWeek' data-week='"+val+"' href='javascript:void(0)'>+ Data Harian</a>";
 	$DetailPekan="";
 	colT="<td>"+DateIndo(new Date($ArrT[(i*7)+6]))+"<div class='small'>s.d.</div>"+DateIndo(new Date($ArrT[i*7]))+$DetailPekan+"</td>";
