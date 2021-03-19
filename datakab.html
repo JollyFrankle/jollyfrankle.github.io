@@ -147,7 +147,10 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <div class="small pb-3 text-muted text-center">Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</div>
 <section id="SectWil"></section>
 
-<div id="TambahanInfo" style="position:sticky;bottom:0"></div>
+<div id="TambahanInfo" class="alert mb-0" style="position:sticky; bottom:0; display:none; max-height:6rem">
+    <h6 class="mb-1" id="TI_header"></h6>
+    <p class="mb-0 small" id="TI_text"></p>
+</div>
 
 <section id="TemplateWilayah" class="d-none">
 <div class="anchor" id="$Anchor$"></div>
@@ -261,6 +264,19 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script>
+$.ajax({
+	url: "pengumuman.json",
+	method: "GET",
+	dataType: "json",
+	success:function(data)
+	{
+		if(data.show) {
+		    $("#TI_header").html(data.header);
+		    $("#TI_text").html(data.text);
+		    $("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
+		}
+	}
+});
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
