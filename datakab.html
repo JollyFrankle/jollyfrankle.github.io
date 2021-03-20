@@ -13,13 +13,17 @@
 	<noscript><meta http-equiv="refresh" content="0; url=no-js.html"/></noscript>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
 <script>
 window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
 </script>
 	<style>
 body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}.anchor{position:absolute;margin-top:-7rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}#ClosedCasesToday,#NewCasesToday{padding-left:1.25rem;margin-bottom:0}
+#MapContainer svg{overflow:auto;width:100%}#MapContainer svg path{cursor:pointer}
+#MapLegend{z-index:1;position:absolute;left:.5rem;bottom:.5rem;width:250px}
+@media (max-width:575.98px) {
+    #MapLegend{position:static;border-radius:0}
+}
 </style>
 </head>
 <body>
@@ -110,6 +114,20 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 	<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
 </div>
 
+<div class="position-relative rounded border mb-3">
+    <div id="MapContainer" style="background:#C6ECFF" data-zoom-on-wheel="zoom-amount: 0.001; min-scale: 1; max-scale: 10;" data-pan-on-drag >
+    </div>
+    <div class="alert alert-light small py-2 px-3 mb-0" id="MapLegend">
+        <div class="d-flex justify-content-between">
+            <span  id="LegIn_Kab">Klik atau arahkan mouse ke sebuah wilayah untuk melihat jumlah penambahan kasus positif hari ini.</span>
+            <strong id="LegIn_Num"></strong>
+        </div>
+        <hr class="my-1"/>
+        Jumlah pertambahan kasus positif di NTT hari ini: semakin gelap warna merah, semakin banyak.<br/>
+        Untuk saat ini, hanya informasi ini yang dapat ditampilkan. Informasi lain akan diimplementasikan ke peta.
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-6 mb-3">
         <div class="anchor" id="Bg11_Baru"></div>
@@ -146,11 +164,6 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 </div>
 <div class="small pb-3 text-muted text-center">Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</div>
 <section id="SectWil"></section>
-
-<div id="TambahanInfo" class="alert mb-0" style="position:sticky; bottom:0; display:none; max-height:6rem">
-    <h6 class="mb-1" id="TI_header"></h6>
-    <p class="mb-0 small" id="TI_text"></p>
-</div>
 
 <section id="TemplateWilayah" class="d-none">
 <div class="anchor" id="$Anchor$"></div>
@@ -261,22 +274,11 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 		<div class="small">Kontak: jollyfrankle3@gmail.com</div>
 	</div>
 </footer>
+<style id="map_style"></style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.5.0"></script>
 <script>
-$.ajax({
-	url: "pengumuman.json",
-	method: "GET",
-	dataType: "json",
-	success:function(data)
-	{
-		if(data.show) {
-		    $("#TI_header").html(data.header);
-		    $("#TI_text").html(data.text);
-		    $("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
-		}
-	}
-});
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -299,6 +301,11 @@ $.ajax({
 		$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" "+TZc);
 	}
 });
+$.ajax({
+    url: "peta-ntt.svg",
+    dataType: 'html',
+    success: function(data){$("#MapContainer").prepend(data);}
+});
 $.getScript("datakab.js",AJAX_Complete); $.getScript("data.js",DATAJS_Complete);
 function DATAJS_Complete(){
     $("#KonfIncNTT").text("+"+KonfBaru[KonfBaru.length-1]+" ks. baru");
@@ -317,6 +324,15 @@ function getMinMax(arr) {
 	}
 	return { min, max };
 }
+function rgba2rgb(background, color) {
+    const alpha = color[3];
+    return "rgba("+Math.floor((1 - alpha) * background[0] + alpha * color[0] + 0.5)+","+
+    Math.floor((1 - alpha) * background[1] + alpha * color[1] + 0.5)+","+
+    Math.floor((1 - alpha) * background[2] + alpha * color[2] + 0.5)+")";
+}
+
+//console.log(rgba2rgb([255, 255, 255], [255, 0, 0, 0.5])) // [ 255, 128, 128 ]
+
 var KonfJuml=null;
 $.each(TodTot,function(key,val){
     KonfJuml+=val[3];
@@ -334,8 +350,8 @@ function compare(a,b) {
   return 0;
 }
 
-var KonfBaru=[], TuntBaru=[];
-$.each(NamaKab,function(key,val){
+var KonfBaru=[], TuntBaru=[], H_Konf=0;
+$.each(NamaKab,function(key,val) {
     val=val.substr(0,4)!="Kota"?"Kab. "+val:val;
     var SelKonfTot=TodTot[key][3]-YesTot[key][3], SelKonfAkt=TodAkt[key][3]-YesAkt[key][3], SelKonfTun=TodTun[key][3]-YesTun[key][3],
     SelProbTot=TodTot[key][2]-YesTot[key][2], SelProbAkt=TodAkt[key][2]-YesAkt[key][2], SelProbTun=TodTun[key][2]-YesTun[key][2],
@@ -362,10 +378,26 @@ $.each(NamaKab,function(key,val){
     .replace("$AktKonfPerc$",((TodAkt[key][3]/TodTot[key][3])*100).toFixed(2).replace(".",",")+"%");
     if(SelKonfTot) KonfBaru.push([SelKonfTot,val]);
     if(SelKonfTun) TuntBaru.push([SelKonfTun,val]);
+    H_Konf = SelKonfTot < H_Konf ? H_Konf : SelKonfTot;
     TOC=$("#TemplateTOC").html().replace("$Anchor$","#Dati2"+key).replace("$NamaWil$",val);
     $("#SectWil").append(Input); $("#TOC").append(TOC);
 });
-$("#TOC").slideDown();
+async function Delay500(){
+    await delay(500);
+}
+Delay500();
+$("#map_style").html("");
+$.each(NamaKab,function(key,val){
+    $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[220,53,69,(TodTot[key][3]-YesTot[key][3])/H_Konf])+"!important}");
+    $("#MapContainer path._data"+key).data("kode",key);
+});
+$(document).on("mouseover","#MapContainer svg path",function(){
+    $("#LegIn_Kab").text($(this).children("title").text());
+    KsBaru = TodTot[$(this).data("kode")][3]-YesTot[$(this).data("kode")][3];
+    Ksbaru = KsBaru < 0 ? KsBaru : "+"+KsBaru;
+    $("#LegIn_Num").text(Ksbaru+" kasus");
+});
+$("#TOC").slideDown();;
 KonfBaru.sort(compare); TuntBaru.sort(compare);
 $.each(KonfBaru,function(key,val) {
     val0 = val[0] < 0 ? val[0] : "+"+val[0];
