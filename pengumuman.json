@@ -1,5 +1,5 @@
 {
-    "show": false, "type": "info",
-    "header": "Informasi penundaan pembaruan data",
-    "text":   "Terdapat ketidakstabilan informasi di situs resmi COVID-19 NTT hingga saat ini (17.35 WITA), sehingga data belum bisa diperbarui."
+    "show": true, "type": "info",
+    "header": "Informasi:",
+    "text":   "Tidak ada rilis perubahan data sembuh dan meninggal yang dirilis di situs COVID-19 NTT."
 }
