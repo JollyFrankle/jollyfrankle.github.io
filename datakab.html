@@ -269,6 +269,10 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
     <li><a href="$Anchor$">$NamaWil$</a></li>
 </section>
 </main>
+<div id="TambahanInfo" class="alert mb-0" style="position:sticky; bottom:0; display:none; max-height:6rem">
+    <h6 class="mb-1" id="TI_header"></h6>
+    <p class="mb-0 small" id="TI_text"></p>
+</div>
 <footer class="bg-dark text-light">
 	<div class="container p-3">
 		<strong>Jolly Frankle @ GitHub</strong>
@@ -280,6 +284,19 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.5.0"></script>
 <script>
+$.ajax({
+	url: "pengumuman.json",
+	method: "GET",
+	dataType: "json",
+	success:function(data)
+	{
+		if(data.show) {
+		    $("#TI_header").html(data.header);
+		    $("#TI_text").html(data.text);
+		    $("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
+		}
+	}
+});
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
