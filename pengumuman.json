@@ -1,5 +1,5 @@
 {
-    "show": false, "type": "info",
-    "header": "Informasi:",
-    "text":   ""
+    "show": true, "type": "info",
+    "header": "BARU: Peta penambahan kasus positif COVID-19 NTT hari ini.",
+    "text":   "Anda bisa cek peta tersebut dengan <a href='datakab.html' class='alert-link'>mengunjungi halaman daftar kasus per wilayah</a>. Peta ditampilkan sebelum informasi pertambahan kasus baru NTT. Untuk saat ini, peta masih dalam tahapan pengembangan."
 }
