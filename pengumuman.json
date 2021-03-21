@@ -1,5 +1,5 @@
 {
-    "show": true, "type": "info",
+    "show": false, "type": "info",
     "header": "Pembaruan tampilan situs: Perubahan tampilan peta.",
     "text":   "Akan ada perubahan tampilan peta pada halaman <a href='datakab.html' class='alert-link'>daftar kasus per wilayah</a> pada hari ini, ~17.00. Peta baru akan memuat 4 buah perbandingan baru antar-wilayah dan memiliki tampilan lebih ramah."
 }
