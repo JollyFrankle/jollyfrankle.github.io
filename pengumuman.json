@@ -1,5 +1,5 @@
 {
     "show": true, "type": "info",
-    "header": "BARU: Peta penambahan kasus positif COVID-19 NTT hari ini.",
-    "text":   "Anda bisa cek peta tersebut dengan <a href='datakab.html' class='alert-link'>mengunjungi halaman daftar kasus per wilayah</a>. Peta ditampilkan sebelum informasi pertambahan kasus baru NTT. Untuk saat ini, peta masih dalam tahapan pengembangan."
+    "header": "Pembaruan tampilan situs: Perubahan tampilan peta.",
+    "text":   "Akan ada perubahan tampilan peta pada halaman <a href='datakab.html' class='alert-link'>daftar kasus per wilayah</a> pada hari ini, ~17.00. Peta baru akan memuat 4 buah perbandingan baru antar-wilayah dan memiliki tampilan lebih ramah."
 }
