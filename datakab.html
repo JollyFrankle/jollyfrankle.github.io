@@ -433,8 +433,8 @@ observer.observe(document.getElementById('MapContainer'), {
 
     }
 });
-$.getScript("https://raw.githubusercontent.com/JollyFrankle/jollyfrankle.github.io/main/datakab.js",AJAX_Complete);
-$.getScript("https://raw.githubusercontent.com/JollyFrankle/jollyfrankle.github.io/main/data.js",DATAJS_Complete);
+$.getScript("datakab.js",AJAX_Complete);
+$.getScript("data.js",DATAJS_Complete);
 function DATAJS_Complete(){
     $("#KonfIncNTT").text("+"+KonfBaru[KonfBaru.length-1]+" ks. baru");
     $("#SembIncNTT").text("+"+SembBaru[SembBaru.length-1]+" sembuh");
