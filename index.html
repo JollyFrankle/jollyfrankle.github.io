@@ -421,7 +421,7 @@ $.ajax({
 		$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" "+TZc);
 	}
 });
-$.getScript("https://raw.githubusercontent.com/JollyFrankle/jollyfrankle.github.io/main/data.js",AJAX_Complete); function AJAX_Complete(){
+$.getScript("data.js",AJAX_Complete); function AJAX_Complete(){
 if(day<=0) var GET_day=-90, GET_day_plain=90;
 else if(day>Tanggal.length) var GET_day=-Tanggal.length, GET_day_plain=Tanggal.length;
 else var GET_day=-day, GET_day_plain=day;
