@@ -64,7 +64,10 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 	</div>
 </div>
 
-<button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
+<div class="btn-group w-100 mb-2">
+    <button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
+    <button class="btn btn-sm btn-outline-info" data-toggle="collapse" data-target="#InfoAtas" aria-expanded="false" aria-controls="InfoAtas">Informasi, daftar isi, halaman lain</button>
+</div>
 <div class="collapse" id="ILL_atas">
 	<div class="alert alert-danger text-justify">
 		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-21.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 21.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga.</p>
@@ -73,21 +76,42 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 	</div>
 </div>
 
-<div class="card mb-4">
+<div class="card collapse" id="InfoAtas">
 	<div class="card-body text-justify">
 		<h4 class="border-bottom">Informasi</h4>
 		<ul class="pl-4 mb-3">
 			<li>Halaman ini memuat daftar kasus per Kabupaten/Kota dari Briefing Satuan Tugas Penanganan COVID-19 Nusa Tenggara Timur. Data mungkin tidak 100% akurat, informasi pada situs Satgas mungkin diperbarui setelah pembaruan data di sistem ini.</li>
 			<li>Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</li>
 		</ul>
-		<!--<h4 class="border-bottom">Daftar isi</h4>
-		<div class="pl-4 mb-3">
+		<h4 class="border-bottom">Daftar isi</h4>
+        <div class="pl-4 mb-2">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
-				<div style="width:1.5rem">1.</div>
-				<a class="h5 mb-1" href="#Bg1_Harian">Perkembangan Kasus Harian</a>
+				<div style="width:1.5rem">2.</div>
+				<a class="h5 mb-1" href="#Bg1_Peta">Peta Interaktif</a>
 			</div>
-			Perkembangan kasus COVID-19 harian untuk seluruh Nusa Tenggara Timur selama <span class="GET_day-html">...</span> terakhir. Terdapat pula jumlah pertambahan kasus selama satu pekan tersebut.
-		</div>-->
+			Peta interaktif yang menampilkan analisis dan perbandingan data antar-Kabupaten/Kota di Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">2.</div>
+				<a class="h5 mb-1" href="#Bg21_Baru">Pertambahan Kasus Baru</a>
+			</div>
+			Pertambahan kasus baru per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">3.</div>
+				<a class="h5 mb-1" href="#Bg22_Tuntas">Pertambahan Kasus Tuntas</a>
+			</div>
+			Pertambahan kasus tuntas (sembuh dan meninggal, tanpa dispesifikasi sembuh atau meninggal) per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">4.</div>
+				<span class="h5 mb-1">Perubahan kasus hari ini per wilayah:</span>
+			</div>
+		</div>
+		<ul id="TOC" style="column-width:185px;margin-left:1.5rem;padding-left:1.25rem;margin-bottom:1rem;display:none"></ul>
 		<h4 class="border-bottom">Halaman lain</h4>
 		<div class="pl-4 mb-2">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
@@ -96,44 +120,23 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 			</div>
 			Tersedia analisis harian, rekapitulasi data pekanan, dan grafik visualisasi perkembangan kasus COVID-19 Nusa Tenggara Timur.
 		</div>
-		<div class="pl-4 mb-3">
+		<div class="pl-4">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
 				<div style="width:1.5rem">2.</div>
 				<a class="h5 mb-1" href="harian.html">Perkembangan Kasus</a>
 			</div>
 			Perkembangan kasus hari-demi-hari di Nusa Tenggara Timur.
 		</div>
-		<h4 class="border-bottom">Daftar Isi</h4>
-		<div class="pl-4 mb-2">
-			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
-				<div style="width:1.5rem">1.</div>
-				<a class="h5 mb-1" href="#Bg11_Baru">Pertambahan Kasus Baru</a>
-			</div>
-			Pertambahan kasus baru per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
-		</div>
-		<div class="pl-4 mb-2">
-			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
-				<div style="width:1.5rem">2.</div>
-				<a class="h5 mb-1" href="#Bg12_Tuntas">Pertambahan Kasus Tuntas</a>
-			</div>
-			Pertambahan kasus tuntas (sembuh dan meninggal, tanpa dispesifikasi sembuh atau meninggal) per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
-		</div>
-		<div class="pl-4">
-			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
-				<div style="width:1.5rem">3.</div>
-				<span class="h5 mb-1">Perubahan kasus hari ini per wilayah:</span>
-			</div>
-		</div>
-		<ul id="TOC" style="column-width:185px;margin-left:1.5rem;padding-left:1.25rem;margin-bottom:0;display:none"></ul>
 	</div>
 </div>
 
-<div class="alert alert-info text-center" style="position:sticky;top:3.5rem;z-index:9">
+<div class="alert alert-info text-center mt-3" style="position:sticky;top:3.5rem;z-index:9">
 	<div class="d-inline-block">Data harian <strong class="LastData">Memuat...</strong>,</div>
 	<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
 </div>
 
-<div class="position-relative rounded border mb-3">
+<div id="Bg1_Peta" class="anchor"></div>
+<div class="position-relative rounded border mb-4">
     <h6 id="MapHeader">
         <div id="MapTitle"></div>
         <div class="small text-muted">Perhatikan skala di sudut kanan bawah peta atau di bawah peta untuk konteks.</div>
@@ -205,7 +208,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 
 <div class="row">
     <div class="col-md-6 mb-3">
-        <div class="anchor" id="Bg11_Baru"></div>
+        <div class="anchor" id="Bg21_Baru"></div>
         <div class="card h-100">
             <div class="pb-1" style="background:#BF9000"></div>
             <div class="card-body">
@@ -219,7 +222,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
         </div>
     </div>
     <div class="col-md-6 mb-3">
-        <div class="anchor" id="Bg12_Tuntas"></div>
+        <div class="anchor" id="Bg22_Tuntas"></div>
         <div class="card h-100">
             <div class="d-flex">
                 <div class="pb-1 w-50" style="background:#002060"></div>
