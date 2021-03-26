@@ -55,7 +55,10 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</form>
 </div>
 
-<button class="btn btn-sm btn-danger btn-block mb-3" type="button" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">DISCLAIMER - KLIK DI SINI</button>
+<div class="btn-group w-100 mb-2">
+    <button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
+    <button class="btn btn-sm btn-outline-info" data-toggle="collapse" data-target="#InfoAtas" aria-expanded="false" aria-controls="InfoAtas">Informasi, daftar isi, halaman lain</button>
+</div>
 <div class="collapse" id="ILL_atas">
 	<div class="alert alert-danger text-justify">
 		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-21.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 21.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga.</p>
@@ -64,7 +67,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</div>
 </div>
 
-<div class="card mb-4">
+<div class="card collapse" id="InfoAtas">
 	<div class="card-body text-justify">
 		<h4 class="border-bottom">Informasi</h4>
 		<ul class="pl-4 mb-3">
