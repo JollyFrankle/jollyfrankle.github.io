@@ -35,13 +35,13 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</nav>
 	<main class="container my-4">
-<div class="d-block d-md-flex justify-content-between align-items-center mb-4">
+<div class="d-block d-md-flex justify-content-between align-items-center mb-2">
 	<div>
 		<h1>COVID-19 NTT Tracker</h1>
-		<p class="mb-0">Perkembangan harian kasus COVID-19 NTT.</p>
+		<p class="mb-2">Informasi dan analisa kasus COVID-19 NTT.</p>
 	</div>
 	<form method="GET" style="max-width:330px" class="m-md-0 m-auto">
-		<label for="RangeSel">Jumlah hari untuk ditampilkan:</label>
+		<label for="RangeSel" class="mb-1">Jumlah hari untuk ditampilkan:</label>
 		<div class="btn-group w-100">
 			<select name="day" class="form-control custom-select" id="RangeSel">
 				<option value=90>90 hari terakhir (default)</option>
@@ -54,6 +54,14 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 		</div>
 	</form>
 </div>
+
+<nav class="mb-3 pb-3 border-bottom">
+    <div class="d-block d-md-inline-flex btn-group w-100">
+        <a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
+        <a class="btn btn-block btn-outline-dark" href="datakab.html">Data hari ini per Kab/Kota</a>
+        <a class="btn btn-block btn-outline-dark active">Perkembangan data harian</a>
+    </div>
+</nav>
 
 <div class="btn-group w-100 mb-2">
     <button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
