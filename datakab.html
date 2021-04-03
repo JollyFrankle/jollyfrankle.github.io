@@ -23,24 +23,26 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 #MapContainer svg{overflow:auto;width:100%}
 #MapContainer svg path{cursor:pointer}
 #MapLegend{z-index:1;position:absolute;left:.5rem;bottom:.5rem;width:250px}
-#MapNav{position:absolute;bottom:.5rem;right:.5rem;width:600px;z-index:0;white-space:nowrap;display:flex}
+#MapNav{position:absolute;bottom:.5rem;right:.5rem;width:670px;z-index:0;white-space:nowrap;display:flex}
 #MapHeader{position:absolute;top:.5rem;left:.5rem;right:.5rem;margin-bottom:0;z-index: 1;text-align: center;text-shadow: 2px 2px 2px white;line-height:1.25}
 #MapIndLeg{position: absolute;bottom: 3rem;right: .5rem;width:300px;user-select:none}
 #MapIndLeg>div {line-height:1;display:flex;justify-content:space-between;position:relative;font-size:80%}
 #MapIndLeg>div span:nth-child(2){position:absolute;width:100%;text-align:center}
 #MapIndCol{height:.5rem;border-radius:.25rem}
 #MapMobileNav{display:none}
+/*.ping-shake{animation:shake .75s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}*/
 @media (max-width: 991.98px) {
     #MapLegend{bottom:3rem}
 }
 @media (max-width: 767.98px) {
-    #MapLegend{position:static;border-radius:0;width:100%;overflow:hidden}
-    #MapContainer{height:500px;max-height:50vh}
+    #MapLegend{position:static;border-radius:0;width:calc(100% + 2px);margin:0 -1px;overflow:hidden}
+    #MapContainer{max-height:275px;height:50vh}
     #MapIndLeg {position:static;width:calc(100% - 1rem);margin:-1.5rem .5rem .5rem}
     #MapNav>.btn-group{width:100%}
     #MapNav{position:static;width:100%;border-radius:0;display:block;white-space:normal}
     #MapNav .input-group{display:none}
-    #MapMobileNav{display:block;position:absolute;right:.5rem;top:calc(50vh - 130px);width:60px;text-align:right}
+    #MapMobileNav{display:block;position:absolute;right:.5rem;bottom:320px;width:60px;text-align:right}
 }
 #MapContainer::-webkit-scrollbar{display: none;}
 </style>
@@ -137,13 +139,8 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 	</div>
 </div>
 
-<div class="alert alert-info text-center mt-3" style="position:sticky;top:3.5rem;z-index:9">
-	<div class="d-inline-block">Data harian <strong class="LastData">Memuat...</strong>,</div>
-	<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
-</div>
-
 <div id="Bg1_Peta" class="anchor"></div>
-<div class="position-relative rounded border mb-4">
+<div class="position-relative rounded border mb-3">
     <h6 id="MapHeader">
         <div id="MapTitle"></div>
         <div class="small text-muted">Perhatikan skala di sudut kanan bawah peta atau di bawah peta untuk konteks.</div>
@@ -167,18 +164,19 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
     </div>
     <div id="MapNav">
         <div class="btn-group mr-1 mb-1 mb-md-0">
+            <button class="btn btn-sm btn-info" data-mapdata="6">Jlh. Ks. Aktif</button>
             <button class="btn btn-sm btn-info" data-mapdata="4">Ks. Tuntas Baru</button>
             <button class="btn btn-sm btn-info" data-mapdata="5">% Tuntas</button>
         </div>
         <div class="btn-group mr-1 mb-1 mb-md-0">
-            <button class="btn btn-sm btn-info" data-mapdata="1">Ks. Baru</button>
             <button class="btn btn-sm btn-info" data-mapdata="2">Jlh. Kasus</button>
+            <button class="btn btn-sm btn-info" data-mapdata="1">Ks. Baru</button>
             <button class="btn btn-sm btn-info" data-mapdata="3">% Aktif</button>
         </div>
         <div class="input-group-sm input-group">
             <div class="btn-group input-group-prepend">
-                <button class="btn btn-sm btn-secondary map-zoom" data-zoom="in">+</button>
-                <button class="btn btn-sm btn-secondary map-zoom" data-zoom="out">–</button>
+                <button class="btn btn-sm btn-secondary map-zoom px-1" data-zoom="in">+</button>
+                <button class="btn btn-sm btn-secondary map-zoom px-1" data-zoom="out">–</button>
             </div>
             <input type="number" class="form-control" id="MapScale" value="100" min="100" step="1.00" max="" oninput="window.inputting=true;svgPanZoomContainer.setScale(document.getElementById('MapContainer'),+this.value/100)"/>
             <div class="input-group-append">
@@ -189,7 +187,9 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
     <div id="MapLegend" class="card">
         <div class="pb-1 bg-secondary"></div>
         <div class="card-body small py-2 px-3">
-            <h6 id="LegIn_Kab">Klik pada salah satu Kab/Kota</h6>
+            <h6 class="mb-0" id="LegIn_Kab">Klik pada salah satu Kab/Kota</h6>
+            <div class="mb-2" id="LegIn_PerKs"></div>
+            <hr class="my-1"/>
             <div class="d-flex justify-content-between">
                 <span>Jumlah kasus</span>
                 <strong id="LegIn_Jlh">...</strong>
@@ -197,6 +197,15 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
             <div class="d-flex justify-content-between">
                 <span>Kasus aktif</span>
                 <strong id="LegIn_Akt">...</strong>
+            </div>
+            <hr class="my-1"/>
+            <div class="d-flex justify-content-between">
+                <span>Persen kasus aktif</span>
+                <strong id="LegIn_PerAkt">...</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span>Persen kasus tuntas</span>
+                <strong id="LegIn_PerTun">...</strong>
             </div>
             <hr class="my-1"/>
             <div class="d-flex justify-content-between">
@@ -208,9 +217,14 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
                 <strong id="LegIn_Tun">...</strong>
             </div>
             <hr class="my-1"/>
-            <a class="d-block" href="javascript:void(0)" id="LegIn_DatiAnchor">Selengkapnya...</a>
+            <a class="d-block" href="#Dati20" id="LegIn_DatiAnchor">Selengkapnya...</a>
         </div>
     </div>
+</div>
+
+<div class="alert alert-info text-center mt-3" style="position:sticky;top:3.5rem;z-index:9">
+	<div class="d-inline-block">Data harian <strong class="LastData">Memuat...</strong>,</div>
+	<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
 </div>
 
 <div class="row">
@@ -411,9 +425,9 @@ $.ajax({
         var MapCon=document.getElementById('MapContainer');
         $(".map-zoom").on("click",function() {
             if($(this).data("zoom")=="in")
-                svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))+0.05);
+                svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))+0.1);
             if($(this).data("zoom")=="out")
-                svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))-0.05);
+                svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))-0.1);
         });
 new MutationObserver(function (mutations) {
   if (window.inputting) {
@@ -488,7 +502,7 @@ function compare(a,b) {
   return 0;
 }
 
-var KonfBaru=[], TuntBaru=[], H_KonfInc=0, H_KonfJlh=0, H_PerAkt=0, H_TuntInc=0;
+var KonfBaru=[], TuntBaru=[], H_KonfInc=0, H_KonfJlh=0, H_PerAkt=0, H_TuntInc=0, H_AktfJlh=0;
 $.each(NamaKab,function(key,val) {
     val=val.substr(0,4)!="Kota"?"Kab. "+val:val;
     var SelKonfTot=TodTot[key][3]-YesTot[key][3], SelKonfAkt=TodAkt[key][3]-YesAkt[key][3], SelKonfTun=TodTun[key][3]-YesTun[key][3],
@@ -520,6 +534,7 @@ $.each(NamaKab,function(key,val) {
     H_TuntInc = SelKonfTun < H_TuntInc ? H_TuntInc : SelKonfTun;
     H_KonfJlh = TodTot[key][3] < H_KonfJlh ? H_KonfJlh : TodTot[key][3];
     H_PerAkt = (TodAkt[key][3]/TodTot[key][3]) < H_PerAkt ? H_PerAkt : TodAkt[key][3]/TodTot[key][3];
+    H_AktfJlh = TodAkt[key][3] < H_AktfJlh ? H_AktfJlh : TodAkt[key][3];
     TOC=$("#TemplateTOC").html().replace("$Anchor$","#Dati2"+key).replace("$NamaWil$",val);
     $("#SectWil").append(Input); $("#TOC").append(TOC);
 });
@@ -545,14 +560,14 @@ function TmplDataPeta(mode){
         });
     }
     if(mode===2) {
-        title="Jumlah Kasus Akumulatif";
+        title="Jumlah Kasus Kumulatif";
         min = 0;
         mid = (H_KonfJlh/2).toFixed(0); 
         max = H_KonfJlh;
-        col = "rgba(192,0,0)";
+        col = "rgba(191, 144, 0)";
         $.each(NamaKab,function(key,val){
             per=TodTot[key][3]/H_KonfJlh;
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[192,0,0,per])+"!important}");
+            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[191, 144, 0,per])+"!important}");
             $("#MapContainer path._data"+key).data("kode",key);
         });
     }
@@ -585,10 +600,22 @@ function TmplDataPeta(mode){
         min = ((1-H_PerAkt)*100).toFixed(2).replace(".",",")+"%";
         mid = ((((1-H_PerAkt)/2)+0.5)*100).toFixed(2).replace(".",",")+"%"; 
         max = "100%"
-        col = "rgba(0, 176, 80)";
+        col = "rgba(96)";
         $.each(NamaKab,function(key,val){
             per=1-((TodAkt[key][3]/TodTot[key][3])/H_PerAkt);
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[0, 176, 80,per])+"!important}");
+            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[0,32,96,per])+"!important}");
+            $("#MapContainer path._data"+key).data("kode",key);
+        });
+    }
+    if(mode===6) {
+        title="Jumlah Kasus Aktif";
+        min = 0;
+        mid = (H_AktfJlh/2).toFixed(0);
+        max = H_AktfJlh
+        col = "rgba(192,0,0)";
+        $.each(NamaKab,function(key,val){
+            per=TodAkt[key][3]/H_AktfJlh;
+            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[192,0,0,per])+"!important}");
             $("#MapContainer path._data"+key).data("kode",key);
         });
     }
@@ -602,7 +629,8 @@ TmplDataPeta(3); // Default untuk peta = mode 3
 $("[data-mapdata]").on("click",function(){
     TmplDataPeta($(this).data("mapdata"));
 });
-$(document).on("click","#MapContainer svg path[class*=_data]",function(){
+
+$(document).on("click","#MapContainer svg path[class*=_data]",function(e){
     cldata = $(this).attr("class").match(/(_data)[0-9]*\w/g)[0];
     if(cldata.slice(5)) {
         kode = cldata.slice(5);
@@ -610,14 +638,20 @@ $(document).on("click","#MapContainer svg path[class*=_data]",function(){
         val = NamaKab[kode];
         val = val.substr(0,4)!="Kota"?"Kab. "+val : val;
         JlhKasus = TodTot[kode][3];
+        PerKs = ((JlhKasus/KonfJuml)*100).toFixed(2).replace(".",",");
         KsAktif = TodAkt[kode][3];
         KsBaru = TodTot[kode][3]-YesTot[kode][3];
         KsBaru = KsBaru < 0 ? KsBaru : "+"+KsBaru;
         TunBaru = TodTun[kode][3]-YesTun[kode][3];
         TunBaru = TunBaru < 0 ? TunBaru : "+"+TunBaru;
+        PerAkt = ((KsAktif/JlhKasus)*100).toFixed(2).replace(".",",");
+        PerTun = ((1-(KsAktif/JlhKasus))*100).toFixed(2).replace(".",",");
         $("#LegIn_Kab").text(val);
+        $("#LegIn_PerKs").text(PerKs+"% kasus di NTT");
         $("#LegIn_Jlh").text(JlhKasus);
         $("#LegIn_Akt").text(KsAktif);
+        $("#LegIn_PerAkt").text(PerAkt+"%");
+        $("#LegIn_PerTun").text(PerTun+"%");
         $("#LegIn_Tun").text(TunBaru+" kasus");
         $("#LegIn_Num").text(KsBaru+" kasus");
         $("#LegIn_DatiAnchor").prop("href","#Dati2"+kode);
