@@ -1,5 +1,5 @@
 {
-    "show": true, "type": "success",
+    "show": false, "type": "success",
     "header": "Informasi pembaruan data",
     "text":   "Data telah diperbarui hingga 14 April 2021, karena situasi memungkinkan <strong>#PrayForNTT</strong>",
     "text2":  "Untuk saat ini (09/04, 18.15 WITA), situs resmi Satgas COVID-19 NTT tidak dapat diakses. Pembaruan data ditiadakan hingga situasi memungkinkan. <strong>#PrayForNTT</strong>"
