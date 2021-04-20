@@ -1,5 +1,5 @@
 {
-    "show": true, "type": "success",
+    "show": false, "type": "success",
     "header": "Arsip data harian tersedia di Twitter.",
     "text":   "Data 18 April 2021 diperbarui pada pukul 14.26 hari ini. Untuk melihat perubahan kasus, kunjungi <a class='alert-link' href='https://twitter.com/JollyFrankle/status/1384064046152839174'>tautan Twitter ini</a>. Data (hampir) setiap hari juga diunggah ke Twitter, selain situs ini.",
     "text2":  "Untuk saat ini (09/04, 18.15 WITA), situs resmi Satgas COVID-19 NTT tidak dapat diakses. Pembaruan data ditiadakan hingga situasi memungkinkan. <strong>#PrayForNTT</strong>"
