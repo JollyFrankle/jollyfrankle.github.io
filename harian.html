@@ -13,14 +13,28 @@
 	<noscript><meta http-equiv="refresh" content="0; url=no-js.html"/></noscript>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" onload="if(media!='all')media='all'"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
 <script>
 window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
 </script>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}#TP_TblHarian td{vertical-align:middle;text-align:center}#TP_TblHarian td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}#TP_TblHarian td .flbet{display:flex;justify-content:space-between;align-items:center}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}#TP_TblHarian td{vertical-align:middle;text-align:center}#TP_TblHarian td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(5),#TP_TblHarian td:nth-child(8),#TP_TblHarian td:nth-child(11) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}#TP_TblHarian td .flbet{display:flex;justify-content:space-between;align-items:center}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
+.tbl-fs{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 3.5rem;
+    bottom: 0;
+    background: #fff;
+    z-index: 10;
+}
+#ToggleFS.fs-true {
+    position: fixed;
+    top: .8rem;
+    z-index: 1100;
+    right: 1rem;
+}
 </style>
 </head>
 <body>
@@ -59,7 +73,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
     <div class="d-block d-md-inline-flex btn-group w-100">
         <a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
         <a class="btn btn-block btn-outline-dark" href="datakab.html">Data hari ini per Kab/Kota</a>
-        <a class="btn btn-block btn-outline-dark active">Perkembangan data harian</a>
+        <a class="btn btn-block btn-outline-dark active">Perkembangan data harian <span class="badge badge-info">tampilan baru</span></a>
     </div>
 </nav>
 
@@ -111,31 +125,38 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div id="Bg1_Harian" class="anchor"></div>
 <h2 class="border-bottom"><small>1.</small> Perkembangan Kasus Harian</h2>
 <div class="alert alert-info">
-	Lambang warna yang ditampilkan di sebelah kanan indikator penambahan kasus merupakan indikator seberapa tingginya peningkatan kasus pada hari itu dibandingkan penambahan kasus terbanyak sepanjang <span class="GET_day-html">...</span> terakhir. Semakin gelap/<em>solid</em> warna, semakin tinggi peningkatan.
+	<p>Lambang warna yang ditampilkan di sebelah kanan indikator penambahan kasus merupakan indikator seberapa tingginya peningkatan kasus pada hari itu dibandingkan penambahan kasus terbanyak sepanjang <span class="GET_day-html">...</span> terakhir. Semakin gelap/<em>solid</em> warna, semakin tinggi peningkatan.</p>
+	<p>Perubahan 7 hari (Prb. 7 hari) dihitung dari rata-rata kasus 7 hari terakhir dan 7 hari terdahulu.</p>
+	<p class="mb-0"><strong>Tips:</strong> Tabel ini cukup panjang ke samping, gunakan arah panah (pada keyboard) untuk menavigasi atau masuk ke mode layar penuh.</p>
+	<p class="small">Untuk keluar mode layar penuh, klik pada tombol "Layar Penuh" yang akan ada di kanan atas layar.</p>
+	<button class="btn btn-sm btn-light fs-false" id="ToggleFS">Layar Penuh</button>
 </div>
-<div class="table-responsive">
-	<table class="table table-hover" id="TP_TblHarian" style="min-width:830px">
+<div class="table-responsive" id="TblHarianWrapper">
+	<table class="table table-hover mb-0" id="TP_TblHarian" style="min-width:1250px">
 		<thead class="bg-light">
 			<tr>
-				<th rowspan=2 style="min-width:165px">Hari, Tanggal</th>
-				<th colspan=2 style="border-left:1px solid #dee2e6">Kasus Positif</th>
-				<th colspan=2 style="border-left:1px solid #dee2e6">Sembuh</th>
-				<th colspan=2 style="border-left:1px solid #dee2e6">Meninggal</th>
+				<th rowspan=2 style="width:225px">Hari, Tanggal</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Kasus Positif</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Sembuh</th>
+				<th colspan=3 style="border-left:1px solid #dee2e6">Meninggal</th>
 				<th colspan=2 style="border-left:1px solid #dee2e6">Kasus Aktif</th>
 			</tr>
 			<tr>
 				<th style="border-left:1px solid #dee2e6">Baru</th>
+				<th>Prb. 7 hari</th>
 				<th>Jumlah</th>
 				<th style="border-left:1px solid #dee2e6">Baru</th>
+				<th>Prb. 7 hari</th>
 				<th>Jumlah</th>
 				<th style="border-left:1px solid #dee2e6">Baru</th>
+				<th>Prb. 7 hari</th>
 				<th>Jumlah</th>
 				<th style="border-left:1px solid #dee2e6">%</th>
 				<th>Jumlah</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr><td colspan=10 class="text-center">Data akan dimuat setelah grafik.</td></tr>
+			<tr><td colspan=10 class="text-center">Memuat data...</td></tr>
 		</tbody>
 	</table>
 </div>
@@ -195,6 +216,17 @@ Date.prototype.getWeekYear = function() {
 	date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
 	return date.getFullYear();
 }
+$("#ToggleFS").on("click",function(){
+    if($(this).hasClass("fs-true")) {
+        $("#TblHarianWrapper").removeClass("tbl-fs");
+        $("#ToggleFS").addClass("fs-false").removeClass("fs-true");
+        $("body").css("overflow","auto");
+    } else {
+        $("#TblHarianWrapper").addClass("tbl-fs");
+        $("#ToggleFS").addClass("fs-true").removeClass("fs-false");
+        $("body").css("overflow","hidden");
+    }
+});
 $.getScript("data.js",AJAX_Complete); function AJAX_Complete(){
 if(day<=0) var GET_day=-90, GET_day_plain=90;
 else if(day>Tanggal.length) var GET_day=-Tanggal.length, GET_day_plain=Tanggal.length;
@@ -212,41 +244,122 @@ function getMinMax(arr) {
 	}
 	return { min, max };
 }
-
+function rgba2rgb(background, color) {
+    const alpha = color[3];
+    return "rgba("+Math.floor((1 - alpha) * background[0] + alpha * color[0] + 0.5)+","+
+    Math.floor((1 - alpha) * background[1] + alpha * color[1] + 0.5)+","+
+    Math.floor((1 - alpha) * background[2] + alpha * color[2] + 0.5)+")";
+}
+// Hijau = hsl(134 61% 41%)
+// Merah = hsl(354 70% 54%)
+function RYGind(per, mode) {
+    if(mode==1) var h = (134+((1-per)*(354-134))).toFixed(0);
+    if(mode==2) var h = (134+((per)*(354-134))).toFixed(0);
+    var s = (61+((1-per)*(70-61))).toFixed(0),
+    l = (41+((1-per)*(54-41))).toFixed(0);
+    var h = (1-per)*120;
+    return "hsl("+h+","+65+"%,"+51+"%)";
+}
+function TrendInd(mode,val1,val2) {
+    var selisih, perc, i, c, l;
+    if(val1 && val2) {
+        var selisih = val1 - val2;
+        var perc = selisih / val2;
+        if(perc > 0) {
+            i="Meningkat "; l="logoinc";
+        }
+        if(perc < 0) {
+            i="Menurun "; l="logodec";
+        }
+        if(perc===0) {i+="Tidak ada perubahan";c="muted";l="logonet"}
+    }
+	if(mode==1) {
+	    if(perc > 0.5) {i+="tajam";c="danger"}
+	    if(perc > 0.1 && perc <= 0.5) {c="danger"}
+	    if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+	    if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+	    if(perc <-0.1 && perc >=-0.5) {c="success"}
+	    if(perc <-0.5) {i+="tajam";c="success"}
+	}
+	if(mode==2) {
+	    if(perc > 0.5) {i+="tajam";c="success"}
+	    if(perc > 0.1 && perc <= 0.5) {c="success"}
+	    if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+	    if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+	    if(perc <-0.1 && perc >=-0.5) {c="danger"}
+	    if(perc <-0.5) {i+="tajam";c="danger"}
+	}
+	if(mode==3) {
+	    if(val1 > 0) {i="Meningkat";c="danger";l="logoinc"}
+	    if(val1===0) {i="Stabil";c="muted";l="logonet"}
+	    if(val1 > 0) {i="Menurun";c="success";l="logodec"}
+	}
+	if(mode==4) {
+	    if(val1 > 0) {i="Meningkat";c="success";l="logoinc"}
+	    if(val1===0) {i="Stabil";c="muted";l="logonet"}
+	    if(val1 > 0) {i="Menurun";c="danger";l="logodec"}
+	}
+	return [i,c,l];
+}
 $(".LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
-$("#TP_TblHarian tbody").html(""); var PersAktfYest=null, $RMK=0, $RMS=0, $RMM=0;
+$("#TP_TblHarian tbody").html(""); var PersAktfYest=null, $RMK=0, $RMS=0, $RMM=0, $RMKy=null, $RMSy=null, $RMMy=null, $day=0;
+var $ArrKB=KonfBaru.slice(GET_day), $ArrKJ=KonfJuml.slice(GET_day), $ArrK7=Konf7day.slice(GET_day),
+$ArrSB=SembBaru.slice(GET_day), $ArrSJ=SembJuml.slice(GET_day), $ArrS7=Semb7day.slice(GET_day),
+$ArrMB=MengBaru.slice(GET_day), $ArrMJ=MengJuml.slice(GET_day), $ArrM7=Meng7day.slice(GET_day),
+HL_KB = getMinMax($ArrKB), HL_SB = getMinMax($ArrSB), HL_MB = getMinMax($ArrMB),
+HL_K7 = getMinMax($ArrK7), HL_S7 = getMinMax($ArrS7), HL_M7 = getMinMax($ArrM7);
+
 $.each(Tanggal.slice(GET_day),function(key,val){
-	var $ArrKB=KonfBaru.slice(GET_day), $ArrKJ=KonfJuml.slice(GET_day),
-	$ArrSB=SembBaru.slice(GET_day), $ArrSJ=SembJuml.slice(GET_day),
-	$ArrMB=MengBaru.slice(GET_day), $ArrMJ=MengJuml.slice(GET_day),
-	PersAktf=(($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))/$ArrKJ[key])*100,
-	PAind=
-	PersAktf > PersAktfYest ? "logoinc logoright text-danger" : 
-	PersAktf < PersAktfYest ? "logodec logoright text-success":
-	"logonet logoright text-secondary";
+	var PersAktf=(($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))/$ArrKJ[key])*100,
+	PAind = TrendInd(1, PersAktf, PersAktfYest);
+	K7dind = TrendInd(1, $ArrK7[key], $ArrK7[key-7]);
+	S7dind = TrendInd(2, $ArrS7[key], $ArrS7[key-7]);
+	M7dind = TrendInd(1, $ArrM7[key], $ArrM7[key-7]);
+	
 	$RMK+=$ArrKB[key]; $RMS+=$ArrSB[key]; $RMM+=$ArrMB[key];
-	var HLKind="rgba(191,144,0,"+($ArrKB[key]-getMinMax($ArrKB)["min"])/getMinMax($ArrKB)["max"]+")";
-	var HLSind="rgba(0,32,96,"+($ArrSB[key]-getMinMax($ArrSB)["min"])/getMinMax($ArrSB)["max"]+")";
-	var HLMind="rgba(192,0,0,"+($ArrMB[key]-getMinMax($ArrMB)["min"])/getMinMax($ArrMB)["max"]+")";
+	var HL_KBind="rgba(191,144,0,"+($ArrKB[key]-HL_KB["min"])/HL_KB["max"]+")",
+	HL_SBind="rgba(0,32,96,"+($ArrSB[key]-HL_SB["min"])/HL_SB["max"]+")",
+	HL_MBind="rgba(192,0,0,"+($ArrMB[key]-HL_MB["min"])/HL_MB["max"]+")";
 	Col1="<td>"+DateIndo(val,2)+"</td>";
-	ColK1="<td><div class='flbet'><div>+<strong>"+$ArrKB[key]+"</strong></div><div class='rounded tbl-iti' style='background:"+HLKind+"'></div></div></td>";
-	ColK2="<td>"+$ArrKJ[key]+"</td>";
-	ColS1="<td><div class='flbet'><div>+<strong>"+$ArrSB[key]+"</strong></div><div class='rounded tbl-iti' style='background:"+HLSind+"'></div></div></td>";
-	ColS2="<td>"+$ArrSJ[key]+"</td>";
-	ColM1="<td><div class='flbet'><div>+<strong>"+$ArrMB[key]+"</strong></div><div class='rounded tbl-iti' style='background:"+HLMind+"'></div></div></td>";
-	ColM2="<td>"+$ArrMJ[key]+"</td>";
-	ColA1="<td><div class='flbet'>"+PersAktf.toFixed(2).replace(".",",")+"%<div class='"+PAind+"'></div></div></td>";
+	ColK1="<td><div class='flbet'><strong>"+($ArrKB[key]<0?$ArrKB[key]:"+"+$ArrKB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_KBind+"'></div></div></td>";
+	ColK2="<td><div class='flbet'><div>+"+$ArrK7[key].toFixed(2).replace(".",",")+"</div><div class='logoright text-"+K7dind[1]+" "+K7dind[2]+"'></div></div></td>";
+	ColK3="<td>"+$ArrKJ[key]+"</td>";
+	ColS1="<td><div class='flbet'><strong>"+($ArrSB[key]<0?$ArrSB[key]:"+"+$ArrSB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_SBind+"'></div></div></td>";
+	ColS2="<td><div class='flbet'><div>+"+$ArrS7[key].toFixed(2).replace(".",",")+"</div><div class='logoright text-"+S7dind[1]+" "+S7dind[2]+"'></div></div></td>";
+	ColS3="<td>"+$ArrSJ[key]+"</td>";
+	ColM1="<td><div class='flbet'><strong>"+($ArrMB[key]<0?$ArrMB[key]:"+"+$ArrMB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_MBind+"'></div></div></td>";
+	ColM2="<td><div class='flbet'><div>+"+$ArrM7[key].toFixed(2).replace(".",",")+"</div><div class='logoright text-"+M7dind[1]+" "+M7dind[2]+"'></div></div></td>";
+	ColM3="<td>"+$ArrMJ[key]+"</td>";
+	ColA1="<td><div class='flbet'>"+PersAktf.toFixed(2).replace(".",",")+"%<div class='logoright text-"+PAind[1]+" "+PAind[2]+"'></div></div></td>";
 	ColA2="<td>"+($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))+"</td>";
-	$("#TP_TblHarian tbody").prepend("<tr>"+Col1+ColK1+ColK2+ColS1+ColS2+ColM1+ColM2+ColA1+ColA2+"</tr>");
+	$("#TP_TblHarian tbody").prepend("<tr>"+Col1+ColK1+ColK2+ColK3+ColS1+ColS2+ColS3+ColM1+ColM2+ColM3+ColA1+ColA2+"</tr>");
+	$day++;
 	if(new Date(val).getDay()+1==7) {
-		var tgl=new Date(val);
-		ColRMTgl="<td><span class='text-info h6 mb-0'>Pekan ke-"+tgl.getWeek()+" tahun "+tgl.getWeekYear()+"</span></td>";
-		ColEmpty="<td></td>";
-		ColRMK="<td style='color:#BF9000;text-align:left'>+<strong>"+$RMK+"</strong></td>";
-		ColRMS="<td style='color:#002060;text-align:left'>+<strong>"+$RMS+"</strong></td>";
-		ColRMM="<td style='color:#C00000;text-align:left'>+<strong>"+$RMM+"</strong></td>";
-		$("#TP_TblHarian tbody").prepend("<tr style='border-top:3px solid var(--dark)'>"+ColRMTgl+ColRMK+ColEmpty+ColRMS+ColEmpty+ColRMM+ColEmpty+ColEmpty+ColEmpty+"</tr>");
-		$RMK=0; $RMS=0; $RMM=0;
+		var tgl=new Date(val), //ColRM = Kolom Rekap Mingguan
+		$RMKBavg = $RMKy==null ? null : (($RMK-$RMKy)/$RMKy)*100;
+		$RMKBavg = $RMKBavg===null ? "" : $RMKBavg<0 ? $RMKBavg.toFixed(2).replace(".",",")+"%" : "+"+$RMKBavg.toFixed(2).replace(".",",")+"%";
+		$RMKBavgInd = TrendInd(1, $RMK, $RMKy);
+
+		$RMSBavg = $RMSy==null ? null : (($RMS-$RMSy)/$RMSy)*100;
+		$RMSBavg = $RMSBavg===null ? "" : $RMSBavg<0 ? $RMSBavg.toFixed(2).replace(".",",")+"%" : "+"+$RMSBavg.toFixed(2).replace(".",",")+"%";
+		$RMSBavgInd = TrendInd(2, $RMS, $RMSy);
+
+		$RMMBavg = $RMMy==null ? null : (($RMM-$RMMy)/$RMMy)*100;
+		$RMMBavg = $RMMBavg===null ? "" : $RMMBavg<0 ? $RMMBavg.toFixed(2).replace(".",",")+"%" : "+"+$RMMBavg.toFixed(2).replace(".",",")+"%";
+		$RMMBavgInd = TrendInd(1, $RMM, $RMMy);
+
+		var info_tgl = $day<7 ? "<div class='small'>Hanya menampilkan data "+$day+" hari terakhir</div>" : "";
+		ColRMTgl="<td><span class='text-info h6 mb-0'>Pekan ke-"+tgl.getWeek()+" tahun "+tgl.getWeekYear()+"</span>"+info_tgl+"</td>";
+		ColNone="<td class='d-none'></td>";
+		ColRMKB="<td colspan=3><div class='flbet fw-500'><strong style='color:#BF9000'>+"+$RMK+" ks.</strong><div class='flbet text-"+$RMKBavgInd[1]+"'>"+$RMKBavg+"<div class='logoright "+$RMKBavgInd[2]+"'></div></div></div></td>";
+		ColRMSB="<td colspan=3><div class='flbet fw-500'><strong style='color:#002060'>+"+$RMS+" ks.</strong><div class='flbet text-"+$RMSBavgInd[1]+"'>"+$RMSBavg+"<div class='logoright "+$RMSBavgInd[2]+"'></div></div></div></td>";
+		//"<td colspan=3 style='color:#002060;text-align:left'>+<strong>"+$RMS+"</strong></td>";
+		ColRMMB="<td colspan=3><div class='flbet fw-500'><strong style='color:#C00000'>+"+$RMM+" ks.</strong><div class='flbet text-"+$RMMBavgInd[1]+"'>"+$RMMBavg+"<div class='logoright "+$RMMBavgInd[2]+"'></div></div></div></td>";
+		//"<td colspan=3 style='color:#C00000;text-align:left'>+<strong>"+$RMM+"</strong></td>";
+		ColRMA="<td colspan=2></td>"
+		$("#TP_TblHarian tbody").prepend("<tr style='border-top:2px solid var(--dark)'>"+ColRMTgl+ColRMKB+ColNone+ColNone+ColRMSB+ColNone+ColNone+ColRMMB+ColNone+ColNone+ColRMA+"</tr>");
+		$RMKy=$RMK; $RMSy=$RMS; $RMMy=$RMM;
+		$RMK=0; $RMS=0; $RMM=0; $day=0;
 	}
 	PersAktfYest=PersAktf;
 });
