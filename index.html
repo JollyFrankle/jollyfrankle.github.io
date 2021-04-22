@@ -59,7 +59,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
     <div class="d-block d-md-inline-flex btn-group w-100">
         <a class="btn btn-block btn-outline-dark active mt-2">Ringkasan, Grafik, Tabel Pekanan</a>
         <a class="btn btn-block btn-outline-dark" href="datakab.html">Data hari ini per Kab/Kota</a>
-        <a class="btn btn-block btn-outline-dark" href="harian.html">Perkembangan data harian</a>
+        <a class="btn btn-block btn-outline-dark" href="harian.html">Perkembangan data harian <span class="badge badge-info">tampilan baru</span></a>
     </div>
 </nav>
 
@@ -345,7 +345,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <p>Ditampilkan: <span class="GET_day-html"></span> terakhir <span class="text-nowrap" id="TP_Tgl"></span></p>
 <div class="alert alert-info">
 	<p><strong>INFORMASI:</strong> Data pekanan yang ditampilkan adalah data yang dihitung dari hari Minggu hingga Sabtu. Apabila data hingga hari Sabtu belum tersedia/belum lengkap, maka data pekanan untuk pekan tersebut belum akan dikalkulasi.</p>
-	<p class="font-italic mb-0">Contoh: Data hari Minggu, 31 Januari 2021 hingga Jumat, 5 Februari 2021 tersedia, namun data hari Sabtu, 6 Februari 2021 belum tersedia, maka belum akan ada kalkulasi untuk pekan tersebut.</p>
+	<p class="font-italic">Contoh: Data hari Minggu, 31 Januari 2021 hingga Jumat, 5 Februari 2021 tersedia, namun data hari Sabtu, 6 Februari 2021 belum tersedia, maka belum akan ada kalkulasi untuk pekan tersebut.</p>
+	<p class="mb-0"><strong>Pembaruan situs:</strong> Informasi harian lebih rinci dapat dilihat di halaman <a class="alert-link" href="harian.html">data harian (klik di sini)</a>.</p>
 </div>
 <div class="table-responsive">
 	<table class="table table-hover" id="TP_Tabel" style="min-width:970px">
@@ -472,7 +473,6 @@ function TrendInd(mode,val1,val2) {
     if(val1 && val2) {
         var selisih = val1 - val2;
         var perc = selisih / val2;
-	var i="";
         if(perc > 0) {
             i="Meningkat "; l="logoinc";
         }
