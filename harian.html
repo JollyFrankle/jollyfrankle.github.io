@@ -97,12 +97,19 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			<li>Halaman ini memuat daftar kasus harian dari Briefing Satuan Tugas Penanganan COVID-19 Nusa Tenggara Timur. Data mungkin tidak 100% akurat, informasi pada situs Satgas mungkin diperbarui setelah pembaruan data di sistem ini.</li>
 		</ul>
 		<h4 class="border-bottom">Daftar isi</h4>
-		<div class="pl-4 mb-3">
+		<div class="pl-4 mb-2">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
 				<div style="width:1.5rem">1.</div>
-				<a class="h5 mb-1" href="#Bg1_Harian">Perkembangan Kasus Harian</a>
+				<a class="h5 mb-1" href="#Bg1_Harian">Data Historis Provinsi NTT</a>
 			</div>
 			Perkembangan kasus COVID-19 harian untuk seluruh Nusa Tenggara Timur selama <span class="GET_day-html">...</span> terakhir. Terdapat pula jumlah pertambahan kasus selama satu pekan tersebut.
+		</div>
+		<div class="pl-4 mb-3">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">2.</div>
+				<a class="h5 mb-1" href="#Bg2_Excel">Data Historis Per Wilayah</a>
+			</div>
+			Salinan dari situs resmi COVID-19 NTT sejak April 2020 hingga saat ini.
 		</div>
 		<h4 class="border-bottom">Halaman lain</h4>
 		<div class="pl-4">
@@ -123,7 +130,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </div>
 
 <div id="Bg1_Harian" class="anchor"></div>
-<h2 class="border-bottom"><small>1.</small> Perkembangan Kasus Harian</h2>
+<h2 class="border-bottom"><small>1.</small> Data Historis Provinsi NTT</h2>
 <div class="alert alert-info">
 	<p>Lambang warna yang ditampilkan di sebelah kanan indikator penambahan kasus merupakan indikator seberapa tingginya peningkatan kasus pada hari itu dibandingkan penambahan kasus terbanyak sepanjang <span class="GET_day-html">...</span> terakhir. Semakin gelap/<em>solid</em> warna, semakin tinggi peningkatan.</p>
 	<p>Perubahan 7 hari (Prb. 7 hari) dihitung dari rata-rata kasus 7 hari terakhir dan 7 hari terdahulu.</p>
@@ -131,7 +138,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	<p class="small">Untuk keluar mode layar penuh, klik pada tombol "Layar Penuh" yang akan ada di kanan atas layar.</p>
 	<button class="btn btn-sm btn-light fs-false" id="ToggleFS">Layar Penuh</button>
 </div>
-<div class="table-responsive" id="TblHarianWrapper">
+<div class="table-responsive mb-3" id="TblHarianWrapper">
 	<table class="table table-hover mb-0" id="TP_TblHarian" style="min-width:1250px">
 		<thead class="bg-light">
 			<tr>
@@ -161,6 +168,57 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 	</table>
 </div>
 
+<div id="Bg2_Excel" class="anchor"></div>
+<h2 class="border-bottom"><small>2.</small> Data Historis Per Wilayah</h2>
+<div class="alert alert-info">
+    <p>Di bawah ini merupakan data historis per wilayah (Kabupaten/Kota) di NTT. Gunakan berbagai tab di bawah untuk melihat data historis yang dapat direkam selama bulan tersebut.</p>
+    <p class="mb-0">Data mulai konsisten direkam sejak 19 November 2020. Data April - Oktober 2020 hanya direkam sebagian. Daftar tanggal yang direkam selama April-Oktober 2020 adalah:</p>
+    <ul style="column-width:170px;margin-left:-1.25rem">
+        <li>27 April 2020</li>
+        <li>15 Mei 2020</li>
+        <li>1 Juni 2020</li>
+        <li>5 Juni 2020</li>
+        <li>20 Juni 2020</li>
+        <li>2 Juli 2020</li>
+        <li>15 Juli 2020</li>
+        <li>1 Agustus 2020</li>
+        <li>3 Agustus 2020</li>
+        <li>11 Agustus 2020</li>
+        <li>12 September 2020</li>
+        <li>30 September 2020</li>
+        <li>20 Oktober 2020</li>
+        <li>21 Oktober 2020</li>
+        <li>30 Oktober 2020</li>
+    </ul>
+    <p class="mb-0">Data sejak 19 November 2020 yang tidak dapat direkam karena tidak ada update dari situs resmi atau beberapa kendala adalah:</p>
+    <ul style="column-width:170px;margin-left:-1.25rem" class="mb-0">
+        <li>23 November 2020</li>
+        <li>27 November 2020</li>
+        <li>14 Desember 2020</li>
+        <li>20 Desember 2020</li>
+        <li>24 Desember 2020</li>
+        <li>25 Desember 2020</li>
+        <li>28 Desember 2020</li>
+        <li>14 Maret 2021</li>
+        <li>4-6 April 2021</li>
+        <li>8-13 April 2021</li>
+    </ul>
+</div>
+<ul class="nav nav-pills mb-3" id="NavDataExcel" style="flex-wrap:nowrap; overflow-x:auto; white-space:nowrap"></ul>
+<div style="width:100%;height:600px" class="position-relative">
+    <div class="d-flex align-items-center justify-content-center h-100 text-center">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="mb-4" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z"/></svg>
+            <h6 class="mb-0">Klik pada salah satu bulan di atas untuk menampilkan data.</h6>
+            <p class="mb-1">Silakan tunggu beberapa saat hingga data selesai dimuat.</p>
+            <div class="small">Apabila halaman tidak dapat dimuat, berarti permintaan Anda ditolak oleh penyedia.</div>
+        </div>
+    </div>
+    <iframe style="width:100%;height:600px; position:absolute; top:0" frameborder="0" scrolling="no" id="DataExcel"></iframe>
+</div>
+<div class="bg-dark py-1 px-3 small text-light position-relative" style="margin-top:calc(-26px)">
+    Layanan Excel Online
+</div>
 <div id="TambahanInfo" class="alert mb-0" style="position:sticky; bottom:0; display:none; max-height:6rem">
     <h6 class="mb-1" id="TI_header"></h6>
     <p class="mb-0 small" id="TI_text"></p>
@@ -308,7 +366,22 @@ $ArrSB=SembBaru.slice(GET_day), $ArrSJ=SembJuml.slice(GET_day), $ArrS7=Semb7day.
 $ArrMB=MengBaru.slice(GET_day), $ArrMJ=MengJuml.slice(GET_day), $ArrM7=Meng7day.slice(GET_day),
 HL_KB = getMinMax($ArrKB), HL_SB = getMinMax($ArrSB), HL_MB = getMinMax($ArrMB),
 HL_K7 = getMinMax($ArrK7), HL_S7 = getMinMax($ArrS7), HL_M7 = getMinMax($ArrM7);
-
+var BulanTahun=[];
+$.each(Tanggal, function(key,val){
+    if(!BulanTahun.includes(val.substr(0,7))) {
+        BulanTahun.push(val.substr(0,7));
+        var tgl=new Date(val.substr(0,7));
+        $("#NavDataExcel").prepend('<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data-xlsx="'+val.substr(0,7)+'">'+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+'</a></li>');
+    }
+});
+$(document).on("click", "#NavDataExcel a", function(){
+    if($(this).data("xlsx")) {
+        $("#DataExcel").removeAttr("src");
+        $("#DataExcel").prop("src", "https://onedrive.live.com/embed?resid=C9E7642AA34CF44A%2112171&authkey=%21AP-NSamXtCTCXys&em=2&wdAllowInteractivity=False&ActiveCell=%27"+$(this).data("xlsx")+"%27!A1&Item=%27"+$(this).data("xlsx")+"%27!A1%3AU810&wdHideGridlines=True&wdInConfigurator=True");
+        $("#NavDataExcel a").removeClass("active");
+        $(this).addClass("active");
+    }
+});
 $.each(Tanggal.slice(GET_day),function(key,val){
 	var PersAktf=(($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))/$ArrKJ[key])*100,
 	PAind = TrendInd(1, PersAktf, PersAktfYest);
@@ -363,6 +436,7 @@ $.each(Tanggal.slice(GET_day),function(key,val){
 	}
 	PersAktfYest=PersAktf;
 });
+console.log(BulanTahun);
 }
 </script>
 </body>
