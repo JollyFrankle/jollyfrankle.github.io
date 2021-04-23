@@ -395,13 +395,13 @@ $.each(Tanggal.slice(GET_day),function(key,val){
 	HL_MBind="rgba(192,0,0,"+($ArrMB[key]-HL_MB["min"])/HL_MB["max"]+")";
 	Col1="<td>"+DateIndo(val,2)+"</td>";
 	ColK1="<td><div class='flbet'><strong>"+($ArrKB[key]<0?$ArrKB[key]:"+"+$ArrKB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_KBind+"'></div></div></td>";
-	ColK2="<td><div class='flbet'><div>+"+$ArrK7[key].toFixed(2).replace(".",",")+"</div><div class='logoright text-"+K7dind[1]+" "+K7dind[2]+"'></div></div></td>";
+	ColK2="<td><div class='flbet'><div>+"+($ArrK7[key]!=null ? $ArrK7[key].toFixed(2).replace(".",",") : " –")+"</div><div class='logoright text-"+K7dind[1]+" "+K7dind[2]+"'></div></div></td>";
 	ColK3="<td>"+$ArrKJ[key]+"</td>";
 	ColS1="<td><div class='flbet'><strong>"+($ArrSB[key]<0?$ArrSB[key]:"+"+$ArrSB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_SBind+"'></div></div></td>";
-	ColS2="<td><div class='flbet'><div>+"+$ArrS7[key].toFixed(2).replace(".",",")+"</div><div class='logoright text-"+S7dind[1]+" "+S7dind[2]+"'></div></div></td>";
+	ColS2="<td><div class='flbet'><div>+"+($ArrS7[key]!=null ? $ArrS7[key].toFixed(2).replace(".",",") : " –")+"</div><div class='logoright text-"+S7dind[1]+" "+S7dind[2]+"'></div></div></td>";
 	ColS3="<td>"+$ArrSJ[key]+"</td>";
 	ColM1="<td><div class='flbet'><strong>"+($ArrMB[key]<0?$ArrMB[key]:"+"+$ArrMB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_MBind+"'></div></div></td>";
-	ColM2="<td><div class='flbet'><div>+"+$ArrM7[key].toFixed(2).replace(".",",")+"</div><div class='logoright text-"+M7dind[1]+" "+M7dind[2]+"'></div></div></td>";
+	ColM2="<td><div class='flbet'><div>+"+($ArrM7[key]!=null ? $ArrM7[key].toFixed(2).replace(".",",") : " –")+"</div><div class='logoright text-"+M7dind[1]+" "+M7dind[2]+"'></div></div></td>";
 	ColM3="<td>"+$ArrMJ[key]+"</td>";
 	ColA1="<td><div class='flbet'>"+PersAktf.toFixed(2).replace(".",",")+"%<div class='logoright text-"+PAind[1]+" "+PAind[2]+"'></div></div></td>";
 	ColA2="<td>"+($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))+"</td>";
