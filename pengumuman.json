@@ -1,6 +1,6 @@
 {
-    "show": false, "type": "primary",
-    "header": "<strong>BARU:</strong> Data historis per Kabupaten/Kota.",
-    "text":   "Telah ditambahkan data historis per Kabupaten/Kota di NTT sejak April 2020 hingga saat ini. Untuk melihatnya, kunjungi <a class='alert-link' href='harian.html#Bg2_Excel'>perkembangan data harian, di bawah tabel data historis NTT</a>.",
+    "show": true, "type": "info",
+    "header": "<strong>INFO:</strong> Situs resmi COVID-19 NTT tidak dapat diakses.",
+    "text":   "Kemungkinan ada rebranding/rework situs tersebut, sehingga pembaruan data hari ini (1 Juni 2021) ditunda.",
     "text2":  "Untuk saat ini (09/04, 18.15 WITA), situs resmi Satgas COVID-19 NTT tidak dapat diakses. Pembaruan data ditiadakan hingga situasi memungkinkan. <strong>#PrayForNTT</strong>"
 }
