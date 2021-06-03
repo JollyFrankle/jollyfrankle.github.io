@@ -1,5 +1,5 @@
 {
-    "show": true, "type": "info",
+    "show": false, "type": "info",
     "header": "<strong>INFO:</strong> Situs resmi COVID-19 NTT tidak dapat diakses.",
     "text":   "Kemungkinan ada rebranding/rework situs tersebut, sehingga pembaruan data hari ini (1 Juni 2021) ditunda.",
     "text2":  "Untuk saat ini (09/04, 18.15 WITA), situs resmi Satgas COVID-19 NTT tidak dapat diakses. Pembaruan data ditiadakan hingga situasi memungkinkan. <strong>#PrayForNTT</strong>"
