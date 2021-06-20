@@ -1,5 +1,5 @@
 {
-    "show": false, "type": "success",
+    "show": true, "type": "success",
     "header": "Informasi Pembaruan Tampilan Situs",
     "text":   "Akan ada pembaruan tampilan pada halaman Data Per Wilayah berupa penambahan grafik perbandingan kondisi wilayah. Update akan dilaksanakan pada 21 Juni 2021, ~17.00 WITA.",
     "text2":  "Untuk saat ini (09/04, 18.15 WITA), situs resmi Satgas COVID-19 NTT tidak dapat diakses. Pembaruan data ditiadakan hingga situasi memungkinkan. <strong>#PrayForNTT</strong>"
