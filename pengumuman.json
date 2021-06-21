@@ -1,7 +1,7 @@
 {
     "show": true, "type": "danger",
-    "header": "Situs COVID-19 NTT tidak dapat sepenuhnya dijangkau",
-    "text":   "Pembaruan data hari ini (21 Jun 2021) mungkin ditunda.",
+    "header": "Data 21 Juni 2021 tersedia tanpa data kasus tuntas",
+    "text":   "Hal ini dikarenakan situs COVID-19 NTT yang sulit diakses. Data akan diperbarui secara lengkap saat kondisi memungkinkan.",
     "text3":  "Akan ada pembaruan tampilan pada halaman Data Per Wilayah berupa penambahan grafik perbandingan kondisi wilayah. Update akan dilaksanakan pada 21 Juni 2021, ~17.00 WITA.",
     "text2":  "Untuk saat ini (09/04, 18.15 WITA), situs resmi Satgas COVID-19 NTT tidak dapat diakses. Pembaruan data ditiadakan hingga situasi memungkinkan. <strong>#PrayForNTT</strong>"
 }
