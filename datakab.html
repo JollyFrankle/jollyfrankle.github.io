@@ -35,19 +35,22 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 #MapMobileNav{display:none}
 /*.ping-shake{animation:shake .75s cubic-bezier(.36,.07,.19,.97)}
 @keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}*/
+.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}
+.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}
 @media (max-width: 991.98px) {
-    #MapLegend{bottom:3rem}
+	#MapLegend{bottom:3rem}
 }
 @media (max-width: 767.98px) {
-    #MapLegend{position:static;border-radius:0;width:calc(100% + 2px);margin:0 -1px;overflow:hidden}
-    #MapContainer{max-height:275px;height:50vh}
-    #MapIndLeg {position:static;width:calc(100% - 1rem);margin:-1.5rem .5rem .5rem}
-    #MapNav>.btn-group{width:100%}
-    #MapNav{position:static;width:100%;border-radius:0;display:block;white-space:normal}
-    #MapNav .input-group{display:none}
-    #MapMobileNav{display:block;position:absolute;right:.5rem;bottom:320px;width:60px;text-align:right}
+	#MapLegend{position:static;border-radius:0;width:calc(100% + 2px);margin:0 -1px;overflow:hidden}
+	#MapContainer{max-height:275px;height:50vh}
+	#MapIndLeg {position:static;width:calc(100% - 1rem);margin:-1.5rem .5rem .5rem}
+	#MapNav>.btn-group{width:100%}
+	#MapNav{position:static;width:100%;border-radius:0;display:block;white-space:normal}
+	#MapNav .input-group{display:none}
+	#MapMobileNav{display:block;position:absolute;right:.5rem;bottom:320px;width:60px;text-align:right}
 }
 #MapContainer::-webkit-scrollbar{display: none;}
+@media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
 <body>
@@ -70,15 +73,15 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 </div>
 
 <nav class="mb-3 pb-3 border-bottom">
-    <div class="d-block d-md-inline-flex btn-group w-100">
-        <a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
-        <a class="btn btn-block btn-outline-dark active">Data hari ini per Kab/Kota</a>
-        <a class="btn btn-block btn-outline-dark" href="harian.html">Perkembangan data harian</a>
-    </div>
+	<div class="d-block d-md-inline-flex btn-group w-100">
+		<a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
+		<a class="btn btn-block btn-outline-dark active">Data hari ini per Kab/Kota</a>
+		<a class="btn btn-block btn-outline-dark" href="harian.html">Perkembangan data harian</a>
+	</div>
 </nav>
 <div class="btn-group w-100 mb-2">
-    <button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
-    <button class="btn btn-sm btn-outline-info" data-toggle="collapse" data-target="#InfoAtas" aria-expanded="false" aria-controls="InfoAtas">Informasi, daftar isi, halaman lain</button>
+	<button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
+	<button class="btn btn-sm btn-outline-info" data-toggle="collapse" data-target="#InfoAtas" aria-expanded="false" aria-controls="InfoAtas">Informasi, daftar isi, halaman lain</button>
 </div>
 <div class="collapse" id="ILL_atas">
 	<div class="alert alert-danger text-justify">
@@ -96,7 +99,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 			<li>Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</li>
 		</ul>
 		<h4 class="border-bottom">Daftar isi</h4>
-        <div class="pl-4 mb-2">
+		<div class="pl-4 mb-2">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
 				<div style="width:1.5rem">1.</div>
 				<a class="h5 mb-1" href="#Bg1_Peta">Peta Interaktif</a>
@@ -143,235 +146,270 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 </div>
 
 <div id="Bg1_Peta" class="anchor"></div>
+<h2 class="border-bottom"><small>1.</small> Peta Sebaran</h2>
 <div class="position-relative rounded border mb-3">
-    <h6 id="MapHeader">
-        <div id="MapTitle"></div>
-        <div class="small text-muted">Perhatikan skala di sudut kanan bawah peta atau di bawah peta untuk konteks.</div>
-    </h6>
-    <div id="MapContainer" style="background:#C6ECFF" data-zoom-on-wheel="zoom-amount: 0.001; min-scale: 1; max-scale: 5;" data-pan-on-drag >
-    </div>
-    <div id="MapIndLeg">
-        <div>
-            <span>0</span>
-            <span>50</span>
-            <span>100</span>
-        </div>
-        <div id="MapIndCol"></div>
-    </div>
-    <div id="MapMobileNav">
-        <div class="btn-group-vertical mb-1">
-            <button class="btn btn-sm btn-secondary map-zoom w-100" data-zoom="in">+</button>
-            <button class="btn btn-sm btn-secondary map-zoom w-100" data-zoom="out">–</button>
-        </div>
-        <button class="btn btn-sm btn-secondary" type="button" onclick="svgPanZoomContainer.resetScale(document.getElementById('MapContainer'))">Reset</button>
-    </div>
-    <div id="MapNav">
-        <div class="btn-group mr-1 mb-1 mb-md-0">
-            <button class="btn btn-sm btn-info" data-mapdata="6">Jlh. Ks. Aktif</button>
-            <button class="btn btn-sm btn-info" data-mapdata="4">Ks. Tuntas Baru</button>
-            <button class="btn btn-sm btn-info" data-mapdata="5">% Tuntas</button>
-        </div>
-        <div class="btn-group mr-1 mb-1 mb-md-0">
-            <button class="btn btn-sm btn-info" data-mapdata="2">Jlh. Kasus</button>
-            <button class="btn btn-sm btn-info" data-mapdata="1">Ks. Baru</button>
-            <button class="btn btn-sm btn-info" data-mapdata="3">% Aktif</button>
-        </div>
-        <div class="input-group-sm input-group">
-            <div class="btn-group input-group-prepend">
-                <button class="btn btn-sm btn-secondary map-zoom px-1" data-zoom="in">+</button>
-                <button class="btn btn-sm btn-secondary map-zoom px-1" data-zoom="out">–</button>
-            </div>
-            <input type="number" class="form-control" id="MapScale" value="100" min="100" step="1.00" max="" oninput="window.inputting=true;svgPanZoomContainer.setScale(document.getElementById('MapContainer'),+this.value/100)"/>
-            <div class="input-group-append">
-                <button class="btn btn-sm btn-secondary" type="button" onclick="svgPanZoomContainer.resetScale(document.getElementById('MapContainer'))">Reset</button>
-            </div>
-        </div>
-    </div>
-    <div id="MapLegend" class="card">
-        <div class="pb-1 bg-secondary"></div>
-        <div class="card-body small py-2 px-3">
-            <h6 class="mb-0" id="LegIn_Kab">Klik pada salah satu Kab/Kota</h6>
-            <div class="mb-2" id="LegIn_PerKs"></div>
-            <hr class="my-1"/>
-            <div class="d-flex justify-content-between">
-                <span>Jumlah kasus</span>
-                <strong id="LegIn_Jlh">...</strong>
-            </div>
-            <div class="d-flex justify-content-between">
-                <span>Kasus aktif</span>
-                <strong id="LegIn_Akt">...</strong>
-            </div>
-            <hr class="my-1"/>
-            <div class="d-flex justify-content-between">
-                <span>Persen kasus aktif</span>
-                <strong id="LegIn_PerAkt">...</strong>
-            </div>
-            <div class="d-flex justify-content-between">
-                <span>Persen kasus tuntas</span>
-                <strong id="LegIn_PerTun">...</strong>
-            </div>
-            <hr class="my-1"/>
-            <div class="d-flex justify-content-between">
-                <span>Kasus positif baru</span>
-                <strong id="LegIn_Num">...</strong>
-            </div>
-            <div class="d-flex justify-content-between">
-                <span>Kasus tuntas baru</span>
-                <strong id="LegIn_Tun">...</strong>
-            </div>
-            <hr class="my-1"/>
-            <a class="d-block" href="#Dati20" id="LegIn_DatiAnchor">Selengkapnya...</a>
-        </div>
-    </div>
+	<h6 id="MapHeader">
+		<div id="MapTitle">Memuat Peta...</div>
+		<div class="small text-muted">Perhatikan skala di sudut kanan bawah peta atau di bawah peta untuk konteks</div>
+	</h6>
+	<div id="MapContainer" style="background:#C6ECFF" data-zoom-on-wheel="zoom-amount: 0.001; min-scale: 1; max-scale: 5;" data-pan-on-drag >
+	</div>
+	<div id="MapIndLeg">
+		<div>
+			<span>0</span>
+			<span>50</span>
+			<span>100</span>
+		</div>
+		<div id="MapIndCol"></div>
+	</div>
+	<div id="MapMobileNav">
+		<div class="btn-group-vertical mb-1">
+			<button class="btn btn-sm btn-secondary map-zoom w-100" data-zoom="in">+</button>
+			<button class="btn btn-sm btn-secondary map-zoom w-100" data-zoom="out">–</button>
+		</div>
+		<button class="btn btn-sm btn-secondary" type="button" onclick="svgPanZoomContainer.resetScale(document.getElementById('MapContainer'))">Reset</button>
+	</div>
+	<div id="MapNav">
+		<div class="btn-group mr-1 mb-1 mb-md-0">
+			<button class="btn btn-sm btn-info" data-mapdata="6">Jlh. Ks. Aktif</button>
+			<button class="btn btn-sm btn-info" data-mapdata="4">Ks. Tuntas Baru</button>
+			<button class="btn btn-sm btn-info" data-mapdata="5">% Tuntas</button>
+		</div>
+		<div class="btn-group mr-1 mb-1 mb-md-0">
+			<button class="btn btn-sm btn-info" data-mapdata="2">Jlh. Kasus</button>
+			<button class="btn btn-sm btn-info" data-mapdata="1">Ks. Baru</button>
+			<button class="btn btn-sm btn-info" data-mapdata="3">% Aktif</button>
+		</div>
+		<div class="input-group-sm input-group">
+			<div class="btn-group input-group-prepend">
+				<button class="btn btn-sm btn-secondary map-zoom px-1" data-zoom="in">+</button>
+				<button class="btn btn-sm btn-secondary map-zoom px-1" data-zoom="out">–</button>
+			</div>
+			<input type="number" class="form-control" id="MapScale" value="100" min="100" step="1.00" max="" oninput="window.inputting=true;svgPanZoomContainer.setScale(document.getElementById('MapContainer'),+this.value/100)"/>
+			<div class="input-group-append">
+				<button class="btn btn-sm btn-secondary" type="button" onclick="svgPanZoomContainer.resetScale(document.getElementById('MapContainer'))">Reset</button>
+			</div>
+		</div>
+	</div>
+	<div id="MapLegend" class="card">
+		<div class="pb-1 bg-secondary"></div>
+		<div class="card-body small py-2 px-3">
+			<h6 class="mb-0" id="LegIn_Kab">Klik pada salah satu Kab/Kota</h6>
+			<div class="mb-2" id="LegIn_PerKs"></div>
+			<hr class="my-1"/>
+			<div class="d-flex justify-content-between">
+				<span>Jumlah kasus</span>
+				<strong id="LegIn_Jlh">...</strong>
+			</div>
+			<div class="d-flex justify-content-between">
+				<span>Kasus aktif</span>
+				<strong id="LegIn_Akt">...</strong>
+			</div>
+			<hr class="my-1"/>
+			<div class="d-flex justify-content-between">
+				<span>Persen kasus aktif</span>
+				<strong id="LegIn_PerAkt">...</strong>
+			</div>
+			<div class="d-flex justify-content-between">
+				<span>Persen kasus tuntas</span>
+				<strong id="LegIn_PerTun">...</strong>
+			</div>
+			<hr class="my-1"/>
+			<div class="d-flex justify-content-between">
+				<span>Kasus positif baru</span>
+				<strong id="LegIn_Num">...</strong>
+			</div>
+			<div class="d-flex justify-content-between">
+				<span>Kasus tuntas baru</span>
+				<strong id="LegIn_Tun">...</strong>
+			</div>
+			<hr class="my-1"/>
+			<a class="d-block" href="#Dati20" id="LegIn_DatiAnchor">Selengkapnya...</a>
+		</div>
+	</div>
 </div>
 
-<div class="alert alert-info text-center mt-3" style="position:sticky;top:3.5rem;z-index:9">
+<h2 class="border-bottom"><small>2.</small> Situasi Hari Ini</h2>
+<div class="alert alert-info text-center" style="position:sticky;top:3.5rem;z-index:9">
 	<div class="d-inline-block">Data harian <strong class="LastData">Memuat...</strong>,</div>
 	<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
 </div>
 
 <div class="row">
-    <div class="col-md-6 mb-3">
-        <div class="anchor" id="Bg21_Baru"></div>
-        <div class="card h-100">
-            <div class="pb-1" style="background:#BF9000"></div>
-            <div class="card-body">
-                <h5 class="card-title mb-1">Pertambahan kasus positif</h5>
-                <p class="mb-1 text-muted">Kasus terkonfirmasi baru per <span class="LastData">Memuat...</span>.</p>
-                <hr class="my-2"/>
-                <div class="font-weight-bold flbet" style="color:#BF9000">Nusa Tenggara Timur <span id="KonfIncNTT"></span></div>
-                <ul id="NewCasesToday">
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 mb-3">
-        <div class="anchor" id="Bg22_Tuntas"></div>
-        <div class="card h-100">
-            <div class="d-flex">
-                <div class="pb-1 w-50" style="background:#002060"></div>
-                <div class="pb-1 w-50" style="background:#C00000"></div>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title mb-1">Pertambahan kasus tuntas</h5>
-                <p class="mb-1 text-muted">Kasus sembuh/meninggal baru per <span class="LastData">Memuat...</span>.</p>
-                <hr class="my-2"/>
-                <div class="font-weight-bold flbet" style="color:#002060">Nusa Tenggara Timur <span id="SembIncNTT"></span></div>
-                <div class="font-weight-bold flbet" style="color:#C00000">Nusa Tenggara Timur <span id="MengIncNTT"></span></div>
-                <ul id="ClosedCasesToday">
-                </ul>
-            </div>
-        </div>
-    </div>
+	<div class="col-md-6 mb-3">
+		<div class="anchor" id="Bg21_Baru"></div>
+		<div class="card h-100">
+			<div class="pb-1" style="background:#BF9000"></div>
+			<div class="card-body">
+				<h5 class="card-title mb-1">Pertambahan kasus positif</h5>
+				<p class="mb-1 text-muted">Kasus terkonfirmasi baru per <span class="LastData">Memuat...</span>.</p>
+				<hr class="my-2"/>
+				<div class="font-weight-bold flbet" style="color:#BF9000">Nusa Tenggara Timur <span id="KonfIncNTT"></span></div>
+				<ul id="NewCasesToday"><div class="bg-light rounded py-4 px-3 text-center">Memuat...</div></ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 mb-3">
+		<div class="anchor" id="Bg22_Tuntas"></div>
+		<div class="card h-100">
+			<div class="d-flex">
+				<div class="pb-1 w-50" style="background:#002060"></div>
+				<div class="pb-1 w-50" style="background:#C00000"></div>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title mb-1">Pertambahan kasus tuntas</h5>
+				<p class="mb-1 text-muted">Kasus sembuh/meninggal baru per <span class="LastData">Memuat...</span>.</p>
+				<hr class="my-2"/>
+				<div class="font-weight-bold flbet" style="color:#002060">Nusa Tenggara Timur <span id="SembIncNTT"></span></div>
+				<div class="font-weight-bold flbet" style="color:#C00000">Nusa Tenggara Timur <span id="MengIncNTT"></span></div>
+				<ul id="ClosedCasesToday"><div class="bg-light rounded py-4 px-3 text-center">Memuat...</div></ul>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="small pb-3 text-muted text-center">Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</div>
-<section id="SectWil"></section>
+
+<h2 class="border-bottom"><small>3.</small> Perbandingan Kasus</h2>
+
+<h4 class="text-center mb-1 mt-2">Perbandingan Kasus Positif</h4>
+<p class="text-center text-muted mb-0">Klik pada teks legenda (di atas grafik, di bawah tulisan ini) untuk menyaring data yang tampil.</p>
+<div class="chart-container" style="height:500px;width:600px;">
+	<div class="rounded">Memuat grafik...</div>
+	<canvas id="c_konf"></canvas>
+</div>
+
+<h4 class="text-center mb-2"><a data-toggle="collapse" href="#col_grafik" aria-expanded="false" aria-controls="col_grafik">Grafik Probable, Suspek, dan Kontak Erat <strong>[KLIK]</strong></a></h4>
+<div class="collapse" id="col_grafik">
+	<h6 class="text-center mb-0">Perbandingan Kasus Probable</h6>
+	<div class="chart-container" style="height:500px;width:600px;">
+		<div>Memuat grafik (berurutan)...</div>
+		<canvas id="c_prob"></canvas>
+	</div>
+
+	<h6 class="text-center mb-0">Perbandingan Kasus Suspek</h6>
+	<div class="chart-container" style="height:500px;width:600px;">
+		<div>Memuat grafik (berurutan)...</div>
+		<canvas id="c_susp"></canvas>
+	</div>
+
+	<h6 class="text-center mb-0">Perbandingan Kasus Kontak Erat</h6>
+	<div class="chart-container" style="height:500px;width:600px;">
+		<div>Memuat grafik (berurutan)...</div>
+		<canvas id="c_kont"></canvas>
+	</div>
+</div>
+
+<h2 class="border-bottom"><small>4.</small> Rekapitulasi Kasus Per Wilayah</h2>
+<section id="SectWil"><div class="bg-light rounded py-4 px-3 text-center">Memuat...</div></section>
 
 <section id="TemplateWilayah" class="d-none">
 <div class="anchor" id="$Anchor$"></div>
 <div class="card mb-4 overflow-hidden">
-    <div class="pb-1 bg-secondary"></div>
-    <div class="card-body">
-        <h5 class="card-title mb-1">$NamaWil$</h5>
-        <div class="row">
-            <div class="col-sm-6 col-lg-3 mb-2">
-                <h6 class="mb-1" style="color:#BF9000">Jumlah kasus positif:</h6>
-                <p class="display-4 mb-1" style="height:calc(100% - 3rem);display:flex;align-items:center;">$TotKonf$</p>
-                <hr class="my-1"/>
-                <p class="mb-0"><strong>$PerKsNTT$</strong> kasus di NTT</p>
-            </div>
-            <div class="col-sm-6 col-lg-3 mb-2">
-                <h6 class="mb-1">Rincian</h6>
-                <div class="text-muted small">Jumlah kasus selama ini</div>
-                <hr class="my-1"/>
-                <div class="flbet mb-1">
-                    <div class="info-kasus"><small>KONFIRMASI:</small> <strong>$TotKonf$</strong></div>
-                    <span class="$TotKonfInd$">$TotKonfInc$</span>
-                </div>
-                <a class="d-block small" type="button" data-toggle="collapse" href="#InfoPSKTot_$Key$" draggable="false">
-                    Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
-                </a>
-                <div id="InfoPSKTot_$Key$" class="collapse pt-1">
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>PROBABLE:</small> <strong>$TotProb$</strong></div>
-                        <span class="$TotProbInd$">$TotProbInc$</span>
-                    </div>
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>SUSPEK:</small> <strong>$TotSusp$</strong></div>
-                        <span class="$TotSuspInd$">$TotSuspInc$</span>
-                    </div>
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>KONT. ERAT:</small> <strong>$TotKont$</strong></div>
-                        <span class="$TotKontInd$">$TotKontInc$</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3 mb-2">
-                <h6 class="mb-1">Kasus aktif</h6>
-                <div class="text-muted small">Kasus yang masih ditangani</div>
-                <hr class="my-1"/>
-                <div class="flbet">
-                    <div class="info-kasus"><small>KONFIRMASI:</small> <strong>$AktKonf$</strong></div>
-                    <span class="$AktKonfInd$">$AktKonfInc$</span>
-                </div>
-                <div class="flbet mb-1">
-                    <small>Persentase Kasus Aktif:</small>
-                    <strong>$AktKonfPerc$</strong>
-                </div>
-                <a class="d-block small" type="button" data-toggle="collapse" href="#InfoPSKAkt_$Key$" draggable="false">
-                    Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
-                </a>
-                <div id="InfoPSKAkt_$Key$" class="collapse pt-1">
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>PROBABLE:</small> <strong>$AktProb$</strong></div>
-                        <span class="$AktProbInd$">$AktProbInc$</span>
-                    </div>
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>SUSPEK:</small> <strong>$AktSusp$</strong></div>
-                        <span class="$AktSuspInd$">$AktSuspInc$</span>
-                    </div>
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>KONT. ERAT:</small> <strong>$AktKont$</strong></div>
-                        <span class="$AktKontInd$">$AktKontInc$</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3 mb-2">
-                <h6 class="mb-1">Kasus tuntas</h6>
-                <div class="text-muted small">Kasus sembuh/meninggal</div>
-                <hr class="my-1"/>
-                <div class="flbet mb-1">
-                    <div class="info-kasus"><small>KONFIRMASI:</small> <strong>$TunKonf$</strong></div>
-                    <span class="$TunKonfInd$">$TunKonfInc$</span>
-                </div>
-                <a class="d-block small" type="button" data-toggle="collapse" href="#InfoPSKTun_$Key$" draggable="false">
-                    Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
-                </a>
-                <div id="InfoPSKTun_$Key$" class="collapse pt-1">
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>PROBABLE:</small> <strong>$TunProb$</strong></div>
-                        <span class="$TunProbInd$">$TunProbInc$</span>
-                    </div>
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>SUSPEK:</small> <strong>$TunSusp$</strong></div>
-                        <span class="$TunSuspInd$">$TunSuspInc$</span>
-                    </div>
-                    <div class="flbet mb-1 text-muted">
-                        <div class="info-kasus"><small>KONT. ERAT:</small> <strong>$TunKont$</strong></div>
-                        <span class="$TunKontInd$">$TunKontInc$</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="pb-1 bg-secondary"></div>
+	<div class="card-body">
+		<h4 class="card-title mb-0 text-center">$NamaWil$</h4>
+		<div class="chart-container pb-2 border-bottom mb-3" style="height:300px;width:600px;">
+			<canvas id="c_all_$Key$"></canvas>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-lg-3 mb-2">
+				<h6 class="mb-1" style="color:#BF9000">Jumlah kasus positif:</h6>
+				<p class="display-4 mb-1" style="height:calc(100% - 3rem);display:flex;align-items:center;">$TotKonf$</p>
+				<hr class="my-1"/>
+				<p class="mb-0"><strong>$PerKsNTT$</strong> kasus di NTT</p>
+			</div>
+			<div class="col-sm-6 col-lg-3 mb-2">
+				<h6 class="mb-1">Rincian</h6>
+				<div class="text-muted small">Jumlah kasus selama ini</div>
+				<hr class="my-1"/>
+				<div class="flbet mb-1">
+					<div class="info-kasus"><small>KONFIRMASI:</small> <strong>$TotKonf$</strong></div>
+					<span class="$TotKonfInd$">$TotKonfInc$</span>
+				</div>
+				<a class="d-block small" type="button" data-toggle="collapse" href="#InfoPSKTot_$Key$" draggable="false">
+					Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
+				</a>
+				<div id="InfoPSKTot_$Key$" class="collapse pt-1">
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>PROBABLE:</small> <strong>$TotProb$</strong></div>
+						<span class="$TotProbInd$">$TotProbInc$</span>
+					</div>
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>SUSPEK:</small> <strong>$TotSusp$</strong></div>
+						<span class="$TotSuspInd$">$TotSuspInc$</span>
+					</div>
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>KONT. ERAT:</small> <strong>$TotKont$</strong></div>
+						<span class="$TotKontInd$">$TotKontInc$</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-3 mb-2">
+				<h6 class="mb-1">Kasus aktif</h6>
+				<div class="text-muted small">Kasus yang masih ditangani</div>
+				<hr class="my-1"/>
+				<div class="flbet">
+					<div class="info-kasus"><small>KONFIRMASI:</small> <strong>$AktKonf$</strong></div>
+					<span class="$AktKonfInd$">$AktKonfInc$</span>
+				</div>
+				<div class="flbet mb-1">
+					<small>Persentase Kasus Aktif:</small>
+					<strong>$AktKonfPerc$</strong>
+				</div>
+				<a class="d-block small" type="button" data-toggle="collapse" href="#InfoPSKAkt_$Key$" draggable="false">
+					Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
+				</a>
+				<div id="InfoPSKAkt_$Key$" class="collapse pt-1">
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>PROBABLE:</small> <strong>$AktProb$</strong></div>
+						<span class="$AktProbInd$">$AktProbInc$</span>
+					</div>
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>SUSPEK:</small> <strong>$AktSusp$</strong></div>
+						<span class="$AktSuspInd$">$AktSuspInc$</span>
+					</div>
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>KONT. ERAT:</small> <strong>$AktKont$</strong></div>
+						<span class="$AktKontInd$">$AktKontInc$</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-3 mb-2">
+				<h6 class="mb-1">Kasus tuntas</h6>
+				<div class="text-muted small">Kasus sembuh/meninggal</div>
+				<hr class="my-1"/>
+				<div class="flbet mb-1">
+					<div class="info-kasus"><small>KONFIRMASI:</small> <strong>$TunKonf$</strong></div>
+					<span class="$TunKonfInd$">$TunKonfInc$</span>
+				</div>
+				<a class="d-block small" type="button" data-toggle="collapse" href="#InfoPSKTun_$Key$" draggable="false">
+					Probable, Suspek, dan Kont. Erat <strong>[KLIK]</strong>
+				</a>
+				<div id="InfoPSKTun_$Key$" class="collapse pt-1">
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>PROBABLE:</small> <strong>$TunProb$</strong></div>
+						<span class="$TunProbInd$">$TunProbInc$</span>
+					</div>
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>SUSPEK:</small> <strong>$TunSusp$</strong></div>
+						<span class="$TunSuspInd$">$TunSuspInc$</span>
+					</div>
+					<div class="flbet mb-1 text-muted">
+						<div class="info-kasus"><small>KONT. ERAT:</small> <strong>$TunKont$</strong></div>
+						<span class="$TunKontInd$">$TunKontInc$</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </section>
 <section id="TemplateTOC" class="d-none">
-    <li><a href="$Anchor$">$NamaWil$</a></li>
+	<li><a href="$Anchor$">$NamaWil$</a></li>
 </section>
 <div id="TambahanInfo" class="alert mb-0" style="position:sticky; bottom:0; display:none; max-height:6rem">
-    <h6 class="mb-1" id="TI_header"></h6>
-    <p class="mb-0 small" id="TI_text"></p>
+	<h6 class="mb-1" id="TI_header"></h6>
+	<p class="mb-0 small" id="TI_text"></p>
 </div>
 </main>
 <footer class="bg-dark text-light">
@@ -384,6 +422,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.5.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script>
 $.ajax({
 	url: "pengumuman.json",
@@ -392,9 +431,9 @@ $.ajax({
 	success:function(data)
 	{
 		if(data.show) {
-		    $("#TI_header").html(data.header);
-		    $("#TI_text").html(data.text);
-		    $("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
+			$("#TI_header").html(data.header);
+			$("#TI_text").html(data.text);
+			$("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
 		}
 	}
 });
@@ -421,54 +460,51 @@ $.ajax({
 	}
 });
 $.ajax({
-    url: "peta-ntt.svg",
-    dataType: 'html',
-    success: function(data){
-        $("#MapContainer").prepend(data);
-        var MapCon=document.getElementById('MapContainer');
-        $(".map-zoom").on("click",function() {
-            if($(this).data("zoom")=="in")
-                svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))+0.1);
-            if($(this).data("zoom")=="out")
-                svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))-0.1);
-        });
+	url: "peta-ntt.svg",
+	dataType: 'html',
+	success: function(data){
+		$("#MapContainer").prepend(data);
+		var MapCon=document.getElementById('MapContainer');
+		$(".map-zoom").on("click",function() {
+			if($(this).data("zoom")=="in")
+				svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))+0.1);
+			if($(this).data("zoom")=="out")
+				svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))-0.1);
+		});
 new MutationObserver(function (mutations) {
-  if (window.inputting) {
-    delete window.inputting
-  } else {
-      /*$.each(mutations,function(mutation){
-          document.getElementById('MapScale').value = (Math.round(svgPanZoomContainer.getScale(mutation.target.parentElement) * 10000) / 100).toFixed(2)
-      });*/
-    mutations.forEach(function (mutation) {
-      document.getElementById('MapScale').value = (Math.round(svgPanZoomContainer.getScale(mutation.target.parentElement) * 10000) / 100).toFixed(2)
-    });
-  }
+	if (window.inputting) {
+	delete window.inputting
+	} else {
+	mutations.forEach(function (mutation) {
+		document.getElementById('MapScale').value = (Math.round(svgPanZoomContainer.getScale(mutation.target.parentElement) * 10000) / 100).toFixed(2)
+	});
+	}
 }).observe(document.getElementById('MapContainer').firstElementChild, {
-  attributes: true,
-  attributeFilter: ['transform'],
+	attributes: true,
+	attributeFilter: ['transform'],
 });
 const observer = new MutationObserver(function (mutations) {
-  mutations.forEach(function (mutation) {
-    console.log('scale: ', mutation.target.dataset.scale)
-  });
+	mutations.forEach(function (mutation) {
+	console.log('scale: ', mutation.target.dataset.scale)
+	});
 });
 
 observer.observe(document.getElementById('MapContainer'), {
-  attributes: true,
-  attributeFilter: ['data-scale'],
+	attributes: true,
+	attributeFilter: ['data-scale'],
 });
 
-    }
+	}
 });
 $.getScript("datakab.js",AJAX_Complete);
 $.getScript("data.js",DATAJS_Complete);
 function DATAJS_Complete(){
-    $("#KonfIncNTT").text("+"+KonfBaru[KonfBaru.length-1]+" ks. baru");
-    $("#SembIncNTT").text("+"+SembBaru[SembBaru.length-1]+" sembuh");
-    $("#MengIncNTT").text("+"+MengBaru[MengBaru.length-1]+" meninggal");
-    $(".LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
+	$("#KonfIncNTT").text("+"+KonfBaru[KonfBaru.length-1]+" ks. baru");
+	$("#SembIncNTT").text("+"+SembBaru[SembBaru.length-1]+" sembuh");
+	$("#MengIncNTT").text("+"+MengBaru[MengBaru.length-1]+" meninggal");
+	$(".LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
 }
-function AJAX_Complete(){
+async function AJAX_Complete(){
 function getMinMax(arr) {
 	let min = arr[0];
 	let max = arr[0];
@@ -480,196 +516,407 @@ function getMinMax(arr) {
 	return { min, max };
 }
 function rgba2rgb(background, color) {
-    const alpha = color[3];
-    return "rgba("+Math.floor((1 - alpha) * background[0] + alpha * color[0] + 0.5)+","+
-    Math.floor((1 - alpha) * background[1] + alpha * color[1] + 0.5)+","+
-    Math.floor((1 - alpha) * background[2] + alpha * color[2] + 0.5)+")";
+	const alpha = color[3];
+	return "rgba("+Math.floor((1 - alpha) * background[0] + alpha * color[0] + 0.5)+","+
+	Math.floor((1 - alpha) * background[1] + alpha * color[1] + 0.5)+","+
+	Math.floor((1 - alpha) * background[2] + alpha * color[2] + 0.5)+")";
 }
 
 //console.log(rgba2rgb([255, 255, 255], [255, 0, 0, 0.5])) // [ 255, 128, 128 ]
 
 var KonfJuml=null;
 $.each(TodTot,function(key,val){
-    KonfJuml+=val[3];
+	KonfJuml+=val[3];
 });
 function ChInd(x,mode)
 {
-    o1 = x != 0 ? x : "";
-    if(mode==1) o2 = x > 0 ? "logoinc text-danger" : x < 0 ? "logodec text-success" : "";
-    if(mode==2) o2 = x > 0 ? "logoinc text-success" : x < 0 ? "logodec text-danger" : "";
-    return [o1, o2];
+	o1 = x != 0 ? x : "";
+	if(mode==1) o2 = x > 0 ? "logoinc text-danger" : x < 0 ? "logodec text-success" : "";
+	if(mode==2) o2 = x > 0 ? "logoinc text-success" : x < 0 ? "logodec text-danger" : "";
+	return [o1, o2];
 }
 function compare(a,b) {
-  if (a[0] > b[0]) return -1;
-  if (a[0] < b[0]) return 1;
-  return 0;
+	if (a[0] > b[0]) return -1;
+	if (a[0] < b[0]) return 1;
+	return 0;
 }
+	
+var KonfBaru=[], TuntBaru=[], H_KonfInc=0, H_KonfJlh=0, H_PerAkt=0, H_TuntInc=0, H_AktfJlh=0, preFiltered={"konf":[],"prob":[],"susp":[],"kont":[]};
+var cdt2_opt={indexAxis: 'y', tooltips: {enabled: true, mode: 'index', intersect: false}, hover: {mode: "nearest", intersect: true}, scales: {xAxes: [{stacked: true}], yAxes: [{stacked: true, ticks:{beginAtZero: true}}]},
+indexAxis: 'y', maintainAspectRatio: false};
 
-var KonfBaru=[], TuntBaru=[], H_KonfInc=0, H_KonfJlh=0, H_PerAkt=0, H_TuntInc=0, H_AktfJlh=0;
+await delay(1000);
+$("#SectWil").html("");
 $.each(NamaKab,function(key,val) {
-    val=val.substr(0,4)!="Kota"?"Kab. "+val:val;
-    var SelKonfTot=TodTot[key][3]-YesTot[key][3], SelKonfAkt=TodAkt[key][3]-YesAkt[key][3], SelKonfTun=TodTun[key][3]-YesTun[key][3],
-    SelProbTot=TodTot[key][2]-YesTot[key][2], SelProbAkt=TodAkt[key][2]-YesAkt[key][2], SelProbTun=TodTun[key][2]-YesTun[key][2],
-    SelSuspTot=TodTot[key][1]-YesTot[key][1], SelSuspAkt=TodAkt[key][1]-YesAkt[key][1], SelSuspTun=TodTun[key][1]-YesTun[key][1],
-    SelKontTot=TodTot[key][0]-YesTot[key][0], SelKontAkt=TodAkt[key][0]-YesAkt[key][0], SelKontTun=TodTun[key][0]-YesTun[key][0],
-    Input=$("#TemplateWilayah").html()
-    .replaceAll("$Key$",key).replaceAll("$NamaWil$",val).replace("$Anchor$","Dati2"+key)
-    .replaceAll("$TotKonf$",TodTot[key][3]).replaceAll("$TotProb$",TodTot[key][2]).replaceAll("$TotSusp$",TodTot[key][1]).replaceAll("$TotKont$",TodTot[key][0])
-    .replaceAll("$AktKonf$",TodAkt[key][3]).replaceAll("$AktProb$",TodAkt[key][2]).replaceAll("$AktSusp$",TodAkt[key][1]).replaceAll("$AktKont$",TodAkt[key][0])
-    .replaceAll("$TunKonf$",TodTun[key][3]).replaceAll("$TunProb$",TodTun[key][2]).replaceAll("$TunSusp$",TodTun[key][1]).replaceAll("$TunKont$",TodTun[key][0])
-    .replace("$TotKonfInc$",ChInd(SelKonfTot,1)[0]).replace("$TotKonfInd$",ChInd(SelKonfTot,1)[1])
-    .replace("$AktKonfInc$",ChInd(SelKonfAkt,1)[0]).replace("$AktKonfInd$",ChInd(SelKonfAkt,1)[1])
-    .replace("$TunKonfInc$",ChInd(SelKonfTun,2)[0]).replace("$TunKonfInd$",ChInd(SelKonfTun,2)[1])
-    .replace("$TotProbInc$",ChInd(SelProbTot,1)[0]).replace("$TotProbInd$",ChInd(SelProbTot,1)[1])
-    .replace("$AktProbInc$",ChInd(SelProbAkt,1)[0]).replace("$AktProbInd$",ChInd(SelProbAkt,1)[1])
-    .replace("$TunProbInc$",ChInd(SelProbTun,2)[0]).replace("$TunProbInd$",ChInd(SelProbTun,2)[1])
-    .replace("$TotSuspInc$",ChInd(SelSuspTot,1)[0]).replace("$TotSuspInd$",ChInd(SelSuspTot,1)[1])
-    .replace("$AktSuspInc$",ChInd(SelSuspAkt,1)[0]).replace("$AktSuspInd$",ChInd(SelSuspAkt,1)[1])
-    .replace("$TunSuspInc$",ChInd(SelSuspTun,2)[0]).replace("$TunSuspInd$",ChInd(SelSuspTun,2)[1])
-    .replace("$TotKontInc$",ChInd(SelKontTot,1)[0]).replace("$TotKontInd$",ChInd(SelKontTot,1)[1])
-    .replace("$AktKontInc$",ChInd(SelKontAkt,1)[0]).replace("$AktKontInd$",ChInd(SelKontAkt,1)[1])
-    .replace("$TunKontInc$",ChInd(SelKontTun,2)[0]).replace("$TunKontInd$",ChInd(SelKontTun,2)[1])
-    .replaceAll("$PerKsNTT$",((TodTot[key][3]/KonfJuml)*100).toFixed(2).replace(".",",")+"%")
-    .replace("$AktKonfPerc$",((TodAkt[key][3]/TodTot[key][3])*100).toFixed(2).replace(".",",")+"%");
-    if(SelKonfTot) KonfBaru.push([SelKonfTot,val]);
-    if(SelKonfTun) TuntBaru.push([SelKonfTun,val]);
-    H_KonfInc = SelKonfTot < H_KonfInc ? H_KonfInc : SelKonfTot;
-    H_TuntInc = SelKonfTun < H_TuntInc ? H_TuntInc : SelKonfTun;
-    H_KonfJlh = TodTot[key][3] < H_KonfJlh ? H_KonfJlh : TodTot[key][3];
-    H_PerAkt = (TodAkt[key][3]/TodTot[key][3]) < H_PerAkt ? H_PerAkt : TodAkt[key][3]/TodTot[key][3];
-    H_AktfJlh = TodAkt[key][3] < H_AktfJlh ? H_AktfJlh : TodAkt[key][3];
-    TOC=$("#TemplateTOC").html().replace("$Anchor$","#Dati2"+key).replace("$NamaWil$",val);
-    $("#SectWil").append(Input); $("#TOC").append(TOC);
+	val=val.substr(0,4)!="Kota"?"Kab. "+val:val;
+	var SelKonfTot=TodTot[key][3]-YesTot[key][3], SelKonfAkt=TodAkt[key][3]-YesAkt[key][3], SelKonfTun=TodTun[key][3]-YesTun[key][3],
+	SelProbTot=TodTot[key][2]-YesTot[key][2], SelProbAkt=TodAkt[key][2]-YesAkt[key][2], SelProbTun=TodTun[key][2]-YesTun[key][2],
+	SelSuspTot=TodTot[key][1]-YesTot[key][1], SelSuspAkt=TodAkt[key][1]-YesAkt[key][1], SelSuspTun=TodTun[key][1]-YesTun[key][1],
+	SelKontTot=TodTot[key][0]-YesTot[key][0], SelKontAkt=TodAkt[key][0]-YesAkt[key][0], SelKontTun=TodTun[key][0]-YesTun[key][0],
+	Input=$("#TemplateWilayah").html()
+	.replaceAll("$Key$",key).replaceAll("$NamaWil$",val).replace("$Anchor$","Dati2"+key)
+	.replaceAll("$TotKonf$",TodTot[key][3]).replaceAll("$TotProb$",TodTot[key][2]).replaceAll("$TotSusp$",TodTot[key][1]).replaceAll("$TotKont$",TodTot[key][0])
+	.replaceAll("$AktKonf$",TodAkt[key][3]).replaceAll("$AktProb$",TodAkt[key][2]).replaceAll("$AktSusp$",TodAkt[key][1]).replaceAll("$AktKont$",TodAkt[key][0])
+	.replaceAll("$TunKonf$",TodTun[key][3]).replaceAll("$TunProb$",TodTun[key][2]).replaceAll("$TunSusp$",TodTun[key][1]).replaceAll("$TunKont$",TodTun[key][0])
+	.replace("$TotKonfInc$",ChInd(SelKonfTot,1)[0]).replace("$TotKonfInd$",ChInd(SelKonfTot,1)[1])
+	.replace("$AktKonfInc$",ChInd(SelKonfAkt,1)[0]).replace("$AktKonfInd$",ChInd(SelKonfAkt,1)[1])
+	.replace("$TunKonfInc$",ChInd(SelKonfTun,2)[0]).replace("$TunKonfInd$",ChInd(SelKonfTun,2)[1])
+	.replace("$TotProbInc$",ChInd(SelProbTot,1)[0]).replace("$TotProbInd$",ChInd(SelProbTot,1)[1])
+	.replace("$AktProbInc$",ChInd(SelProbAkt,1)[0]).replace("$AktProbInd$",ChInd(SelProbAkt,1)[1])
+	.replace("$TunProbInc$",ChInd(SelProbTun,2)[0]).replace("$TunProbInd$",ChInd(SelProbTun,2)[1])
+	.replace("$TotSuspInc$",ChInd(SelSuspTot,1)[0]).replace("$TotSuspInd$",ChInd(SelSuspTot,1)[1])
+	.replace("$AktSuspInc$",ChInd(SelSuspAkt,1)[0]).replace("$AktSuspInd$",ChInd(SelSuspAkt,1)[1])
+	.replace("$TunSuspInc$",ChInd(SelSuspTun,2)[0]).replace("$TunSuspInd$",ChInd(SelSuspTun,2)[1])
+	.replace("$TotKontInc$",ChInd(SelKontTot,1)[0]).replace("$TotKontInd$",ChInd(SelKontTot,1)[1])
+	.replace("$AktKontInc$",ChInd(SelKontAkt,1)[0]).replace("$AktKontInd$",ChInd(SelKontAkt,1)[1])
+	.replace("$TunKontInc$",ChInd(SelKontTun,2)[0]).replace("$TunKontInd$",ChInd(SelKontTun,2)[1])
+	.replaceAll("$PerKsNTT$",((TodTot[key][3]/KonfJuml)*100).toFixed(2).replace(".",",")+"%")
+	.replace("$AktKonfPerc$",((TodAkt[key][3]/TodTot[key][3])*100).toFixed(2).replace(".",",")+"%");
+
+	if(SelKonfTot) KonfBaru.push([SelKonfTot,val]);
+	if(SelKonfTun) TuntBaru.push([SelKonfTun,val]);
+	preFiltered["konf"].push([TodTot[key][3], TodAkt[key][3], TodTun[key][3], val]);
+	preFiltered["prob"].push([TodTot[key][2], TodAkt[key][2], TodTun[key][2], val]);
+	preFiltered["susp"].push([TodTot[key][1], TodAkt[key][1], TodTun[key][1], val]);
+	preFiltered["kont"].push([TodTot[key][0], TodAkt[key][0], TodTun[key][0], val]);
+
+	H_KonfInc = SelKonfTot < H_KonfInc ? H_KonfInc : SelKonfTot;
+	H_TuntInc = SelKonfTun < H_TuntInc ? H_TuntInc : SelKonfTun;
+	H_KonfJlh = TodTot[key][3] < H_KonfJlh ? H_KonfJlh : TodTot[key][3];
+	H_PerAkt = (TodAkt[key][3]/TodTot[key][3]) < H_PerAkt ? H_PerAkt : TodAkt[key][3]/TodTot[key][3];
+	H_AktfJlh = TodAkt[key][3] < H_AktfJlh ? H_AktfJlh : TodAkt[key][3];
+	TOC=$("#TemplateTOC").html().replace("$Anchor$","#Dati2"+key).replace("$NamaWil$",val);
+	$("#SectWil").append(Input); $("#TOC").append(TOC);
+
+	// new: grafik horisontal
+	new Chart(document.getElementById("c_all_"+key).getContext("2d"), {
+	type: 'horizontalBar',
+	data: {
+		labels: ["Konfirmasi", "Probable", "Suspek", "Kont. Erat"],
+		datasets: [/*{
+			label: "Jumlah",
+			data: [TodTot[key][3], TodTot[key][2], TodTot[key][1], TodTot[key][0]],
+			borderWidth: 0,
+			backgroundColor: "rgba(0,0,0,0)",
+			borderColor: "rgba(0,0,0,0)",
+			type: 'line',
+			pointRadius: 0,
+		},*/
+		{
+			label: "Tuntas",
+			data: [TodTun[key][3], TodTun[key][2], TodTun[key][1], TodTun[key][0]],
+			backgroundColor: 'rgba(0,32,96,.7)',
+			borderWidth: 0,
+			categoryPercentage: .9,
+		},
+		{
+			label: "Aktif",
+			data: [TodAkt[key][3], TodAkt[key][2], TodAkt[key][1], TodAkt[key][0]],
+			backgroundColor: "rgba(0,176,80,.7)",
+			borderWidth: 0,
+			categoryPercentage: .9,
+			//barPercentage: 1.0
+		}]
+	},
+	options: cdt2_opt
 });
-async function Delay500(){
-    await delay(500);
-}
-Delay500();
+});
+
+await delay(500);
+preFiltered.konf.sort(compare); preFiltered.prob.sort(compare); preFiltered.susp.sort(compare); preFiltered.kont.sort(compare);
+var ur_dati2={"konf":[[],[],[],[]],"prob":[[],[],[],[]],"susp":[[],[],[],[]],"kont":[[],[],[],[]]};
+$.each(preFiltered.konf, function(k,v) {
+	ur_dati2.konf[0].push(v[3]);
+	ur_dati2.konf[1].push(v[0]);
+	ur_dati2.konf[2].push(v[1]);
+	ur_dati2.konf[3].push(v[2]);
+});
+$.each(preFiltered.prob, function(k,v) {
+	ur_dati2.prob[0].push(v[3]);
+	ur_dati2.prob[1].push(v[0]);
+	ur_dati2.prob[2].push(v[1]);
+	ur_dati2.prob[3].push(v[2]);
+});
+$.each(preFiltered.susp, function(k,v) {
+	ur_dati2.susp[0].push(v[3]);
+	ur_dati2.susp[1].push(v[0]);
+	ur_dati2.susp[2].push(v[1]);
+	ur_dati2.susp[3].push(v[2]);
+});
+$.each(preFiltered.kont, function(k,v) {
+	ur_dati2.kont[0].push(v[3]);
+	ur_dati2.kont[1].push(v[0]);
+	ur_dati2.kont[2].push(v[1]);
+	ur_dati2.kont[3].push(v[2]);
+});
+console.log(ur_dati2);
+var c_options={tooltips: {enabled: true, mode: 'index', intersect: false}, hover: {mode: "nearest", intersect: true}, scales: {xAxes: [{stacked: true}], yAxes: [{stacked: true, ticks:{beginAtZero: true}}]}, maintainAspectRatio: false, aspectRatio: 1.5, defaultFontFamily: "Roboto", defaultFontSize: 14};
+
+await delay(500);
+KonfBaru.sort(compare); TuntBaru.sort(compare);
+$("#NewCasesToday, #ClosedCasesToday").html("");
+$.each(KonfBaru,function(key,val) {
+	val0 = val[0] < 0 ? val[0] : "+"+val[0];
+	$("#NewCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>"+val0+"</strong></div></li>");
+});
+$.each(TuntBaru,function(key,val) {
+	val0 = val[0] < 0 ? val[0] : "+"+val[0];
+	$("#ClosedCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>"+val0+"</strong></div></li>");
+});
+
 function TmplDataPeta(mode){
-    var title, min=0, mid=50, max=100, col="black";
-    $("#map_style").html("");
-    $("[data-mapdata]").removeClass("active");
-    $("[data-mapdata='"+mode+"']").addClass("active");
-    if(mode===1) {
-        title="Jumlah Penambahan Kasus Baru";
-        min = 0;
-        mid = (H_KonfInc/2).toFixed(0); 
-        max = H_KonfInc;
-        col = "rgba(191,144,0)";
-        $.each(NamaKab,function(key,val){
-            per=(TodTot[key][3]-YesTot[key][3])/H_KonfInc;
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[191, 144, 0, per])+"!important}");
-            $("#MapContainer path._data"+key).data("kode",key);
-        });
-    }
-    if(mode===2) {
-        title="Jumlah Kasus Kumulatif";
-        min = 0;
-        mid = (H_KonfJlh/2).toFixed(0); 
-        max = H_KonfJlh;
-        col = "rgba(191, 144, 0)";
-        $.each(NamaKab,function(key,val){
-            per=TodTot[key][3]/H_KonfJlh;
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[191, 144, 0,per])+"!important}");
-            $("#MapContainer path._data"+key).data("kode",key);
-        });
-    }
-    if(mode===3) {
-        title="Persentase Kasus Aktif";
-        min = "0%";
-        mid = ((H_PerAkt/2)*100).toFixed(2).replace(".",",")+"%"; 
-        max = (H_PerAkt*100).toFixed(2).replace(".",",")+"%";
-        col = "rgba(192,0,0)";
-        $.each(NamaKab,function(key,val){
-            per=(TodAkt[key][3]/TodTot[key][3])/H_PerAkt;
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[192,0,0,per])+"!important}");
-            $("#MapContainer path._data"+key).data("kode",key);
-        });
-    }
-    if(mode===4) {
-        title="Jumlah Penambahan Kasus Tuntas";
-        min = 0;
-        mid = (H_TuntInc/2).toFixed(0); 
-        max = H_TuntInc;
-        col = "rgba(0,32,96)";
-        $.each(NamaKab,function(key,val){
-            per=(TodTun[key][3]-YesTun[key][3])/H_TuntInc;
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[0,32,96,per])+"!important}");
-            $("#MapContainer path._data"+key).data("kode",key);
-        });
-    }
-    if(mode===5) {
-        title="Persentase Kasus Tuntas";
-        min = ((1-H_PerAkt)*100).toFixed(2).replace(".",",")+"%";
-        mid = ((((1-H_PerAkt)/2)+0.5)*100).toFixed(2).replace(".",",")+"%"; 
-        max = "100%"
-        col = "rgba(96)";
-        $.each(NamaKab,function(key,val){
-            per=1-((TodAkt[key][3]/TodTot[key][3])/H_PerAkt);
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[0,32,96,per])+"!important}");
-            $("#MapContainer path._data"+key).data("kode",key);
-        });
-    }
-    if(mode===6) {
-        title="Jumlah Kasus Aktif";
-        min = 0;
-        mid = (H_AktfJlh/2).toFixed(0);
-        max = H_AktfJlh
-        col = "rgba(192,0,0)";
-        $.each(NamaKab,function(key,val){
-            per=TodAkt[key][3]/H_AktfJlh;
-            $("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[192,0,0,per])+"!important}");
-            $("#MapContainer path._data"+key).data("kode",key);
-        });
-    }
-    $("#MapIndLeg>div>span:nth-child(1)").text(min);
-    $("#MapIndLeg>div>span:nth-child(2)").text(mid);
-    $("#MapIndLeg>div>span:nth-child(3)").text(max);
-    $("#MapIndCol").css("background-image","linear-gradient(90deg, white, "+col+")");
-    $("#MapTitle").text(title);
+	var title, min=0, mid=50, max=100, col="black";
+	$("#map_style").html("");
+	$("[data-mapdata]").removeClass("active");
+	$("[data-mapdata='"+mode+"']").addClass("active");
+	if(mode===1) {
+		title="Jumlah Penambahan Kasus Baru";
+		min = 0;
+		mid = (H_KonfInc/2).toFixed(0); 
+		max = H_KonfInc;
+		col = "rgba(191,144,0)";
+		$.each(NamaKab,function(key,val){
+			per=(TodTot[key][3]-YesTot[key][3])/H_KonfInc;
+			$("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[191, 144, 0, per])+"!important}");
+			$("#MapContainer path._data"+key).data("kode",key);
+		});
+	}
+	if(mode===2) {
+		title="Jumlah Kasus Kumulatif";
+		min = 0;
+		mid = (H_KonfJlh/2).toFixed(0); 
+		max = H_KonfJlh;
+		col = "rgba(191, 144, 0)";
+		$.each(NamaKab,function(key,val){
+			per=TodTot[key][3]/H_KonfJlh;
+			$("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[191, 144, 0,per])+"!important}");
+			$("#MapContainer path._data"+key).data("kode",key);
+		});
+	}
+	if(mode===3) {
+		title="Persentase Kasus Aktif";
+		min = "0%";
+		mid = ((H_PerAkt/2)*100).toFixed(2).replace(".",",")+"%"; 
+		max = (H_PerAkt*100).toFixed(2).replace(".",",")+"%";
+		col = "rgba(192,0,0)";
+		$.each(NamaKab,function(key,val){
+			per=(TodAkt[key][3]/TodTot[key][3])/H_PerAkt;
+			$("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[192,0,0,per])+"!important}");
+			$("#MapContainer path._data"+key).data("kode",key);
+		});
+	}
+	if(mode===4) {
+		title="Jumlah Penambahan Kasus Tuntas";
+		min = 0;
+		mid = (H_TuntInc/2).toFixed(0); 
+		max = H_TuntInc;
+		col = "rgba(0,32,96)";
+		$.each(NamaKab,function(key,val){
+			per=(TodTun[key][3]-YesTun[key][3])/H_TuntInc;
+			$("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[0,32,96,per])+"!important}");
+			$("#MapContainer path._data"+key).data("kode",key);
+		});
+	}
+	if(mode===5) {
+		title="Persentase Kasus Tuntas";
+		min = ((1-H_PerAkt)*100).toFixed(2).replace(".",",")+"%";
+		mid = ((((1-H_PerAkt)/2)+0.5)*100).toFixed(2).replace(".",",")+"%"; 
+		max = "100%"
+		col = "rgba(96)";
+		$.each(NamaKab,function(key,val){
+			per=1-((TodAkt[key][3]/TodTot[key][3])/H_PerAkt);
+			$("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[0,32,96,per])+"!important}");
+			$("#MapContainer path._data"+key).data("kode",key);
+		});
+	}
+	if(mode===6) {
+		title="Jumlah Kasus Aktif";
+		min = 0;
+		mid = (H_AktfJlh/2).toFixed(0);
+		max = H_AktfJlh
+		col = "rgba(192,0,0)";
+		$.each(NamaKab,function(key,val){
+			per=TodAkt[key][3]/H_AktfJlh;
+			$("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[192,0,0,per])+"!important}");
+			$("#MapContainer path._data"+key).data("kode",key);
+		});
+	}
+	$("#MapIndLeg>div>span:nth-child(1)").text(min);
+	$("#MapIndLeg>div>span:nth-child(2)").text(mid);
+	$("#MapIndLeg>div>span:nth-child(3)").text(max);
+	$("#MapIndCol").css("background-image","linear-gradient(90deg, white, "+col+")");
+	$("#MapTitle").text(title);
 }
 TmplDataPeta(3); // Default untuk peta = mode 3
 $("[data-mapdata]").on("click",function(){
-    TmplDataPeta($(this).data("mapdata"));
+	TmplDataPeta($(this).data("mapdata"));
 });
 
+await delay(1500);
+$("#c_konf").siblings("div").remove();
+var c_konf = new Chart(document.getElementById("c_konf").getContext("2d"), {
+	type: 'bar',
+	data: {
+		labels: ur_dati2.konf[0],
+		datasets: [{
+			label: "Jumlah",
+			data: ur_dati2.konf[1],
+			borderWidth: 0,
+			backgroundColor: "rgba(0,0,0,0)",
+			borderColor: "rgba(0,0,0,0)",
+			type: 'line',
+			pointRadius: 0,
+		},
+		{
+			label: "Tuntas",
+			data: ur_dati2.konf[3],
+			backgroundColor: 'rgba(0,32,96,.7)',
+			borderWidth: 0,
+			categoryPercentage: .9,
+		},
+		{
+			label: "Aktif",
+			data: ur_dati2.konf[2],
+			backgroundColor: "rgba(0,176,80,.7)",
+			borderWidth: 0,
+			categoryPercentage: .9,
+			//barPercentage: 1.0
+		}]
+	},
+	options: c_options
+});
+
+await delay(1500);
+$("#c_prob").siblings("div").remove();
+var c_prob = new Chart(document.getElementById("c_prob").getContext("2d"), {
+	type: 'bar',
+	data: {
+		labels: ur_dati2.prob[0],
+		datasets: [{
+			label: "Jumlah",
+			data: ur_dati2.prob[1],
+			borderWidth: 0,
+			backgroundColor: "rgba(0,0,0,0)",
+			borderColor: "rgba(0,0,0,0)",
+			type: 'line',
+			pointRadius: 0,
+		},
+		{
+			label: "Tuntas",
+			data: ur_dati2.prob[3],
+			backgroundColor: 'rgba(0,32,96,.7)',
+			borderWidth: 0,
+			categoryPercentage: .9,
+		},
+		{
+			label: "Aktif",
+			data: ur_dati2.prob[2],
+			backgroundColor: "rgba(0,176,80,.7)",
+			borderWidth: 0,
+			categoryPercentage: .9,
+			//barPercentage: 1.0
+		}]
+	},
+	options: c_options
+});
+
+await delay(1500);
+$("#c_susp").siblings("div").remove();
+var c_susp = new Chart(document.getElementById("c_susp").getContext("2d"), {
+	type: 'bar',
+	data: {
+		labels: ur_dati2.susp[0],
+		datasets: [{
+			label: "Jumlah",
+			data: ur_dati2.susp[1],
+			borderWidth: 0,
+			backgroundColor: "rgba(0,0,0,0)",
+			borderColor: "rgba(0,0,0,0)",
+			type: 'line',
+			pointRadius: 0,
+		},
+		{
+			label: "Tuntas",
+			data: ur_dati2.susp[3],
+			backgroundColor: 'rgba(0,32,96,.7)',
+			borderWidth: 0,
+			categoryPercentage: .9,
+		},
+		{
+			label: "Aktif",
+			data: ur_dati2.susp[2],
+			backgroundColor: "rgba(0,176,80,.7)",
+			borderWidth: 0,
+			categoryPercentage: .9,
+			//barPercentage: 1.0
+		}]
+	},
+	options: c_options
+});
+
+await delay(1500);
+$("#c_kont").siblings("div").remove();
+var c_kont = new Chart(document.getElementById("c_kont").getContext("2d"), {
+	type: 'bar',
+	data: {
+		labels: ur_dati2.kont[0],
+		datasets: [{
+			label: "Jumlah",
+			data: ur_dati2.kont[1],
+			borderWidth: 0,
+			backgroundColor: "rgba(0,0,0,0)",
+			borderColor: "rgba(0,0,0,0)",
+			type: 'line',
+			pointRadius: 0,
+		},
+		{
+			label: "Tuntas",
+			data: ur_dati2.kont[3],
+			backgroundColor: 'rgba(0,32,96,.7)',
+			borderWidth: 0,
+			categoryPercentage: .9,
+		},
+		{
+			label: "Aktif",
+			data: ur_dati2.kont[2],
+			backgroundColor: "rgba(0,176,80,.7)",
+			borderWidth: 0,
+			categoryPercentage: .9,
+			//barPercentage: 1.0
+		}]
+	},
+	options: c_options
+});
+
+await delay(500);
 $(document).on("click","#MapContainer svg path[class*=_data]",function(e){
-    cldata = $(this).attr("class").match(/(_data)[0-9]*\w/g)[0];
-    if(cldata.slice(5)) {
-        kode = cldata.slice(5);
-        $("#activewil").html("#MapContainer svg ."+cldata+"{filter: drop-shadow(0px 0px 4px black)}");
-        val = NamaKab[kode];
-        val = val.substr(0,4)!="Kota"?"Kab. "+val : val;
-        JlhKasus = TodTot[kode][3];
-        PerKs = ((JlhKasus/KonfJuml)*100).toFixed(2).replace(".",",");
-        KsAktif = TodAkt[kode][3];
-        KsBaru = TodTot[kode][3]-YesTot[kode][3];
-        KsBaru = KsBaru < 0 ? KsBaru : "+"+KsBaru;
-        TunBaru = TodTun[kode][3]-YesTun[kode][3];
-        TunBaru = TunBaru < 0 ? TunBaru : "+"+TunBaru;
-        PerAkt = ((KsAktif/JlhKasus)*100).toFixed(2).replace(".",",");
-        PerTun = ((1-(KsAktif/JlhKasus))*100).toFixed(2).replace(".",",");
-        $("#LegIn_Kab").text(val);
-        $("#LegIn_PerKs").text(PerKs+"% kasus di NTT");
-        $("#LegIn_Jlh").text(JlhKasus);
-        $("#LegIn_Akt").text(KsAktif);
-        $("#LegIn_PerAkt").text(PerAkt+"%");
-        $("#LegIn_PerTun").text(PerTun+"%");
-        $("#LegIn_Tun").text(TunBaru+" kasus");
-        $("#LegIn_Num").text(KsBaru+" kasus");
-        $("#LegIn_DatiAnchor").prop("href","#Dati2"+kode);
-    }
+	cldata = $(this).attr("class").match(/(_data)[0-9]*\w/g)[0];
+	if(cldata.slice(5)) {
+		kode = cldata.slice(5);
+		$("#activewil").html("#MapContainer svg ."+cldata+"{filter: drop-shadow(0px 0px 4px black)}");
+		val = NamaKab[kode];
+		val = val.substr(0,4)!="Kota"?"Kab. "+val : val;
+		JlhKasus = TodTot[kode][3];
+		PerKs = ((JlhKasus/KonfJuml)*100).toFixed(2).replace(".",",");
+		KsAktif = TodAkt[kode][3];
+		KsBaru = TodTot[kode][3]-YesTot[kode][3];
+		KsBaru = KsBaru < 0 ? KsBaru : "+"+KsBaru;
+		TunBaru = TodTun[kode][3]-YesTun[kode][3];
+		TunBaru = TunBaru < 0 ? TunBaru : "+"+TunBaru;
+		PerAkt = ((KsAktif/JlhKasus)*100).toFixed(2).replace(".",",");
+		PerTun = ((1-(KsAktif/JlhKasus))*100).toFixed(2).replace(".",",");
+		$("#LegIn_Kab").text(val);
+		$("#LegIn_PerKs").text(PerKs+"% kasus di NTT");
+		$("#LegIn_Jlh").text(JlhKasus);
+		$("#LegIn_Akt").text(KsAktif);
+		$("#LegIn_PerAkt").text(PerAkt+"%");
+		$("#LegIn_PerTun").text(PerTun+"%");
+		$("#LegIn_Tun").text(TunBaru+" kasus");
+		$("#LegIn_Num").text(KsBaru+" kasus");
+		$("#LegIn_DatiAnchor").prop("href","#Dati2"+kode);
+	}
 });
-$("#TOC").slideDown();;
-KonfBaru.sort(compare); TuntBaru.sort(compare);
-$.each(KonfBaru,function(key,val) {
-    val0 = val[0] < 0 ? val[0] : "+"+val[0];
-    $("#NewCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>"+val0+"</strong></div></li>");
-});
-$.each(TuntBaru,function(key,val) {
-    val0 = val[0] < 0 ? val[0] : "+"+val[0];
-    $("#ClosedCasesToday").append("<li style='list-style-type:square'><div class='flbet'>"+val[1]+"<strong>"+val0+"</strong></div></li>")
-});
+$("#TOC").slideDown();
 }
 </script>
 </body>
