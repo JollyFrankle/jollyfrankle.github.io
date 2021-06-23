@@ -24,23 +24,34 @@ window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(argumen
 body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}#TP_TblHarian td{vertical-align:middle;text-align:center}#TP_TblHarian td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(5),#TP_TblHarian td:nth-child(8),#TP_TblHarian td:nth-child(11) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}#TP_TblHarian td .flbet{display:flex;justify-content:space-between;align-items:center}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 .tbl-fs{
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 3.5rem;
-    bottom: 0;
-    background: #fff;
-    z-index: 10;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 3.5rem;
+	bottom: 0;
+	background: #fff;
+	z-index: 10;
 }
 #ToggleFS.fs-true {
-    position: fixed;
-    top: .8rem;
-    z-index: 1100;
-    right: 1rem;
+	position: fixed;
+	top: .8rem;
+	z-index: 1100;
+	right: 1rem;
 }
 </style>
 </head>
 <body>
+	<div class="justify-content-center align-items-center position-fixed" style="width:100vw;height:100vh;background:rgba(0,0,0,.5);top:0;left:0;display:flex;z-index:1080;user-select:none" id="spinner_loader">
+		<div class="text-center text-white">
+			<div class="spinner-grow text-white" style="width:5rem; height: 5rem" role="status">
+				<span class="sr-only">Memuat...</span>
+			</div>
+			<noscript>
+				<h6 class="mb-1 mt-3 px-3">JavaScript Anda tidak aktif</h6>
+				<div class="px-3">Halaman ini tidak dapat dimuat tanpa JavaScript</div>
+			</noscript>
+		</div>
+	</div>
 	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
 		<div class="container d-md-flex justify-content-between text-center">
 			<a class="navbar-brand text-truncate">
@@ -73,16 +84,16 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 </div>
 
 <nav class="mb-3 pb-3 border-bottom">
-    <div class="d-block d-md-inline-flex btn-group w-100">
-        <a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
-        <a class="btn btn-block btn-outline-dark" href="datakab.html">Data hari ini per Kab/Kota</a>
-        <a class="btn btn-block btn-outline-dark active">Perkembangan data harian</a>
-    </div>
+	<div class="d-block d-md-inline-flex btn-group w-100">
+		<a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
+		<a class="btn btn-block btn-outline-dark" href="datakab.html">Data hari ini per Kab/Kota</a>
+		<a class="btn btn-block btn-outline-dark active">Perkembangan data harian</a>
+	</div>
 </nav>
 
 <div class="btn-group w-100 mb-2">
-    <button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
-    <button class="btn btn-sm btn-outline-info" data-toggle="collapse" data-target="#InfoAtas" aria-expanded="false" aria-controls="InfoAtas">Informasi, daftar isi, halaman lain</button>
+	<button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
+	<button class="btn btn-sm btn-outline-info" data-toggle="collapse" data-target="#InfoAtas" aria-expanded="false" aria-controls="InfoAtas">Informasi, daftar isi, halaman lain</button>
 </div>
 <div class="collapse" id="ILL_atas">
 	<div class="alert alert-danger text-justify">
@@ -174,57 +185,57 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div id="Bg2_Excel" class="anchor"></div>
 <h2 class="border-bottom"><small>2.</small> Data Historis Per Wilayah</h2>
 <div class="alert alert-info">
-    <p>Di bawah ini merupakan data historis per wilayah (Kabupaten/Kota) di NTT. Gunakan berbagai tab di bawah untuk melihat data historis yang dapat direkam selama bulan tersebut.</p>
-    <p class="mb-0">Data mulai konsisten direkam sejak 19 November 2020. Data April - Oktober 2020 hanya direkam sebagian. Daftar tanggal yang direkam selama April-Oktober 2020 adalah:</p>
-    <ul style="column-width:170px;margin-left:-1.25rem">
-        <li>27 April 2020</li>
-        <li>15 Mei 2020</li>
-        <li>1 Juni 2020</li>
-        <li>5 Juni 2020</li>
-        <li>20 Juni 2020</li>
-        <li>2 Juli 2020</li>
-        <li>15 Juli 2020</li>
-        <li>1 Agustus 2020</li>
-        <li>3 Agustus 2020</li>
-        <li>11 Agustus 2020</li>
-        <li>12 September 2020</li>
-        <li>30 September 2020</li>
-        <li>20 Oktober 2020</li>
-        <li>21 Oktober 2020</li>
-        <li>30 Oktober 2020</li>
-    </ul>
-    <p class="mb-0">Data sejak 19 November 2020 yang tidak dapat direkam karena tidak ada update dari situs resmi atau beberapa kendala adalah:</p>
-    <ul style="column-width:170px;margin-left:-1.25rem" class="mb-0">
-        <li>23 November 2020</li>
-        <li>27 November 2020</li>
-        <li>14 Desember 2020</li>
-        <li>20 Desember 2020</li>
-        <li>24 Desember 2020</li>
-        <li>25 Desember 2020</li>
-        <li>28 Desember 2020</li>
-        <li>14 Maret 2021</li>
-        <li>4-6 April 2021</li>
-        <li>8-13 April 2021</li>
-    </ul>
+	<p>Di bawah ini merupakan data historis per wilayah (Kabupaten/Kota) di NTT. Gunakan berbagai tab di bawah untuk melihat data historis yang dapat direkam selama bulan tersebut.</p>
+	<p class="mb-0">Data mulai konsisten direkam sejak 19 November 2020. Data April - Oktober 2020 hanya direkam sebagian. Daftar tanggal yang direkam selama April-Oktober 2020 adalah:</p>
+	<ul style="column-width:170px;margin-left:-1.25rem">
+		<li>27 April 2020</li>
+		<li>15 Mei 2020</li>
+		<li>1 Juni 2020</li>
+		<li>5 Juni 2020</li>
+		<li>20 Juni 2020</li>
+		<li>2 Juli 2020</li>
+		<li>15 Juli 2020</li>
+		<li>1 Agustus 2020</li>
+		<li>3 Agustus 2020</li>
+		<li>11 Agustus 2020</li>
+		<li>12 September 2020</li>
+		<li>30 September 2020</li>
+		<li>20 Oktober 2020</li>
+		<li>21 Oktober 2020</li>
+		<li>30 Oktober 2020</li>
+	</ul>
+	<p class="mb-0">Data sejak 19 November 2020 yang tidak dapat direkam karena tidak ada update dari situs resmi atau beberapa kendala adalah:</p>
+	<ul style="column-width:170px;margin-left:-1.25rem" class="mb-0">
+		<li>23 November 2020</li>
+		<li>27 November 2020</li>
+		<li>14 Desember 2020</li>
+		<li>20 Desember 2020</li>
+		<li>24 Desember 2020</li>
+		<li>25 Desember 2020</li>
+		<li>28 Desember 2020</li>
+		<li>14 Maret 2021</li>
+		<li>4-6 April 2021</li>
+		<li>8-13 April 2021</li>
+	</ul>
 </div>
 <ul class="nav nav-pills mb-3" id="NavDataExcel" style="flex-wrap:nowrap; overflow-x:auto; white-space:nowrap"></ul>
 <div style="width:100%;height:600px" class="position-relative">
-    <div class="d-flex align-items-center justify-content-center h-100 text-center">
-        <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="mb-4" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z"/></svg>
-            <h6 class="mb-0">Klik pada salah satu bulan di atas untuk menampilkan data.</h6>
-            <p class="mb-1">Silakan tunggu beberapa saat hingga data selesai dimuat.</p>
-            <div class="small">Apabila halaman tidak dapat dimuat, berarti permintaan Anda ditolak oleh penyedia.</div>
-        </div>
-    </div>
-    <iframe style="width:100%;height:600px; position:absolute; top:0" frameborder="0" scrolling="no" id="DataExcel"></iframe>
+	<div class="d-flex align-items-center justify-content-center h-100 text-center">
+		<div>
+			<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="mb-4" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5z"/></svg>
+			<h6 class="mb-0">Klik pada salah satu bulan di atas untuk menampilkan data.</h6>
+			<p class="mb-1">Silakan tunggu beberapa saat hingga data selesai dimuat.</p>
+			<div class="small">Apabila halaman tidak dapat dimuat, berarti permintaan Anda ditolak oleh penyedia.</div>
+		</div>
+	</div>
+	<iframe style="width:100%;height:600px; position:absolute; top:0" frameborder="0" scrolling="no" id="DataExcel"></iframe>
 </div>
 <div class="bg-dark py-1 px-3 small text-light position-relative" style="margin-top:calc(-26px)">
-    Layanan Excel Online
+	Layanan Excel Online
 </div>
 <div id="TambahanInfo" class="alert mb-0" style="position:sticky; bottom:0; display:none; max-height:6rem">
-    <h6 class="mb-1" id="TI_header"></h6>
-    <p class="mb-0 small" id="TI_text"></p>
+	<h6 class="mb-1" id="TI_header"></h6>
+	<p class="mb-0 small" id="TI_text"></p>
 </div>
 </main>
 <footer class="bg-dark text-light">
@@ -243,9 +254,9 @@ $.ajax({
 	success:function(data)
 	{
 		if(data.show) {
-		    $("#TI_header").html(data.header);
-		    $("#TI_text").html(data.text);
-		    $("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
+			$("#TI_header").html(data.header);
+			$("#TI_text").html(data.text);
+			$("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
 		}
 	}
 });
@@ -259,7 +270,11 @@ function NolAwal(num, padlen) {
 }
 var url = new URL(window.location.href);
 var day = url.searchParams.get("day");
-$("#RangeSel").val(day?day:90);
+if(day<=0) GET_day_plain=90; else GET_day_plain = day;
+
+$("#RangeSel").val(GET_day_plain);
+
+
 function DateIndo(d,mode) {var t=new Date(d);var o="";o=mode==2?NamaHari[t.getDay()]+", " : ""; o+=t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear(); return o;}
 Date.prototype.getWeek = function() {
 	var date = new Date(this.getTime());
@@ -278,22 +293,46 @@ Date.prototype.getWeekYear = function() {
 	return date.getFullYear();
 }
 $("#ToggleFS").on("click",function(){
-    if($(this).hasClass("fs-true")) {
-        $("#TblHarianWrapper").removeClass("tbl-fs");
-        $("#ToggleFS").addClass("fs-false").removeClass("fs-true");
-        $("body").css("overflow","auto");
-    } else {
-        $("#TblHarianWrapper").addClass("tbl-fs");
-        $("#ToggleFS").addClass("fs-true").removeClass("fs-false");
-        $("body").css("overflow","hidden");
-    }
+	if($(this).hasClass("fs-true")) {
+		$("#TblHarianWrapper").removeClass("tbl-fs");
+		$("#ToggleFS").addClass("fs-false").removeClass("fs-true");
+		$("body").css("overflow","auto");
+	} else {
+		$("#TblHarianWrapper").addClass("tbl-fs");
+		$("#ToggleFS").addClass("fs-true").removeClass("fs-false");
+		$("body").css("overflow","hidden");
+	}
 });
 //$.ajax({url: "https://raw.githubusercontent.com/JollyFrankle/jollyfrankle.github.io/main/data.js", method: "GET", dataType: "jsonp", success: AJAX_Complete});
-$.getScript("data.js",AJAX_Complete);
-function AJAX_Complete(){
-if(day<=0) var GET_day=-90, GET_day_plain=90;
-else if(day>Tanggal.length) var GET_day=-Tanggal.length, GET_day_plain=Tanggal.length;
-else var GET_day=-day, GET_day_plain=day;
+//$.getScript("data.js",AJAX_Complete);
+$.ajax({
+	url:'https://jhf2.000webhostapp.com/ajax/public.php',
+	data: {action: "harian", range: GET_day_plain},
+	method: "POST",
+	dataType: "json",
+	success: function(data){
+		if(data.success) {
+			var t=new Date(data.last_update);
+			$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" WITA");
+			$(".LastData").text(DateIndo(data.last_data));
+			$("#spinner_loader").fadeOut();
+			AJAX_Complete(data.dt_harian);
+		}
+		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
+	},
+	error: function(data) {
+		var alert_txt = "[!] Data tidak dapat diambil:\n\nAlasan: Server sedang sibuk pada saat ini dan tidak dapat menangani permintaan. Jika terus mengalami kendala, hubungi jollyfrankle3@gmail.com.";
+		console.log(data);
+		console.log(alert_txt); alert(alert_txt);
+	}
+});
+async function AJAX_Complete(data){
+const Tanggal=data.tgl, KonfJuml=data.konf.total, KonfBaru=data.konf.baru, Konf7day=data.konf.day7;
+const SembJuml=data.semb.total, SembBaru=data.semb.baru, Semb7day=data.semb.day7;
+const MengJuml=data.meng.total, MengBaru=data.meng.baru, Meng7day=data.meng.day7;
+
+if(day>Tanggal.length) GET_day_plain=Tanggal.length;
+
 $(".GET_day-html").text(GET_day_plain+" hari");
 
 function getMinMax(arr) {
@@ -308,86 +347,86 @@ function getMinMax(arr) {
 	return { min, max };
 }
 function rgba2rgb(background, color) {
-    const alpha = color[3];
-    return "rgba("+Math.floor((1 - alpha) * background[0] + alpha * color[0] + 0.5)+","+
-    Math.floor((1 - alpha) * background[1] + alpha * color[1] + 0.5)+","+
-    Math.floor((1 - alpha) * background[2] + alpha * color[2] + 0.5)+")";
+	const alpha = color[3];
+	return "rgba("+Math.floor((1 - alpha) * background[0] + alpha * color[0] + 0.5)+","+
+	Math.floor((1 - alpha) * background[1] + alpha * color[1] + 0.5)+","+
+	Math.floor((1 - alpha) * background[2] + alpha * color[2] + 0.5)+")";
 }
 // Hijau = hsl(134 61% 41%)
 // Merah = hsl(354 70% 54%)
 function RYGind(per, mode) {
-    if(mode==1) var h = (134+((1-per)*(354-134))).toFixed(0);
-    if(mode==2) var h = (134+((per)*(354-134))).toFixed(0);
-    var s = (61+((1-per)*(70-61))).toFixed(0),
-    l = (41+((1-per)*(54-41))).toFixed(0);
-    var h = (1-per)*120;
-    return "hsl("+h+","+65+"%,"+51+"%)";
+	if(mode==1) var h = (134+((1-per)*(354-134))).toFixed(0);
+	if(mode==2) var h = (134+((per)*(354-134))).toFixed(0);
+	var s = (61+((1-per)*(70-61))).toFixed(0),
+	l = (41+((1-per)*(54-41))).toFixed(0);
+	var h = (1-per)*120;
+	return "hsl("+h+","+65+"%,"+51+"%)";
 }
 function TrendInd(mode,val1,val2) {
-    var selisih, perc, i, c, l;
-    if(val1 && val2) {
-        var selisih = val1 - val2;
-        var perc = selisih / val2;
-        if(perc > 0) {
-            i="Meningkat "; l="logoinc";
-        }
-        if(perc < 0) {
-            i="Menurun "; l="logodec";
-        }
-        if(perc===0) {i="Tidak ada perubahan";c="muted";l="logonet"}
-    }
+	var selisih, perc, i, c, l;
+	if(val1 && val2) {
+		var selisih = val1 - val2;
+		var perc = selisih / val2;
+		if(perc > 0) {
+			i="Meningkat "; l="logoinc";
+		}
+		if(perc < 0) {
+			i="Menurun "; l="logodec";
+		}
+		if(perc===0) {i="Tidak ada perubahan";c="muted";l="logonet"}
+	}
 	if(mode==1) {
-	    if(perc > 0.5) {i+="tajam";c="danger"}
-	    if(perc > 0.1 && perc <= 0.5) {c="danger"}
-	    if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
-	    if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
-	    if(perc <-0.1 && perc >=-0.5) {c="success"}
-	    if(perc <-0.5) {i+="tajam";c="success"}
+		if(perc > 0.5) {i+="tajam";c="danger"}
+		if(perc > 0.1 && perc <= 0.5) {c="danger"}
+		if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+		if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+		if(perc <-0.1 && perc >=-0.5) {c="success"}
+		if(perc <-0.5) {i+="tajam";c="success"}
 	}
 	if(mode==2) {
-	    if(perc > 0.5) {i+="tajam";c="success"}
-	    if(perc > 0.1 && perc <= 0.5) {c="success"}
-	    if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
-	    if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
-	    if(perc <-0.1 && perc >=-0.5) {c="danger"}
-	    if(perc <-0.5) {i+="tajam";c="danger"}
+		if(perc > 0.5) {i+="tajam";c="success"}
+		if(perc > 0.1 && perc <= 0.5) {c="success"}
+		if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+		if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+		if(perc <-0.1 && perc >=-0.5) {c="danger"}
+		if(perc <-0.5) {i+="tajam";c="danger"}
 	}
 	if(mode==3) {
-	    if(val1 > 0) {i="Meningkat";c="danger";l="logoinc"}
-	    if(val1===0) {i="Stabil";c="muted";l="logonet"}
-	    if(val1 > 0) {i="Menurun";c="success";l="logodec"}
+		if(val1 > 0) {i="Meningkat";c="danger";l="logoinc"}
+		if(val1===0) {i="Stabil";c="muted";l="logonet"}
+		if(val1 > 0) {i="Menurun";c="success";l="logodec"}
 	}
 	if(mode==4) {
-	    if(val1 > 0) {i="Meningkat";c="success";l="logoinc"}
-	    if(val1===0) {i="Stabil";c="muted";l="logonet"}
-	    if(val1 > 0) {i="Menurun";c="danger";l="logodec"}
+		if(val1 > 0) {i="Meningkat";c="success";l="logoinc"}
+		if(val1===0) {i="Stabil";c="muted";l="logonet"}
+		if(val1 > 0) {i="Menurun";c="danger";l="logodec"}
 	}
 	return [i,c,l];
 }
-$(".LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
-$("#TP_TblHarian tbody").html(""); var PersAktfYest=null, $RMK=0, $RMS=0, $RMM=0, $RMKy=null, $RMSy=null, $RMMy=null, $day=0;
-var $ArrKB=KonfBaru.slice(GET_day), $ArrKJ=KonfJuml.slice(GET_day), $ArrK7=Konf7day.slice(GET_day),
-$ArrSB=SembBaru.slice(GET_day), $ArrSJ=SembJuml.slice(GET_day), $ArrS7=Semb7day.slice(GET_day),
-$ArrMB=MengBaru.slice(GET_day), $ArrMJ=MengJuml.slice(GET_day), $ArrM7=Meng7day.slice(GET_day),
+await delay(500);
+$("#TP_TblHarian tbody").html("");
+var PersAktfYest=null, $RMK=0, $RMS=0, $RMM=0, $RMKy=null, $RMSy=null, $RMMy=null, $day=0;
+var $ArrKB=KonfBaru, $ArrKJ=KonfJuml, $ArrK7=Konf7day,
+$ArrSB=SembBaru, $ArrSJ=SembJuml, $ArrS7=Semb7day,
+$ArrMB=MengBaru, $ArrMJ=MengJuml, $ArrM7=Meng7day,
 HL_KB = getMinMax($ArrKB), HL_SB = getMinMax($ArrSB), HL_MB = getMinMax($ArrMB),
 HL_K7 = getMinMax($ArrK7), HL_S7 = getMinMax($ArrS7), HL_M7 = getMinMax($ArrM7);
 var BulanTahun=[];
 $.each(Tanggal, function(key,val){
-    if(!BulanTahun.includes(val.substr(0,7))) {
-        BulanTahun.push(val.substr(0,7));
-        var tgl=new Date(val.substr(0,7));
-        $("#NavDataExcel").prepend('<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data-xlsx="'+val.substr(0,7)+'">'+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+'</a></li>');
-    }
+	if(!BulanTahun.includes(val.substr(0,7))) {
+		BulanTahun.push(val.substr(0,7));
+		var tgl=new Date(val.substr(0,7));
+		$("#NavDataExcel").prepend('<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data-xlsx="'+val.substr(0,7)+'">'+NamaBulan[tgl.getMonth()]+" "+tgl.getFullYear()+'</a></li>');
+	}
 });
 $(document).on("click", "#NavDataExcel a", function(){
-    if($(this).data("xlsx")) {
-        $("#DataExcel").removeAttr("src");
-        $("#DataExcel").prop("src", "https://onedrive.live.com/embed?resid=C9E7642AA34CF44A%2112174&authkey=%21AA9j8YUKqUe675s&em=2&wdAllowInteractivity=False&ActiveCell=%27"+$(this).data("xlsx")+"%27!A1&Item=%27"+$(this).data("xlsx")+"%27!A1%3AU810&wdHideGridlines=True&wdInConfigurator=True");
-        $("#NavDataExcel a").removeClass("active");
-        $(this).addClass("active");
-    }
+	if($(this).data("xlsx")) {
+		$("#DataExcel").prop("src", "https://onedrive.live.com/embed?resid=C9E7642AA34CF44A%2112174&authkey=%21AA9j8YUKqUe675s&em=2&wdAllowInteractivity=False&ActiveCell=%27"+$(this).data("xlsx")+"%27!A1&Item=%27"+$(this).data("xlsx")+"%27!A1%3AU810&wdHideGridlines=True&wdInConfigurator=True");
+		$("#NavDataExcel a").removeClass("active");
+		$(this).addClass("active");
+	}
 });
-$.each(Tanggal.slice(GET_day),function(key,val){
+$.each(Tanggal,function(key,val){
 	var PersAktf=(($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))/$ArrKJ[key])*100,
 	PAind = TrendInd(1, PersAktf, PersAktfYest);
 	K7dind = TrendInd(1, $ArrK7[key], $ArrK7[key-7]);
