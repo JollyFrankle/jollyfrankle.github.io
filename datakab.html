@@ -54,6 +54,17 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 </style>
 </head>
 <body>
+	<div class="justify-content-center align-items-center position-fixed" style="width:100vw;height:100vh;background:rgba(0,0,0,.5);top:0;left:0;display:flex;z-index:1080;user-select:none" id="spinner_loader">
+		<div class="text-center text-white">
+			<div class="spinner-grow text-white" style="width:5rem; height: 5rem" role="status">
+				<span class="sr-only">Memuat...</span>
+			</div>
+			<noscript>
+				<h6 class="mb-1 mt-3 px-3">JavaScript Anda tidak aktif</h6>
+				<div class="px-3">Halaman ini tidak dapat dimuat tanpa JavaScript</div>
+			</noscript>
+		</div>
+	</div>
 	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
 		<div class="container d-md-flex justify-content-between text-center">
 			<a class="navbar-brand text-truncate">
@@ -447,19 +458,6 @@ function NolAwal(num, padlen) {
 }
 function DateIndo(d,mode) {var t=new Date(d);var o="";o=mode==2?NamaHari[t.getDay()]+", " : ""; o+=t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear(); return o;}
 $.ajax({
-	url:'https://api.github.com/repos/jollyfrankle/jollyfrankle.github.io/commits?path=datakab.js&page=1&per_page=1',
-	dataType: "json",
-	success: function(data){
-		var t=new Date(data[0].commit.author.date);
-		TZp=-t.getTimezoneOffset()/60; TZu=NolAwal(Math.floor(TZp),2)+":"+NolAwal(TZp%1*60,2);
-		TZp>=0 ? TZ="+"+TZu : TZ=TZu;
-		TZ=="+08:00" ? TZc="WITA" :
-		TZ=="+07:00" ? TZc="WIB" :
-		TZ=="+09:00" ? TZc="WIT" : TZc="(UTC"+TZ+")";
-		$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" "+TZc);
-	}
-});
-$.ajax({
 	url: "peta-ntt.svg",
 	dataType: 'html',
 	success: function(data){
@@ -496,15 +494,34 @@ observer.observe(document.getElementById('MapContainer'), {
 
 	}
 });
-$.getScript("datakab.js",AJAX_Complete);
-$.getScript("data.js",DATAJS_Complete);
-function DATAJS_Complete(){
-	$("#KonfIncNTT").text("+"+KonfBaru[KonfBaru.length-1]+" ks. baru");
-	$("#SembIncNTT").text("+"+SembBaru[SembBaru.length-1]+" sembuh");
-	$("#MengIncNTT").text("+"+MengBaru[MengBaru.length-1]+" meninggal");
-	$(".LastData").text(DateIndo(Tanggal[Tanggal.length-1]));
-}
-async function AJAX_Complete(){
+
+$.ajax({
+	url:'https://jhf2.000webhostapp.com/ajax/public.php',
+	data: {action: "ks_kab_terkini"},
+	method: "POST",
+	dataType: "json",
+	success: function(data){
+		if(data.success) {
+			var t = new Date(data.last_update);
+			$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" WITA");
+			$(".LastData").text(DateIndo(data.last_data));
+			$("#KonfIncNTT").text("+"+data.new_konf+" ks. baru");
+			$("#SembIncNTT").text("+"+data.new_semb+" sembuh");
+			$("#MengIncNTT").text("+"+data.new_meng+" meninggal");
+			//$("#spinner_loader").fadeOut(); // PPindah ke: SHORT__SPINNER_PETA
+			AJAX_Complete(data.dt_kab);
+		}
+		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
+	},
+	error: function(data) {
+		var alert_txt = "[!] Data tidak dapat diambil:\n\nnAlasan: Server sedang sibuk pada saat ini dan tidak dapat menangani permintaan. Jika terus mengalami kendala, hubungi jollyfrankle3@gmail.com.";
+		console.log(data);
+		console.log(alert_txt); alert(alert_txt);
+	}
+});
+
+async function AJAX_Complete(data){
+const NamaKab=data.kab, TodTot=data.tod.tot, TodAkt=data.tod.akt, TodTun=data.tod.tun, YesTot=data.yest.tot, YesTun=data.yest.tun, YesAkt=data.yest.akt;
 function getMinMax(arr) {
 	let min = arr[0];
 	let max = arr[0];
@@ -545,10 +562,10 @@ var KonfBaru=[], TuntBaru=[], H_KonfInc=0, H_KonfJlh=0, H_PerAkt=0, H_TuntInc=0,
 var cdt2_opt={indexAxis: 'y', tooltips: {enabled: true, mode: 'index', intersect: false}, hover: {mode: "nearest", intersect: true}, scales: {xAxes: [{stacked: true}], yAxes: [{stacked: true, ticks:{beginAtZero: true}}]},
 indexAxis: 'y', maintainAspectRatio: false};
 
-await delay(1000);
+await delay(500);
 $("#SectWil").html("");
 $.each(NamaKab,function(key,val) {
-	val=val.substr(0,4)!="Kota"?"Kab. "+val:val;
+	//val=val.substr(0,4)!="Kota"?"Kab. "+val:val;
 	var SelKonfTot=TodTot[key][3]-YesTot[key][3], SelKonfAkt=TodAkt[key][3]-YesAkt[key][3], SelKonfTun=TodTun[key][3]-YesTun[key][3],
 	SelProbTot=TodTot[key][2]-YesTot[key][2], SelProbAkt=TodAkt[key][2]-YesAkt[key][2], SelProbTun=TodTun[key][2]-YesTun[key][2],
 	SelSuspTot=TodTot[key][1]-YesTot[key][1], SelSuspAkt=TodAkt[key][1]-YesAkt[key][1], SelSuspTun=TodTun[key][1]-YesTun[key][1],
@@ -722,7 +739,7 @@ function TmplDataPeta(mode){
 		min = ((1-H_PerAkt)*100).toFixed(2).replace(".",",")+"%";
 		mid = ((((1-H_PerAkt)/2)+0.5)*100).toFixed(2).replace(".",",")+"%"; 
 		max = "100%"
-		col = "rgba(96)";
+		col = "rgba(0,32,96)";
 		$.each(NamaKab,function(key,val){
 			per=1-((TodAkt[key][3]/TodTot[key][3])/H_PerAkt);
 			$("#map_style").append("#MapContainer path._data"+key+"{fill:"+rgba2rgb([255, 255, 255],[0,32,96,per])+"!important}");
@@ -750,6 +767,36 @@ function TmplDataPeta(mode){
 TmplDataPeta(3); // Default untuk peta = mode 3
 $("[data-mapdata]").on("click",function(){
 	TmplDataPeta($(this).data("mapdata"));
+});
+// SHORT__SPINNER_PETA
+$("#spinner_loader").fadeOut();
+
+$(document).on("click","#MapContainer svg path[class*=_data]",function(e){
+	cldata = $(this).attr("class").match(/(_data)[0-9]*\w/g)[0];
+	if(cldata.slice(5)) {
+		kode = cldata.slice(5);
+		$("#activewil").html("#MapContainer svg ."+cldata+"{filter: drop-shadow(0px 0px 4px black)}");
+		val = NamaKab[kode];
+		//val = val.substr(0,4)!="Kota"?"Kab. "+val : val;
+		JlhKasus = TodTot[kode][3];
+		PerKs = ((JlhKasus/KonfJuml)*100).toFixed(2).replace(".",",");
+		KsAktif = TodAkt[kode][3];
+		KsBaru = TodTot[kode][3]-YesTot[kode][3];
+		KsBaru = KsBaru < 0 ? KsBaru : "+"+KsBaru;
+		TunBaru = TodTun[kode][3]-YesTun[kode][3];
+		TunBaru = TunBaru < 0 ? TunBaru : "+"+TunBaru;
+		PerAkt = ((KsAktif/JlhKasus)*100).toFixed(2).replace(".",",");
+		PerTun = ((1-(KsAktif/JlhKasus))*100).toFixed(2).replace(".",",");
+		$("#LegIn_Kab").text(val);
+		$("#LegIn_PerKs").text(PerKs+"% kasus di NTT");
+		$("#LegIn_Jlh").text(JlhKasus);
+		$("#LegIn_Akt").text(KsAktif);
+		$("#LegIn_PerAkt").text(PerAkt+"%");
+		$("#LegIn_PerTun").text(PerTun+"%");
+		$("#LegIn_Tun").text(TunBaru+" kasus");
+		$("#LegIn_Num").text(KsBaru+" kasus");
+		$("#LegIn_DatiAnchor").prop("href","#Dati2"+kode);
+	}
 });
 
 await delay(1500);
@@ -888,34 +935,6 @@ var c_kont = new Chart(document.getElementById("c_kont").getContext("2d"), {
 	options: c_options
 });
 
-await delay(500);
-$(document).on("click","#MapContainer svg path[class*=_data]",function(e){
-	cldata = $(this).attr("class").match(/(_data)[0-9]*\w/g)[0];
-	if(cldata.slice(5)) {
-		kode = cldata.slice(5);
-		$("#activewil").html("#MapContainer svg ."+cldata+"{filter: drop-shadow(0px 0px 4px black)}");
-		val = NamaKab[kode];
-		val = val.substr(0,4)!="Kota"?"Kab. "+val : val;
-		JlhKasus = TodTot[kode][3];
-		PerKs = ((JlhKasus/KonfJuml)*100).toFixed(2).replace(".",",");
-		KsAktif = TodAkt[kode][3];
-		KsBaru = TodTot[kode][3]-YesTot[kode][3];
-		KsBaru = KsBaru < 0 ? KsBaru : "+"+KsBaru;
-		TunBaru = TodTun[kode][3]-YesTun[kode][3];
-		TunBaru = TunBaru < 0 ? TunBaru : "+"+TunBaru;
-		PerAkt = ((KsAktif/JlhKasus)*100).toFixed(2).replace(".",",");
-		PerTun = ((1-(KsAktif/JlhKasus))*100).toFixed(2).replace(".",",");
-		$("#LegIn_Kab").text(val);
-		$("#LegIn_PerKs").text(PerKs+"% kasus di NTT");
-		$("#LegIn_Jlh").text(JlhKasus);
-		$("#LegIn_Akt").text(KsAktif);
-		$("#LegIn_PerAkt").text(PerAkt+"%");
-		$("#LegIn_PerTun").text(PerTun+"%");
-		$("#LegIn_Tun").text(TunBaru+" kasus");
-		$("#LegIn_Num").text(KsBaru+" kasus");
-		$("#LegIn_DatiAnchor").prop("href","#Dati2"+kode);
-	}
-});
 $("#TOC").slideDown();
 }
 </script>
