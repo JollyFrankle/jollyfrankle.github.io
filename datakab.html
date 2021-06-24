@@ -13,7 +13,6 @@
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
 	<title>JFP – Data Per Wilayah</title>
-	<noscript><meta http-equiv="refresh" content="0; url=no-js.html"/></noscript>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
@@ -22,6 +21,7 @@ window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(argumen
 </script>
 	<style>
 body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}.anchor{position:absolute;margin-top:-7rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}#ClosedCasesToday,#NewCasesToday{padding-left:1.25rem;margin-bottom:0}
+#TambahanInfo {z-index: 1079; position: sticky; bottom: 0; max-height: 20vh; overflow-y: auto; margin-bottom: 0;}
 #MapContainer{height:500px;max-height:75vh}
 #MapContainer svg{overflow:auto;width:100%}
 #MapContainer svg path{cursor:pointer}
@@ -77,7 +77,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 	</nav>
 	<main class="container my-4">
 <div class="d-block d-md-flex justify-content-between align-items-center mb-2">
-	<div>
+	<div class="text-center text-md-left">
 		<h1>COVID-19 NTT Tracker</h1>
 		<p class="mb-2">Informasi dan analisa kasus COVID-19 NTT.</p>
 	</div>
@@ -161,15 +161,13 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <div class="position-relative rounded border mb-3">
 	<h6 id="MapHeader">
 		<div id="MapTitle">Memuat Peta...</div>
-		<div class="small text-muted">Perhatikan skala di sudut kanan bawah peta atau di bawah peta untuk konteks</div>
+		<div class="small text-muted">Perhatikan skala di bawah peta untuk konteks</div>
 	</h6>
-	<div id="MapContainer" style="background:#C6ECFF" data-zoom-on-wheel="zoom-amount: 0.001; min-scale: 1; max-scale: 5;" data-pan-on-drag >
+	<div id="MapContainer" style="background:#C6ECFF" data-zoom-on-wheel="zoom-amount: 0.002; min-scale: 1; max-scale: 5;" data-pan-on-drag >
 	</div>
 	<div id="MapIndLeg">
 		<div>
-			<span>0</span>
-			<span>50</span>
-			<span>100</span>
+			<span>0</span> <span>50</span> <span>100</span>
 		</div>
 		<div id="MapIndCol"></div>
 	</div>
@@ -418,10 +416,9 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <section id="TemplateTOC" class="d-none">
 	<li><a href="$Anchor$">$NamaWil$</a></li>
 </section>
-<div id="TambahanInfo" class="alert mb-0" style="position:sticky; bottom:0; display:none; max-height:6rem">
-	<h6 class="mb-1" id="TI_header"></h6>
-	<p class="mb-0 small" id="TI_text"></p>
-</div>
+
+<div id="TambahanInfo" class="alert"><h6 class="mb-1" id="TI_header"></h6><p class="mb-0 small" id="TI_text"></p></div>
+
 </main>
 <footer class="bg-dark text-light">
 	<div class="container p-3">
@@ -435,19 +432,6 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.5.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script>
-$.ajax({
-	url: "pengumuman.json",
-	method: "GET",
-	dataType: "json",
-	success:function(data)
-	{
-		if(data.show) {
-			$("#TI_header").html(data.header);
-			$("#TI_text").html(data.text);
-			$("#TambahanInfo").addClass("alert-"+(data.type ?? "info")).show();
-		}
-	}
-});
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -508,8 +492,13 @@ $.ajax({
 			$("#KonfIncNTT").text("+"+data.new_konf+" ks. baru");
 			$("#SembIncNTT").text("+"+data.new_semb+" sembuh");
 			$("#MengIncNTT").text("+"+data.new_meng+" meninggal");
-			//$("#spinner_loader").fadeOut(); // PPindah ke: SHORT__SPINNER_PETA
+			//$("#spinner_loader").fadeOut(); // Pindah ke: SHORT__SPINNER_PETA
 			AJAX_Complete(data.dt_kab);
+			if(data.peng.show) {
+				$("#TI_header").html(data.peng.header);
+				$("#TI_text").html(data.peng.text);
+				$("#TambahanInfo").addClass("alert-"+(data.peng.type ?? "info")).show();
+			}
 		}
 		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
 	},
