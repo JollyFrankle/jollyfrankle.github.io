@@ -780,8 +780,8 @@ $(document).on("click","#MapContainer svg path[class*=_data]",function(e){
 		PerTun = numFormat.format((1-(KsAktif/JlhKasus))*100);
 		$("#LegIn_Kab").text(val);
 		$("#LegIn_PerKs").text(PerKs+"% kasus di NTT");
-		$("#LegIn_Jlh").text(JlhKasus);
-		$("#LegIn_Akt").text(KsAktif);
+		$("#LegIn_Jlh").text(numFormat.format(JlhKasus));
+		$("#LegIn_Akt").text(numFormat.format(KsAktif));
 		$("#LegIn_PerAkt").text(PerAkt+"%");
 		$("#LegIn_PerTun").text(PerTun+"%");
 		$("#LegIn_Tun").text(TunBaru+" kasus");
