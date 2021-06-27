@@ -21,7 +21,7 @@
 window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
 </script>
 	<style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}#TP_TblHarian td{vertical-align:middle;text-align:center}#TP_TblHarian td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-4rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(5),#TP_TblHarian td:nth-child(8),#TP_TblHarian td:nth-child(11) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}#TP_TblHarian td .flbet{display:flex;justify-content:space-between;align-items:center}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}#TP_TblHarian td{vertical-align:middle;text-align:center}#TP_TblHarian td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}.anchor{position:absolute;margin-top:-.5rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(5),#TP_TblHarian td:nth-child(8),#TP_TblHarian td:nth-child(11) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}#TP_TblHarian td .flbet{display:flex;justify-content:space-between;align-items:center}.fw-500{font-weight: 500}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 #TambahanInfo {z-index: 1079; position: sticky; bottom: 0; max-height: 20vh; overflow-y: auto; margin-bottom: 0;}
 .tbl-fs{
@@ -53,7 +53,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</noscript>
 		</div>
 	</div>
-	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
+	<nav class="navbar navbar-dark shadow bg-dark">
 		<div class="container d-md-flex justify-content-between text-center">
 			<a class="navbar-brand text-truncate">
 				JollyFrankle Projects: COVID-19 NTT Tracker
@@ -252,6 +252,8 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const numFormat = new Intl.NumberFormat('id-ID', {maximumFractionDigits: 2});
+
 function NolAwal(num, padlen) {
 	var pad_char = '0';
 	var pad = new Array(1 + padlen).join(pad_char);
@@ -431,41 +433,47 @@ $.each(Tanggal,function(key,val){
 	HL_MBind="rgba(192,0,0,"+($ArrMB[key]-HL_MB["min"])/HL_MB["max"]+")";
 	Col1="<td>"+DateIndo(val,2)+"</td>";
 	ColK1="<td><div class='flbet'><strong>"+($ArrKB[key]<0?$ArrKB[key]:"+"+$ArrKB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_KBind+"'></div></div></td>";
-	ColK2="<td><div class='flbet'><div>+"+($ArrK7[key]!=null ? $ArrK7[key].toFixed(2).replace(".",",") : " –")+"</div><div class='logoright text-"+K7dind[1]+" "+K7dind[2]+"'></div></div></td>";
-	ColK3="<td>"+$ArrKJ[key]+"</td>";
+	ColK2="<td><div class='flbet'><div>+"+($ArrK7[key]!=null ? numFormat.format($ArrK7[key]) : " –")+"</div><div class='logoright text-"+K7dind[1]+" "+K7dind[2]+"'></div></div></td>";
+	ColK3="<td>"+numFormat.format($ArrKJ[key])+"</td>";
 	ColS1="<td><div class='flbet'><strong>"+($ArrSB[key]<0?$ArrSB[key]:"+"+$ArrSB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_SBind+"'></div></div></td>";
-	ColS2="<td><div class='flbet'><div>+"+($ArrS7[key]!=null ? $ArrS7[key].toFixed(2).replace(".",",") : " –")+"</div><div class='logoright text-"+S7dind[1]+" "+S7dind[2]+"'></div></div></td>";
-	ColS3="<td>"+$ArrSJ[key]+"</td>";
+	ColS2="<td><div class='flbet'><div>+"+($ArrS7[key]!=null ? numFormat.format($ArrS7[key]) : " –")+"</div><div class='logoright text-"+S7dind[1]+" "+S7dind[2]+"'></div></div></td>";
+	ColS3="<td>"+numFormat.format($ArrSJ[key])+"</td>";
 	ColM1="<td><div class='flbet'><strong>"+($ArrMB[key]<0?$ArrMB[key]:"+"+$ArrMB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_MBind+"'></div></div></td>";
-	ColM2="<td><div class='flbet'><div>+"+($ArrM7[key]!=null ? $ArrM7[key].toFixed(2).replace(".",",") : " –")+"</div><div class='logoright text-"+M7dind[1]+" "+M7dind[2]+"'></div></div></td>";
-	ColM3="<td>"+$ArrMJ[key]+"</td>";
-	ColA1="<td><div class='flbet'>"+PersAktf.toFixed(2).replace(".",",")+"%<div class='logoright text-"+PAind[1]+" "+PAind[2]+"'></div></div></td>";
-	ColA2="<td>"+($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))+"</td>";
+	ColM2="<td><div class='flbet'><div>+"+($ArrM7[key]!=null ? numFormat.format($ArrM7[key]) : " –")+"</div><div class='logoright text-"+M7dind[1]+" "+M7dind[2]+"'></div></div></td>";
+	ColM3="<td>"+numFormat.format($ArrMJ[key])+"</td>";
+	ColA1="<td><div class='flbet'>"+numFormat.format(PersAktf)+"%<div class='logoright text-"+PAind[1]+" "+PAind[2]+"'></div></div></td>";
+	ColA2="<td>"+numFormat.format($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))+"</td>";
 	$("#TP_TblHarian tbody").prepend("<tr>"+Col1+ColK1+ColK2+ColK3+ColS1+ColS2+ColS3+ColM1+ColM2+ColM3+ColA1+ColA2+"</tr>");
 	$day++;
-	if(new Date(val).getDay()+1==7) {
+	if(new Date(val).getDay()==6) {
 		var tgl=new Date(val), //ColRM = Kolom Rekap Mingguan
 		$RMKBavg = $RMKy==null ? null : (($RMK-$RMKy)/$RMKy)*100;
-		$RMKBavg = $RMKBavg===null ? "" : $RMKBavg<0 ? $RMKBavg.toFixed(2).replace(".",",")+"%" : "+"+$RMKBavg.toFixed(2).replace(".",",")+"%";
+		$RMKBavg = $RMKBavg===null ? "" : $RMKBavg<0 ? numFormat.format($RMKBavg)+"%" : "+"+numFormat.format($RMKBavg)+"%";
 		$RMKBavgInd = TrendInd(1, $RMK, $RMKy);
 
 		$RMSBavg = $RMSy==null ? null : (($RMS-$RMSy)/$RMSy)*100;
-		$RMSBavg = $RMSBavg===null ? "" : $RMSBavg<0 ? $RMSBavg.toFixed(2).replace(".",",")+"%" : "+"+$RMSBavg.toFixed(2).replace(".",",")+"%";
+		$RMSBavg = $RMSBavg===null ? "" : $RMSBavg<0 ? numFormat.format($RMSBavg)+"%" : "+"+numFormat.format($RMSBavg)+"%";
 		$RMSBavgInd = TrendInd(2, $RMS, $RMSy);
 
 		$RMMBavg = $RMMy==null ? null : (($RMM-$RMMy)/$RMMy)*100;
-		$RMMBavg = $RMMBavg===null ? "" : $RMMBavg<0 ? $RMMBavg.toFixed(2).replace(".",",")+"%" : "+"+$RMMBavg.toFixed(2).replace(".",",")+"%";
+		$RMMBavg = $RMMBavg===null ? "" : $RMMBavg<0 ? numFormat.format($RMMBavg)+"%" : "+"+numFormat.format($RMMBavg)+"%";
 		$RMMBavgInd = TrendInd(1, $RMM, $RMMy);
 
+		$RMAS = $RMK - ($RMS + $RMM);
+		$RMASy = $RMKy - ($RMSy + $RMMy);
+		$RMAS_txt = $RMAS < 0 ? numFormat.format($RMAS) : "+"+numFormat.format($RMAS);
+		$RMASInd = TrendInd(1, $RMAS, $RMASy);
+
 		var info_tgl = $day<7 ? "<div class='small'>Hanya menampilkan data "+$day+" hari terakhir</div>" : "";
-		ColRMTgl="<td><span class='text-info h6 mb-0'>Pekan ke-"+tgl.getWeek()+" tahun "+tgl.getWeekYear()+"</span>"+info_tgl+"</td>";
+		ColRMTgl="<td><span class='text-info fw-500'>Pekan ke-"+tgl.getWeek()+" tahun "+tgl.getWeekYear()+"</span>"+info_tgl+"</td>";
 		ColNone="<td class='d-none'></td>";
-		ColRMKB="<td colspan=3><div class='flbet fw-500'><strong style='color:#BF9000'>+"+$RMK+" ks.</strong><div class='flbet text-"+$RMKBavgInd[1]+"'>"+$RMKBavg+"<div class='logoright "+$RMKBavgInd[2]+"'></div></div></div></td>";
-		ColRMSB="<td colspan=3><div class='flbet fw-500'><strong style='color:#002060'>+"+$RMS+" ks.</strong><div class='flbet text-"+$RMSBavgInd[1]+"'>"+$RMSBavg+"<div class='logoright "+$RMSBavgInd[2]+"'></div></div></div></td>";
+		ColRMKB="<td colspan=3><div class='flbet'><strong style='color:#BF9000'>+"+$RMK+" ks.</strong><div class='flbet text-"+$RMKBavgInd[1]+"'>"+$RMKBavg+"<div class='logoright "+$RMKBavgInd[2]+"'></div></div></div></td>";
+		ColRMSB="<td colspan=3><div class='flbet'><strong style='color:#002060'>+"+$RMS+" ks.</strong><div class='flbet text-"+$RMSBavgInd[1]+"'>"+$RMSBavg+"<div class='logoright "+$RMSBavgInd[2]+"'></div></div></div></td>";
 		//"<td colspan=3 style='color:#002060;text-align:left'>+<strong>"+$RMS+"</strong></td>";
-		ColRMMB="<td colspan=3><div class='flbet fw-500'><strong style='color:#C00000'>+"+$RMM+" ks.</strong><div class='flbet text-"+$RMMBavgInd[1]+"'>"+$RMMBavg+"<div class='logoright "+$RMMBavgInd[2]+"'></div></div></div></td>";
+		ColRMMB="<td colspan=3><div class='flbet'><strong style='color:#C00000'>+"+$RMM+" ks.</strong><div class='flbet text-"+$RMMBavgInd[1]+"'>"+$RMMBavg+"<div class='logoright "+$RMMBavgInd[2]+"'></div></div></div></td>";
 		//"<td colspan=3 style='color:#C00000;text-align:left'>+<strong>"+$RMM+"</strong></td>";
-		ColRMA="<td colspan=2></td>"
+		ColRMA="<td colspan=2 class='fw-500 text-secondary'>"+$RMAS_txt+" ks. aktif</td>";
+
 		$("#TP_TblHarian tbody").prepend("<tr style='border-top:2px solid var(--dark)'>"+ColRMTgl+ColRMKB+ColNone+ColNone+ColRMSB+ColNone+ColNone+ColRMMB+ColNone+ColNone+ColRMA+"</tr>");
 		$RMKy=$RMK; $RMSy=$RMS; $RMMy=$RMM;
 		$RMK=0; $RMS=0; $RMM=0; $day=0;
