@@ -21,7 +21,7 @@
 window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
 </script>
 <style>
-body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light);border-radius: .25rem;}.anchor{position:absolute;margin-top:-4rem;}#TP_Tabel td:nth-child(2),#TP_Tabel td:nth-child(5),#TP_Tabel td:nth-child(8) {border-left:1px solid #dee2e6}.fw-500{font-weight:500;}
+body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:4px}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.card{overflow:hidden}#TP_Tabel td{vertical-align:middle;text-align:center}#TP_Tabel td:first-child{text-align:left}.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light);border-radius: .25rem;}.anchor{position:absolute;margin-top:-.5rem;}#TP_Tabel td:nth-child(2),#TP_Tabel td:nth-child(5),#TP_Tabel td:nth-child(8) {border-left:1px solid #dee2e6}.fw-500{font-weight:500;}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 .container_rekap {padding: 1rem;margin: -1rem;}
 #TambahanInfo {z-index: 1079; position: sticky; bottom: 0; max-height: 20vh; overflow-y: auto; margin-bottom: 0;}
@@ -40,7 +40,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			</noscript>
 		</div>
 	</div>
-	<nav class="navbar navbar-dark sticky-top shadow bg-dark">
+	<nav class="navbar navbar-dark shadow bg-dark">
 		<div class="container d-md-flex justify-content-between text-center">
 			<a class="navbar-brand text-truncate">
 				JollyFrankle Projects: COVID-19 NTT Tracker
@@ -161,7 +161,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 <div id="Bg1_Rekap" class="anchor"></div>
 <h2 class="border-bottom"><small>1.</small> Kasus Hari Ini</h2>
 <div class="container_rekap">
-	<div class="alert alert-info text-center" style="position:sticky;top:3.5rem;z-index:9">
+	<div class="alert alert-info text-center" style="position:sticky;top:0;z-index:9">
 		<div class="d-inline-block">Data harian <strong class="LastData">Memuat...</strong>,</div>
 		<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
 	</div>
@@ -414,6 +414,8 @@ function NolAwal(num, padlen) {
 	var pad = new Array(1 + padlen).join(pad_char);
 	return (pad + num).slice(-pad.length);
 }
+const numFormat = new Intl.NumberFormat('id-ID', {maximumFractionDigits: 2});
+
 var url = new URL(window.location.href);
 var day = url.searchParams.get("day");
 var GET_day_plain = 0;
@@ -485,10 +487,10 @@ function IndC(mode,val) {
 		if(val < 0) c+='danger logodec';
 	}
 	c+="'>"; post="%</span>";
-		return c+val.toFixed(2).replace(".",",")+post;
+		return c+numFormat.format(val)+post;
 }
 function PreIndC(val) {
-	return (val<0?"":"+")+val.toFixed(2).replace(".",",");
+	return (val<0?"":"+")+numFormat.format(val);
 }
 
 function TrendInd(mode,val1,val2) {
@@ -550,25 +552,37 @@ $(document).ready(async function(){
 	});
 	var JlhYestPre = "Kemarin: ", TanggalLen=Tanggal.length;
 	//await delay(500);
-	$("#TB_JlhKonf").text(KonfJuml[TanggalLen-1]);
-	$("#TB_JlhKonfYest").text(JlhYestPre+KonfJuml[TanggalLen-2]);
-	$("#TB_JlhKonfInc").text(KonfBaru[TanggalLen-1]);
+	$("#TB_JlhKonf").text(numFormat.format(KonfJuml[TanggalLen-1]));
+	$("#TB_JlhKonfYest").text(JlhYestPre+numFormat.format(KonfJuml[TanggalLen-2]));
+	$("#TB_JlhKonfInc").text(numFormat.format(KonfBaru[TanggalLen-1]));
 
-	$("#TB_JlhSemb").text(SembJuml[TanggalLen-1]);
-	$("#TB_JlhSembYest").text(JlhYestPre+SembJuml[TanggalLen-2]);
-	$("#TB_JlhSembInc").text(SembBaru[TanggalLen-1]);
+	$("#TB_JlhSemb").text(numFormat.format(SembJuml[TanggalLen-1]));
+	$("#TB_JlhSembYest").text(JlhYestPre+numFormat.format(SembJuml[TanggalLen-2]));
+	$("#TB_JlhSembInc").text(numFormat.format(SembBaru[TanggalLen-1]));
 
-	$("#TB_JlhMeng").text(MengJuml[TanggalLen-1]);
-	$("#TB_JlhMengYest").text(JlhYestPre+MengJuml[TanggalLen-2]);
-	$("#TB_JlhMengInc").text(MengBaru[TanggalLen-1]);
+	$("#TB_JlhMeng").text(numFormat.format(MengJuml[TanggalLen-1]));
+	$("#TB_JlhMengYest").text(JlhYestPre+numFormat.format(MengJuml[TanggalLen-2]));
+	$("#TB_JlhMengInc").text(numFormat.format(MengBaru[TanggalLen-1]));
 
 	var SelisihAktif = AktifJuml[AktifJuml.length-1]-AktifJuml[AktifJuml.length-2];
-	SelisihAktif<0?SelAkInd="logodec text-success":SelAkInd="logoinc text-danger";
-	$("#TB_JlhAktif").text(AktifJuml[AktifJuml.length-1]);
-	$("#TB_JlhAktifYest").text(JlhYestPre+(AktifJuml[AktifJuml.length-2]));
-	$("#TB_JlhAktifSelisih").text(SelisihAktif).addClass(SelAkInd);
+	SelAkInd = (SelisihAktif<0) ? "logodec text-success" : "logoinc text-danger";
+	$("#TB_JlhAktif").text(numFormat.format(AktifJuml[AktifJuml.length-1]));
+	$("#TB_JlhAktifYest").text(JlhYestPre+numFormat.format((AktifJuml[AktifJuml.length-2])));
+	$("#TB_JlhAktifSelisih").text(numFormat.format(SelisihAktif)).addClass(SelAkInd);
 
 	await delay(500);
+	/*$.each(["Konf", "Semb", "Meng"], function(k,v) {
+		var lc_v = v.toLowerCase();
+		var array = data[lc_v].total,
+		IndexH= Object.keys(array).reduce((a, b) => array[a] > array[b] ? a : b),
+		IndexL= Object.keys(array).reduce((a, b) => array[a] < array[b] ? a : b),
+		trend = TrendInd(1, data[lc_v].day7[GET_day_plain-1], data[lc_v].day7[GET_day_plain-8]);
+		$("#TBA_"+v+"Highest").text(array[IndexH]);
+		$("#TBA_"+v+"HighestDate").text(DateIndo(Tanggal[IndexH]));
+		$("#TBA_"+v+"Lowest").text(array[IndexL]);
+		$("#TBA_"+v+"LowestDate").text(DateIndo(Tanggal[IndexL]));
+		$("#TBA_"+v+"Trend").text($Trend[0]).addClass("text-"+$Trend[1]);
+	});*/
 	var $Arr_day=KonfBaru,
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
@@ -588,7 +602,7 @@ $(document).ready(async function(){
 	$("#TBA_SembLowest").text($Arr_day[IndexL]);
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal[IndexL]));
 	$("#TBA_SembTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
-	$("#TBA_CRR").text(TingkSemb[TingkSemb.length-1].replace(".",",")+"%");
+	$("#TBA_CRR").text(numFormat.format(TingkSemb[TingkSemb.length-1])+"%");
 
 	var $Arr_day=MengBaru,
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
@@ -599,16 +613,16 @@ $(document).ready(async function(){
 	$("#TBA_MengLowest").text($Arr_day[IndexL]);
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal[IndexL]));
 	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
-	$("#TBA_CFR").text(TingkMeng[TingkMeng.length-1].replace(".",",")+"%");
+	$("#TBA_CFR").text(numFormat.format(TingkMeng[TingkMeng.length-1])+"%");
 
 	var $Arr_day=TingkAktf,
 	IndexH=Object.keys($Arr_day).reduce((a, b) => Number($Arr_day[a]) > Number($Arr_day[b]) ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => Number($Arr_day[a]) < Number($Arr_day[b]) && $Arr_day[a]!==null ? a : b);
-	$("#TBA_AktfHighest").text($Arr_day[IndexH].replace(".",",")+"%");
+	$("#TBA_AktfHighest").text(numFormat.format($Arr_day[IndexH])+"%");
 	$("#TBA_AktfHighestDate").text(DateIndo(Tanggal[IndexH]));
-	$("#TBA_AktfLowest").text($Arr_day[IndexL]===null?"0%":$Arr_day[IndexL].replace(".",",")+"%");
+	$("#TBA_AktfLowest").text($Arr_day[IndexL]===null?"0%" : numFormat.format($Arr_day[IndexL])+"%");
 	$("#TBA_AktfLowestDate").text(DateIndo(Tanggal[IndexL]));
-	$("#TBA_AktfPersen").text(TingkAktf[TingkAktf.length-1].replace(".",",")+"%");
+	$("#TBA_AktfPersen").text(numFormat.format(TingkAktf[TingkAktf.length-1])+"%");
 
 var C_konf = document.getElementById('ChartNewAll').getContext('2d');
 var C_NewKonf = document.getElementById('ChartNewKonf').getContext('2d');
@@ -850,9 +864,9 @@ $.each(Tanggal, function(k,v) {
 			col.push(DateIndo(new Date(start_tgl))+"<div class='small'>s.d.</div>"+DateIndo(new Date(tgl)));
 			$.each(["konf", "semb", "meng"], function(k,v) {
 				var perc_selisih = ((data[0][v].total-data[1][v].total)/data[1][v].total)*100;
-				var ind_html="<span class='text-"+ind[k][1]+" "+ind[k][2]+"'>"+perc_selisih.toFixed(2).replace(".",",")+"%</span>";
+				var ind_html="<span class='text-"+ind[k][1]+" "+ind[k][2]+"'>"+numFormat.format(perc_selisih)+"%</span>";
 				// Kolom 1 - Rata-rata
-				col.push(((data[0][v].total/7).toFixed(2).replace(".",","))+$PostMean);
+				col.push(numFormat.format(data[0][v].total/7)+$PostMean);
 				// Kolom 2 - Indikator
 				col.push((!isNaN(perc_selisih) && perc_selisih!="Infinity") ? ind_html+"<div class='small'>"+PreIndC((data[0][v].total-data[1][v].total)/7)+" ks/hr</div>" :  "–");
 				// Kolom 3 - Ks tertinggi dan terendah
