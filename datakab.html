@@ -20,7 +20,7 @@
 window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
 </script>
 	<style>
-body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem}.card{overflow:hidden}.anchor{position:absolute;margin-top:-3.5rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}#ClosedCasesToday,#NewCasesToday{padding-left:1.25rem;margin-bottom:0}
+body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem;width:1rem;text-align:center}.card{overflow:hidden}.anchor{position:absolute;margin-top:-3.5rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}#ClosedCasesToday,#NewCasesToday{padding-left:1.25rem;margin-bottom:0}
 #TambahanInfo {z-index: 1079; position: sticky; bottom: 0; max-height: 20vh; overflow-y: auto; margin-bottom: 0;}
 #MapContainer{height:500px;max-height:75vh}
 #MapContainer svg{overflow:auto;width:100%}
@@ -88,6 +88,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 		<a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
 		<a class="btn btn-block btn-outline-dark active">Data hari ini per Kab/Kota</a>
 		<a class="btn btn-block btn-outline-dark" href="harian.html">Perkembangan data harian</a>
+		<a class="btn btn-block btn-outline-info" href="data-wil.html"><span class="badge badge-info">Prototype</span> Tren kasus per Wilayah</a>
 	</div>
 </nav>
 <div class="btn-group w-100 mb-2">
@@ -119,17 +120,24 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 		</div>
 		<div class="pl-4 mb-2">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
-				<div style="width:1.5rem">2.</div>
+				<div style="width:1.5rem">2.1</div>
 				<a class="h5 mb-1" href="#Bg21_Baru">Pertambahan Kasus Baru</a>
 			</div>
 			Pertambahan kasus baru per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
 		</div>
 		<div class="pl-4 mb-2">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
-				<div style="width:1.5rem">3.</div>
+				<div style="width:1.5rem">2.2</div>
 				<a class="h5 mb-1" href="#Bg22_Tuntas">Pertambahan Kasus Tuntas</a>
 			</div>
 			Pertambahan kasus tuntas (sembuh dan meninggal, tanpa dispesifikasi sembuh atau meninggal) per <span class="LastData"></span> di wilayah Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">3.</div>
+				<a class="h5 mb-1" href="#Bg3_Grafik">Grafik Perbandingan</a>
+			</div>
+			Perbandingan kasus aktif dan tuntas dari berbagai wilayah di Nusa Tenggara Timur.
 		</div>
 		<div class="pl-4">
 			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
@@ -278,7 +286,8 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 </div>
 <div class="small pb-3 text-muted text-center">Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</div>
 
-<h2 class="border-bottom"><small>3.</small> Perbandingan Kasus</h2>
+<div id="Bg3_Grafik" class="anchor"></div>
+<h2 class="border-bottom"><small>3.</small> Grafik Perbandingan</h2>
 
 <h4 class="text-center mb-1 mt-2">Perbandingan Kasus Positif</h4>
 <p class="text-center text-muted mb-0">Klik pada teks legenda (di atas grafik, di bawah tulisan ini) untuk menyaring data yang tampil.</p>
@@ -482,7 +491,7 @@ observer.observe(document.getElementById('MapContainer'), {
 });
 
 $.ajax({
-	url:'https://jhf2.000webhostapp.com/ajax/public.php',
+	url:'https://jhf2.000webhostapp.com/ajax/public_test.php',
 	data: {action: "ks_kab_terkini"},
 	method: "POST",
 	dataType: "json",
@@ -755,7 +764,7 @@ function TmplDataPeta(mode){
 	$("#MapIndCol").css("background-image","linear-gradient(90deg, white, "+col+")");
 	$("#MapTitle").text(title);
 }
-TmplDataPeta(3); // Default untuk peta = mode 3
+TmplDataPeta(6); // Default untuk peta = mode 3
 $("[data-mapdata]").on("click",function(){
 	TmplDataPeta($(this).data("mapdata"));
 });
