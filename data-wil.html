@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="id" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#343a40">
+	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+	<link rel="icon" href="assets/icon.png" type="image/x-icon">
+	<meta name="description" content="Visualisasi data COVID-19 NTT dari 22 Kabupaten/Kota. Halaman ini menyajikan perkembangan data hari ini dari setiap Kabupaten/Kota.">
+	<meta name="keywords" content="Covid, Corona, Covid NTT, Covid19">
+	<meta name="author" content="Jolly Frankle">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<title>JFP – Penjelajah Data Wilayah</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
+</script>
+	<style>
+body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem;width:1rem;text-align:center}.card{overflow:hidden}.anchor{position:absolute;margin-top:-7rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}#ClosedCasesToday,#NewCasesToday{padding-left:1.25rem;margin-bottom:0}.fw-500{font-weight: 500}.tbl-iti{width:24px;height:24px;margin-left:.25rem}
+#MapContainer{height:500px;max-height:75vh}
+#MapContainer svg{overflow:auto;width:100%}
+#MapContainer svg path{cursor:pointer}
+#MapLegend{z-index:1;position:absolute;left:.5rem;bottom:.5rem;width:250px}
+#MapNav{position:absolute;bottom:.5rem;right:.5rem;width:670px;z-index:0;white-space:nowrap;display:flex}
+#MapHeader{position:absolute;top:.5rem;left:.5rem;right:.5rem;margin-bottom:0;z-index: 1;text-align: center;text-shadow: 2px 2px 2px white;line-height:1.25}
+#MapIndLeg{position: absolute;bottom: 3rem;right: .5rem;width:300px;user-select:none}
+#MapIndLeg>div {line-height:1;display:flex;justify-content:space-between;position:relative;font-size:80%}
+#MapIndLeg>div span:nth-child(2){position:absolute;width:100%;text-align:center}
+#MapIndCol{height:.5rem;border-radius:.25rem}
+#MapMobileNav{display:none}
+/*.ping-shake{animation:shake .75s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}*/
+.chart-container{position:relative; min-width:100%; max-width:100%; margin-bottom:1rem;}
+.chart-container div{position:absolute;width:100%;height:100%;text-align:center;display:flex;align-items:center;justify-content:center;background: var(--light)}
+@media (max-width: 991.98px) {
+	#MapLegend{bottom:3rem}
+}
+@media (max-width: 767.98px) {
+	#MapLegend{position:static;border-radius:0;width:calc(100% + 2px);margin:0 -1px;overflow:hidden}
+	#MapContainer{max-height:275px;height:50vh}
+	#MapIndLeg {position:static;width:calc(100% - 1rem);margin:-1.5rem .5rem .5rem}
+	#MapNav>.btn-group{width:100%}
+	#MapNav{position:static;width:100%;border-radius:0;display:block;white-space:normal}
+	#MapNav .input-group{display:none}
+	#MapMobileNav{display:block;position:absolute;right:.5rem;bottom:320px;width:60px;text-align:right}
+}
+#MapContainer::-webkit-scrollbar{display: none;}
+#tbl_trend_wil td:not(:first-child) {text-align: center;} #tbl_trend_wil td:nth-child(1), #tbl_trend_wil td:nth-child(5), #tbl_trend_wil td:nth-child(9) {border-right: 1px solid #dee2e6}
+@media (max-width:576px) {.chart-container{max-height:45vh;}}
+</style>
+</head>
+<body>
+	<div class="justify-content-center align-items-center position-fixed" style="width:100vw;height:100vh;background:rgba(0,0,0,.5);top:0;left:0;display:flex;z-index:1080;user-select:none" id="spinner_loader">
+		<div class="text-center text-white">
+			<div class="spinner-grow text-white" style="width:5rem; height: 5rem" role="status">
+				<span class="sr-only">Memuat...</span>
+			</div>
+			<noscript>
+				<h6 class="mb-1 mt-3 px-3">JavaScript Anda tidak aktif</h6>
+				<div class="px-3">Halaman ini tidak dapat dimuat tanpa JavaScript</div>
+			</noscript>
+		</div>
+	</div>
+	<nav class="navbar navbar-dark shadow bg-dark">
+		<div class="container d-md-flex justify-content-between text-center">
+			<a class="navbar-brand text-truncate">
+				JollyFrankle Projects: COVID-19 NTT Tracker
+			</a>
+			<div class="d-none d-md-block text-light">
+				Data terakhir: <strong class="LastData">Memuat...</strong>
+			</div>
+		</div>
+	</nav>
+	<main class="container my-4">
+<div class="d-block d-md-flex justify-content-between align-items-center mb-2">
+	<div class="text-center text-md-left">
+		<h1>COVID-19 NTT Tracker</h1>
+		<p class="mb-2">Informasi dan analisa kasus COVID-19 NTT.</p>
+	</div>
+</div>
+
+<nav class="mb-3 pb-3 border-bottom">
+	<div class="d-block d-md-inline-flex btn-group w-100">
+		<a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
+		<a class="btn btn-block btn-outline-dark" href="datakab.html">Data hari ini per Kab/Kota</a>
+		<a class="btn btn-block btn-outline-dark" href="harian.html">Perkembangan data harian</a>
+		<a class="btn btn-block btn-outline-info active"><span class="badge badge-info">Prototype</span> Tren kasus per Wilayah</a>
+	</div>
+</nav>
+<div class="btn-group w-100 mb-2">
+	<button class="btn btn-sm btn-outline-danger" data-toggle="collapse" data-target="#ILL_atas" aria-expanded="false" aria-controls="ILL_atas">Disklaimer</button>
+	<button class="btn btn-sm btn-outline-info" data-toggle="collapse" data-target="#InfoAtas" aria-expanded="false" aria-controls="InfoAtas">Informasi, daftar isi, halaman lain</button>
+</div>
+<div class="collapse" id="ILL_atas">
+	<div class="alert alert-danger text-justify">
+		<p><strong>DISCLAIMER:</strong> Data yang ditampilkan pada halaman ini mungkin berbeda dengan data yang disediakan pada <a href="http://covid19.nttprov.go.id/home/data" class="alert-link">halaman resmi COVID-19 NTT</a> karena data yang direkam pada halaman ini diperbarui pada pukul 17.00-21.00 WITA, sedangkan data pada halaman resmi terkadang diperbarui lagi setelah 21.00 WITA. Selain itu, kasus sembuh dan meninggal tidak menunjukkan jumlah pasien yang sembuh/meninggal dari kasus pada tanggal tertentu, melainkan jumlah pasien yang diumumkan sembuh/meninggal pada hari itu juga.</p>
+		<p class="font-italic mb-0">Contoh: Apabila seseorang dinyatakan positif pada 19 Januari 2021 dan sembuh pada 1 Februari 2021, kasus sembuh akan bertambah pada 1 Februari 2021, bukan 19 Januari 2021.</p>
+		<h5 class="mb-0">HALAMAN INI HANYA VISUALISASI PERKEMBANGAN KASUS COVID-19 DI NTT</h5>
+	</div>
+</div>
+
+<div class="card collapse" id="InfoAtas">
+	<div class="card-body">
+		<h4><span class="badge badge-info">PURWA-RUPA</span> Halaman ini masih dalam status <strong>Purwa-Rupa (<em>Prototype</em>)</strong></h4>
+		<p class="mb-0">Apabila terdapat kesalahan perhitungan, mohon menghubungi kreator untuk diperbaiki.</p>
+	</div>
+	<!--<div class="card-body text-justify">
+		<h4 class="border-bottom">Informasi</h4>
+		<ul class="pl-4 mb-3">
+			<li>Halaman ini memuat daftar kasus per Kabupaten/Kota dari Briefing Satuan Tugas Penanganan COVID-19 Nusa Tenggara Timur. Data mungkin tidak 100% akurat, informasi pada situs Satgas mungkin diperbarui setelah pembaruan data di sistem ini.</li>
+			<li>Data kasus tuntas yang ditampilkan di halaman ini adalah <strong>gabungan kasus sembuh dan meninggal</strong> (tidak disebutkan jumlah sembuh/meninggal, hanya disebutkan jumlah pasien yang sudah tidak lagi menjalani perawatan). Untuk informasi mengenai jumlah sembuh atau meninggal berdasarkan Kabupaten/Kota, kunjungi <a href="http://covid19.nttprov.go.id/home/data">situs resmi COVID-19 NTT</a> kemudian memilih Kabupaten/Kota sesuai keinginan Anda.</li>
+		</ul>
+		<h4 class="border-bottom">Daftar isi</h4>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">1.</div>
+				<a class="h5 mb-1" href="#Bg1_TrenKab">Pertambahan Kasus Tuntas</a>
+			</div>
+			Tren penambahan kasus positif baru dan kasus tuntas untuk setiap Kabupaten/Kota di Nusa Tenggara Timur.
+		</div>
+
+		<h4 class="border-bottom">Halaman lain</h4>
+		<div class="pl-4 mb-2">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">1.</div>
+				<a class="h5 mb-1" href="index.html">Beranda: Analisis dan grafik COVID-19 NTT</a>
+			</div>
+			Tersedia analisis harian, rekapitulasi data pekanan, dan grafik visualisasi perkembangan kasus COVID-19 Nusa Tenggara Timur.
+		</div>
+		<div class="pl-4">
+			<div class="d-flex align-items-baseline" style="margin-left:-1.5rem">
+				<div style="width:1.5rem">2.</div>
+				<a class="h5 mb-1" href="harian.html">Perkembangan Kasus</a>
+			</div>
+			Perkembangan kasus hari-demi-hari di Nusa Tenggara Timur.
+		</div>
+	</div>-->
+</div>
+
+<div class="alert alert-info text-center my-3" style="position:sticky;top:0;z-index:9">
+	<div class="d-inline-block">Data terakhir: <strong class="LastData">Memuat...</strong>,</div>
+	<div class="d-inline-block">Terakhir diperbarui <strong class="LastMod">Memuat...</strong></div>
+</div>
+
+<form method="GET" class="form-row">
+	<div class="col-md-6">
+		
+	</div>
+</form>
+
+<h2 class="border-bottom"><small>1.</small> Tren Pekanan</h2>
+<div class="alert alert-info text-justify">
+	<p><strong>INFORMASI:</strong> Data ditampilkan berdasarkan penambahan kasus positif atau tuntas selama periode tersebut (pembagian periodisasi dapat dilihat di bawah teks ini).</p>
+	<p>Perlu diketahui bahwa data yang dikumpulkan oleh Satgas Provinsi mungkin tidak seakurat data yang dikumpulkan Satgas Kabupaten/Kota, sehingga data di bawah ini mungkin tidak dapat merepresentasikan keadaan sebenarnya.</p>
+	<p class="mb-0 fw-500">Pembagian periodisasi:</p>
+	<ul class="pl-4 mb-0">
+		<li>7 hari terakhir, yakni <strong id="curr7d_0">memuat...</strong> hingga <strong id="curr7d_6">memuat...</strong></li>
+		<li>7 hari terdahulu, yakni <strong id="prev7d_0">memuat...</strong> hingga <strong id="prev7d_6">memuat...</strong></li>
+	</ul>
+</div>
+<div class="table-responsive">
+	<table class="table table-hover mb-0" style="min-width:1350px" id="tbl_trend_wil">
+		<thead class="bg-light">
+			<tr>
+				<th rowspan="3" style="width: 18%; border-right: 1px solid #dee2e6">
+					<div class="flbet align-items-end">
+						Kabupaten/Kota
+						<div class="text-right">Penduduk<div class="small">(SP 2020)</div></div>
+					</div>
+				</th>
+				<th colspan="4" style="width: 20%; border-right: 1px solid #dee2e6">Kasus Positif</th>
+				<th colspan="4" style="width: 20%; border-right: 1px solid #dee2e6">Kasus Tuntas</th>
+				<th colspan="2" style="width: 20%; border-right: 1px solid #dee2e6">Kasus Aktif</th>
+			</tr>
+			<tr>
+				<th style="width: 5%">7 hari terakhir</th>
+				<th style="width: 5%">7 hari terdahulu</th>
+				<th style="width: 5%">Beda</th>
+				<th style="width: 8%; border-right: 1px solid #dee2e6">Kasus 7 hari terakhir per 1 juta penduduk</th>
+				<th style="width: 5%">7 hari terakhir</th>
+				<th style="width: 5%">7 hari terdahulu</th>
+				<th style="width: 5%">Beda</th>
+				<th style="width: 8%; border-right: 1px solid #dee2e6">Kasus 7 hari terakhir per 1 juta penduduk</th>
+				<th style="width: 5%">7 hari terakhir</th>
+				<th style="width: 5%">7 hari terdahulu</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+<div class="bg-light mt-4 py-4 bg-light text-center px-3 border">
+	<div class="h4 mb-0">Masih akan ada yang ditambahkan di bawah ini...</div>
+	<!--<p class="mb-0">Modul yang kemungkinan ditambah: (m</p>-->
+</div>
+
+</main>
+<footer class="bg-dark text-light">
+	<div class="container p-3">
+		<strong>Jolly Frankle @ GitHub</strong>
+		<div class="small">Kontak: jollyfrankle3@gmail.com</div>
+	</div>
+</footer>
+<style id="map_style"></style><style id="activewil"></style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.5.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script>
+const delay = ms => new Promise(res=>setTimeout(res,ms));
+const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const numFormat = new Intl.NumberFormat('id-ID', {maximumFractionDigits: 2});
+
+function NolAwal(num, padlen) {
+	var pad_char = '0';
+	var pad = new Array(1 + padlen).join(pad_char);
+	return (pad + num).slice(-pad.length);
+}
+function indPlusMin(x) {
+	return x<0 ? numFormat.format(x) : "+"+numFormat.format(x);
+}
+function TrendInd(mode,val1,val2) {
+	var perc, i="Tidak ada perubahan", c="muted", l="logonet";
+	var selisih = val1 - val2;
+	if(val2==0 && selisih<0) perc=-1;
+	if(val1==0 && selisih>0) perc=1;
+	if((val1 && val2) || perc!=0) {
+		var perc = selisih / val2;
+		if(perc > 0) {
+			i="Meningkat "; l="logoinc";
+		}
+		if(perc < 0) {
+			i="Menurun "; l="logodec";
+		}
+	}
+	if(mode==1) {
+		if(perc > 0.5) {i+="tajam";c="danger"}
+		if(perc > 0.1 && perc <= 0.5) {c="danger"}
+		if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+		if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+		if(perc <-0.1 && perc >=-0.5) {c="success"}
+		if(perc <-0.5) {i+="tajam";c="success"}
+	}
+	if(mode==2) {
+		if(perc > 0.5) {i+="tajam";c="success"}
+		if(perc > 0.1 && perc <= 0.5) {c="success"}
+		if(perc > 0.0 && perc <= 0.1) {i+="tipis";c="muted"}
+		if(perc < 0.0 && perc >=-0.1) {i+="tipis";c="muted"}
+		if(perc <-0.1 && perc >=-0.5) {c="danger"}
+		if(perc <-0.5) {i+="tajam";c="danger"}
+	}
+	if(mode==3) {
+		if(val1 > 0) {i="Meningkat";c="danger";l="logoinc"}
+		if(val1===0) {i="Stabil";c="muted";l="logonet"}
+		if(val1 > 0) {i="Menurun";c="success";l="logodec"}
+	}
+	if(mode==4) {
+		if(val1 > 0) {i="Meningkat";c="success";l="logoinc"}
+		if(val1===0) {i="Stabil";c="muted";l="logonet"}
+		if(val1 > 0) {i="Menurun";c="danger";l="logodec"}
+	}
+	return [i,c,l];
+}
+function DateIndo(d,mode) {var t=new Date(d);var o="";o=mode==2?NamaHari[t.getDay()]+", " : ""; o+=t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear(); return o;}
+/*$.ajax({
+	url: "peta-ntt.svg",
+	dataType: 'html',
+	success: function(data){
+		$("#MapContainer").prepend(data);
+		var MapCon=document.getElementById('MapContainer');
+		$(".map-zoom").on("click",function() {
+			if($(this).data("zoom")=="in")
+				svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))+0.1);
+			if($(this).data("zoom")=="out")
+				svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))-0.1);
+		});
+new MutationObserver(function (mutations) {
+	if (window.inputting) {
+	delete window.inputting
+	} else {
+	mutations.forEach(function (mutation) {
+		document.getElementById('MapScale').value = (Math.round(svgPanZoomContainer.getScale(mutation.target.parentElement) * 10000) / 100).toFixed(2)
+	});
+	}
+}).observe(document.getElementById('MapContainer').firstElementChild, {
+	attributes: true,
+	attributeFilter: ['transform'],
+});
+const observer = new MutationObserver(function (mutations) {
+	mutations.forEach(function (mutation) {
+	console.log('scale: ', mutation.target.dataset.scale)
+	});
+});
+
+observer.observe(document.getElementById('MapContainer'), {
+	attributes: true,
+	attributeFilter: ['data-scale'],
+});
+
+	}
+});*/
+
+$.ajax({
+	url:'https://jhf2.000webhostapp.com/ajax/public.php',
+	data: {action: "trend_kab"},
+	method: "POST",
+	dataType: "json",
+	success: function(data){
+		if(data.success) {
+			var t = new Date(data.last_update);
+			$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" WITA");
+			$(".LastData").text(DateIndo(data.last_data));
+			$("#KonfIncNTT").text("+"+data.new_konf+" ks. baru");
+			$("#SembIncNTT").text("+"+data.new_semb+" sembuh");
+			$("#MengIncNTT").text("+"+data.new_meng+" meninggal");
+			var date_data = new Date(data.last_data);
+			$("#curr7d_0").text(DateIndo(date_data)); date_data.setDate(date_data.getDate()-6);
+			$("#curr7d_6").text(DateIndo(date_data)); date_data.setDate(date_data.getDate()-1);
+			$("#prev7d_0").text(DateIndo(date_data)); date_data.setDate(date_data.getDate()-6);
+			$("#prev7d_6").text(DateIndo(date_data)); date_data.setDate(date_data.getDate()-1);
+			$("#spinner_loader").fadeOut();
+			AJAX_Complete(data.data);
+		}
+		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
+	},
+	error: function(data) {
+		var alert_txt = "[!] Data tidak dapat diambil:\n\nnAlasan: Server sedang sibuk pada saat ini dan tidak dapat menangani permintaan. Jika terus mengalami kendala, hubungi jollyfrankle3@gmail.com.";
+		console.log(data);
+		console.log(alert_txt); alert(alert_txt);
+	}
+});
+
+async function AJAX_Complete(data){
+var numNoDec = new Intl.NumberFormat('id-ID', {maximumFractionDigits: 0});
+	// ColP1 = '<td>'++'</td>';
+var maxTotC=0, maxTunC=0, maxTotP=0, maxTunP=0;
+$.each(data, function(k,v) {
+	maxTotC = maxTotC > v.tot.curr ? maxTotC : v.tot.curr;
+	maxTotP = maxTotP > v.tot.prev ? maxTotP : v.tot.prev;
+	maxTunC = maxTunC > v.tun.curr ? maxTunC : v.tun.curr;
+	maxTunP = maxTunP > v.tun.prev ? maxTunP : v.tun.prev;
+});
+$.each(data, function(k,v) {
+	var Col1, Col2, ColP1, ColP2, ColP3, ColP4, ColT1, ColT2, ColT3, ColT4, ColA1, ColA2, ColA3;
+	var P_beda = indPlusMin(v.tot.curr-v.tot.prev), T_beda = indPlusMin(v.tun.curr-v.tun.prev);
+	var P_tren = TrendInd(1, v.tot.curr, v.tot.prev), T_tren = TrendInd(2, v.tun.curr, v.tun.prev);
+	var itiInd_TotC = "rgba(191,144,0,"+(v.tot.curr/maxTotC)+")";
+	var itiInd_TotP = "rgba(191,144,0,"+(v.tot.prev/maxTotP)+")";
+	var itiInd_TunC = "rgba(0,32,96,"+(v.tun.curr/maxTunC)+")";
+	var itiInd_TunP = "rgba(0,32,96,"+(v.tun.prev/maxTunP)+")";
+	Col1 = '<td><div class="flbet">'+v.nama+'<div>'+numFormat.format(v.pend)+'</div></div></td>';
+	ColP1 = '<td><div class="flbet fw-500">+'+numFormat.format(v.tot.curr)+'<div class="rounded tbl-iti" style="background:'+itiInd_TotC+'"></div></div></td>';
+	ColP2 = '<td><div class="flbet fw-500">+'+numFormat.format(v.tot.prev)+'<div class="rounded tbl-iti" style="background:'+itiInd_TotP+'"></div></div></td>';
+	ColP3 = '<td title="'+P_tren[0]+'"><div class="flbet"><div class="fw-500 w-100 text-left">'+P_beda+'</div><div class="logoright text-'+P_tren[1]+' '+P_tren[2]+'"></div></td>';
+	ColP4  = '<td>'+numNoDec.format((v.tot.curr/v.pend)*1000*1000)+'</td>';
+
+	ColT1 = '<td><div class="flbet fw-500">+'+numFormat.format(v.tun.curr)+'<div class="rounded tbl-iti" style="background:'+itiInd_TunC+'"></div></div></td>';
+	ColT2 = '<td><div class="flbet fw-500">+'+numFormat.format(v.tun.prev)+'<div class="rounded tbl-iti" style="background:'+itiInd_TunP+'"></div></div></td>';
+	ColT3 = '<td title="'+T_tren[0]+'"><div class="flbet"><div class="fw-500 w-100 text-left">'+T_beda+'</div><div class="logoright text-'+T_tren[1]+' '+T_tren[2]+'"></div></td>';
+	ColT4  = '<td>'+numNoDec.format((v.tun.curr/v.pend)*1000*1000)+'</td>';
+
+	ColA1 = '<td>'+numFormat.format(v.akt.curr)+'</td>';
+	ColA2 = '<td>'+numFormat.format(v.akt.prev)+'</td>';
+
+	$("#tbl_trend_wil tbody").append('<tr>'+Col1+ColP1+ColP2+ColP3+ColP4+ColT1+ColT2+ColT3+ColT4+ColA1+ColA2+'</tr>');
+});
+}
+</script>
+</body>
+</html>
