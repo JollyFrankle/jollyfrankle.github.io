@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="id" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#343a40">
+	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+	<link rel="icon" href="assets/icon.png" type="image/x-icon">
+	<meta name="description" content="Visualisasi data COVID-19 NTT dari 22 Kabupaten/Kota. Halaman ini menyajikan perkembangan data hari ini dari setiap Kabupaten/Kota.">
+	<meta name="keywords" content="Covid, Corona, Covid NTT, Covid19">
+	<meta name="author" content="Jolly Frankle">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<title>JFP – Info Sumber Data</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" onload="if(media!='all')media='all'">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167603452-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-167603452-2');
+</script>
+	<style>
+body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem;width:1rem;text-align:center}.card{overflow:hidden}.anchor{position:absolute;margin-top:-3.5rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}
+#tbl_list_sumber a.badge{display: block; font-size: .875rem; font-weight: 500; margin-bottom: .5rem}
+#tbl_list_sumber div.small{white-space: nowrap;}
+</style>
+</head>
+<body>
+	<div class="justify-content-center align-items-center position-fixed" style="width:100vw;height:100vh;background:rgba(0,0,0,.5);top:0;left:0;display:flex;z-index:1080;user-select:none" id="spinner_loader">
+		<div class="text-center text-white">
+			<div class="spinner-grow text-white" style="width:5rem; height: 5rem" role="status">
+				<span class="sr-only">Memuat...</span>
+			</div>
+			<noscript>
+				<h6 class="mb-1 mt-3 px-3">JavaScript Anda tidak aktif</h6>
+				<div class="px-3">Halaman ini tidak dapat dimuat tanpa JavaScript</div>
+			</noscript>
+		</div>
+	</div>
+	<nav class="navbar navbar-dark shadow bg-dark">
+		<div class="container d-md-flex justify-content-between text-center">
+			<a class="navbar-brand text-truncate">
+				JollyFrankle Projects: COVID-19 NTT Tracker
+			</a>
+		</div>
+	</nav>
+	<main class="container my-4">
+<div class="d-block d-md-flex justify-content-between align-items-center mb-2">
+	<div class="text-center text-md-left">
+		<h1>COVID-19 NTT Tracker</h1>
+		<p class="mb-2">Informasi dan analisa kasus COVID-19 NTT.</p>
+	</div>
+</div>
+
+<nav class="mb-3 pb-3 border-bottom">
+	<div class="d-block d-md-inline-flex btn-group w-100">
+		<a class="btn btn-block btn-outline-dark mt-2" href="./">Ringkasan, Grafik, Tabel Pekanan</a>
+		<a class="btn btn-block btn-outline-dark">Data hari ini per Kab/Kota</a>
+		<a class="btn btn-block btn-outline-dark" href="harian.html">Perkembangan data harian</a>
+		<a class="btn btn-block btn-outline-info" href="data-wil.html"><span class="badge badge-info">Prototype</span> Tren kasus per Wilayah</a>
+	</div>
+</nav>
+
+<h2 class="border-bottom">Informasi Sumber Data</h2>
+<p class="text-justify">Semua sumber data hingga 28 Juni 2021 adalah situs Satgas COVID-19 NTT (<a href="http://covid19.nttprov.go.id/">http://covid19.nttprov.go.id/</a>), namun akurasi data pada situs tersebut kurang dapat diandalkan. Oleh karena itu, beberapa situs/media sosial Satgas Kabupaten/Kota yang rutin diperbarui dan memiliki tingkat akurasi tinggi akan digunakan sebagai sumber data untuk Kabupaten/Kota tersebut.</p>
+<p class="text-justify">Perlu diketahui bahwa sumber data yang berupa media sosial atau gambar mungkin tidak dapat diperbarui setiap hari. Sumber data yang merupakan teks pada website dengan <em>layout</em> (tata letak) statis dapat diperbarui setiap hari.</p>
+<p class="text-justify">Keterangan mengenai sumber data dapat Anda temui di kanan tabel. Proses sinkronisasi dengan data Satgas Kabupaten tidak akan dilakukan sekaligus, karena akan menimbulkan penambahan kasus yang sangat tinggi, akibat tingginya selisih data antara Satgas Provinsi dan Satgas Kabupaten. Anda dapat berkontibusi memperbarui data Kabupaten/Kota dengan menekan tombol di bawah:</p>
+<div class="text-center mb-3">
+	<a href="https://docs.google.com/forms/d/e/1FAIpQLSdyTIy0X75WkpkrBfyP5uObZlLoa3JQX4CNoBAdQ312Mu3TDw/viewform" class="btn btn-lg btn-info" target="_blank" style="font-weight: 500">Laporkan penambahan kasus</a>
+</div>
+<p>
+	Kategori warna pada sumber:
+	<span class="badge badge-primary">Bagus, lengkap, terkini</span>
+	<span class="badge badge-info">Cukup bagus, lengkap, terkini</span>
+	<span class="badge badge-warning">Kurang bagus, lengkap, terkini</span>
+	<span class="badge badge-danger">Tidak bagus, lengkap, terkini</span>
+</p>
+<div class="table-responsive">
+	<table class="table table-hover" id="tbl_list_sumber">
+		<thead class="bg-light">
+			<tr>
+				<th>Kabupaten/Kota</th>
+				<th>Sumber Primer</th>
+				<th>Sumber Sekunder</th>
+				<th>Keterangan</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Kab. Alor</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kab. Belu</td>
+				<td>
+					<a href="http://covid19.belukab.go.id/" class="badge badge-primary">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. sembuh KONT, SUSP, PROB, POSITIF<br/>Ks. men. SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td><span class="badge badge-success">Data Kabupaten mulai digunakan 29 Juni 2021</span></td>
+			</tr>
+			<tr>
+				<td>Kab. Ende</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-primary">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="http://portal.endekab.go.id/" class="badge badge-primary">Situs Resmi Pemkab Ende</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. sembuh KONT, SUSP, PROB, POSITIF<br/>Ks. men. SUSP, PROB, POSITIF</div>
+				</td>
+				<td>Data Satgas Kabupaten dalam bentuk gambar, sehingga cukup sulit untuk mengotomatisasi pengambilan data. Selain itu, data Satgas Provinsi sudah akurat, sehingga tidak perlu sumber data tambahan Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kab. Flores Timur</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kota Kupang</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="http://kupangkota.go.id/" class="badge badge-info">Situs Resmi Pemkot Kupang</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. SUSP, PROB, KONF</div>
+				</td>
+				<td>Data Satgas Kota dalam bentuk gambar, sehingga cukup sulit untuk mengotomatisasi pengambilan data. Data yang disediakan belum lengkap.</td>
+			</tr>
+			<tr>
+				<td>Kab. Kupang</td>
+				<td>
+					<a href="https://kupangkab.go.id/Info-Covid19-Kab-Kupang.html" class="badge badge-primary">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. sembuh KONT, SUSP, PROB, POSITIF<br/>Ks. men. KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td><span class="badge badge-success">Data Kabupaten mulai digunakan 29 Juni 2021</span></td>
+			</tr>
+			<tr>
+				<td>Kab. Lembata</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kab. Malaka</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kab. Manggarai</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-warning">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="https://covid19.manggaraikab.go.id/" class="badge badge-warning">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
+				</td>
+				<td>Data dari Satgas Kabupaten berbeda sangat jauh dengan data Satgas Provinsi. Dipertanyakan sumber data yang akurat dan representatif.</td>
+			</tr>
+			<tr>
+				<td>Kab. Manggarai Barat</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kab. Manggarai Timur</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kab. Nagekeo</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="https://covid19.nagekeokab.go.id/" class="badge badge-danger">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Tidak ada informasi</div>
+				</td>
+				<td>Terdapat situs Satgas Kabupaten, namun tidak memuat data perkembangan COVID-19.</td>
+			</tr>
+			<tr>
+				<td>Kab. Ngada</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="https://covid19.ngadakab.go.id/" class="badge badge-danger">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Tidak ada informasi</div>
+				</td>
+				<td>Terdapat situs Satgas Kabupaten, namun tidak memuat data perkembangan terkini COVID-19.</td>
+			</tr>
+			<tr>
+				<td>Kab. Rote Ndao</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-primary">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="https://rotendaokab.go.id/covid-19" class="badge badge-info">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
+				</td>
+				<td>Data terkini tersedia dari Satgas Kabupaten dan mungkin digunakan, walau data Kontak Erat, Suspek, dan Probable tidak tersedia, serta data ditampilkan dalam bentuk gambar, bukan teks.</td>
+			</tr>
+			<tr>
+				<td>Kab. Sabu Raijua</td>
+				<td>
+					<a href="https://www.facebook.com/gugustugas.covidsarai.7" class="badge badge-info">[FB] Satgas COVID-19 Kabupaten</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
+				</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td><span class="badge badge-primary">Data Kabupaten mulai digunakan 30 Juni 2021</span></td>
+			</tr>
+			<tr>
+				<td>Kab. Sikka</td>
+				<td>
+					<a href="https://www.facebook.com/pusdalops.sikka" class="badge badge-primary">[FB] Pusdalops Kab. Sikka</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
+				</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-warning">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td><span class="badge badge-info">Data Kabupaten mulai digunakan 1 Juli 2021</span></td>
+			</tr>
+			<tr>
+			<tr>
+				<td>Kab. Sumba Barat</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="https://covid19.sumbabaratkab.go.id/" class="badge badge-info">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. sembuh KONT, SUSP, PROB, POSITIF<br/>Ks. men. PROB, POSITIF</div>
+				</td>
+				<td>Data Satgas Kabupaten sudah cukup memadai namun sudah lama sejak terakhir diupdate.</td>
+			</tr>
+			<tr>
+				<td>Kab. Sumba Barat Daya</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="https://covid19.sbdkab.go.id/" class="badge badge-danger">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Tidak ada informasi</div>
+				</td>
+				<td>Website Satgas Kabupaten belum/tidak siap.</td>
+			</tr>
+			<tr>
+				<td>Kab. Sumba Tengah</td>
+				<td>
+					<a href="https://www.facebook.com/groups/237021424365297" class="badge badge-primary">[FB] Grup Satgas Kabupaten</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. sembuh KONT, SUSP, PROB, POSITIF<br/>Ks. men. KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td><span class="badge badge-primary">Data Kabupaten mulai digunakan 30 Juni 2021</span></td>
+			</tr>
+			<tr>
+				<td>Kab. Sumba Timur</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
+			</tr>
+			<tr>
+				<td>Kab. Timor Tengah Selatan</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="http://covid19.ttskab.go.id/" class="badge badge-danger">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Tidak ada informasi</div>
+				</td>
+				<td>Website Satgas Kabupaten belum/tidak siap.</td>
+			</tr>
+			<tr>
+				<td>Kab. Timor Tengah Utara</td>
+				<td>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
+					<a href="https://covid19.ttu.go.id/" class="badge badge-danger">Satgas COVID-19 Kabupaten</a>
+					<div class="small">Tidak ada informasi</div>
+				</td>
+				<td>Website Satgas Kabupaten belum/tidak siap.</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+const delay = ms => new Promise(res=>setTimeout(res,ms));
+const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NamaHari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const numFormat = new Intl.NumberFormat('id-ID', {maximumFractionDigits: 2});
+
+$("#spinner_loader").fadeOut();
+</script>
+</body>
+</html>
