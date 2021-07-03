@@ -21,6 +21,8 @@ window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(argumen
 </script>
 	<style>
 body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet::before{display:inline-block;font-size:14px;margin-right:.25rem}.logoinc::before{content:"▲"}.logodec::before{content:"▼"}.logonet::before{content:"–"}.logoright::before{margin-right:0;margin-left:.25rem;width:1rem;text-align:center}.card{overflow:hidden}.anchor{position:absolute;margin-top:-7rem;}#TP_TblHarian td:nth-child(2),#TP_TblHarian td:nth-child(4),#TP_TblHarian td:nth-child(6),#TP_TblHarian td:nth-child(8) {border-left:1px solid #dee2e6}.tbl-iti{width:24px;height:24px;margin-left:.25rem}.flbet{display:flex;justify-content:space-between;align-items:center}.info-kasus small{display:inline-block;width:80px}#ClosedCasesToday,#NewCasesToday{padding-left:1.25rem;margin-bottom:0}.fw-500{font-weight: 500}.tbl-iti{width:24px;height:24px;margin-left:.25rem}
+#TambahanInfo {z-index: 1079; position: sticky; bottom: 0; max-height: 20vh; overflow-y: auto; margin-bottom: 0;}
+
 #MapContainer{height:500px;max-height:75vh}
 #MapContainer svg{overflow:auto;width:100%}
 #MapContainer svg path{cursor:pointer}
@@ -49,7 +51,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 	#MapMobileNav{display:block;position:absolute;right:.5rem;bottom:320px;width:60px;text-align:right}
 }
 #MapContainer::-webkit-scrollbar{display: none;}
-#tbl_trend_wil td:not(:first-child) {text-align: center;} #tbl_trend_wil td:nth-child(1), #tbl_trend_wil td:nth-child(5), #tbl_trend_wil td:nth-child(9) {border-right: 1px solid #dee2e6}
+#tbl_trend_wil td:not(:first-child), #tbl_trend_wil tfoot th:not(:first-child) {text-align: center;} #tbl_trend_wil td:nth-child(1), #tbl_trend_wil td:nth-child(5), #tbl_trend_wil td:nth-child(9) {border-right: 1px solid #dee2e6}
 @media (max-width:576px) {.chart-container{max-height:45vh;}}
 </style>
 </head>
@@ -158,8 +160,8 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 	<p>Perlu diketahui bahwa data yang dikumpulkan oleh Satgas Provinsi mungkin tidak seakurat data yang dikumpulkan Satgas Kabupaten/Kota, sehingga data di bawah ini mungkin tidak dapat merepresentasikan keadaan sebenarnya.</p>
 	<p class="mb-0 fw-500">Pembagian periodisasi:</p>
 	<ul class="pl-4 mb-0">
-		<li>7 hari terakhir, yakni <strong id="curr7d_0">memuat...</strong> hingga <strong id="curr7d_6">memuat...</strong></li>
-		<li>7 hari terdahulu, yakni <strong id="prev7d_0">memuat...</strong> hingga <strong id="prev7d_6">memuat...</strong></li>
+		<li>7 hari terakhir, yakni <strong id="curr7d_6">memuat...</strong> hingga <strong id="curr7d_0">memuat...</strong></li>
+		<li>7 hari terdahulu, yakni <strong id="prev7d_6">memuat...</strong> hingga <strong id="prev7d_0">memuat...</strong></li>
 	</ul>
 </div>
 <div class="table-responsive">
@@ -184,20 +186,37 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 				<th style="width: 5%">7 hari terakhir</th>
 				<th style="width: 5%">7 hari terdahulu</th>
 				<th style="width: 5%">Beda</th>
-				<th style="width: 8%; border-right: 1px solid #dee2e6">Kasus 7 hari terakhir per 1 juta penduduk</th>
+				<th style="width: 8%; ">Kasus 7 hari terakhir per 1 juta penduduk</th>
 				<th style="width: 5%">7 hari terakhir</th>
 				<th style="width: 5%">7 hari terdahulu</th>
 			</tr>
 		</thead>
 		<tbody>
 		</tbody>
+		<tfoot class="bg-light">
+			<tr>
+				<th style="border-right: 1px solid #dee2e6"><div class="flbet">Nusa Tenggara Timur <span id="ntt_pop"></span></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th style="border-right: 1px solid #dee2e6"></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th style="border-right: 1px solid #dee2e6"></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 
-<div class="bg-light mt-4 py-4 bg-light text-center px-3 border">
-	<div class="h4 mb-0">Masih akan ada yang ditambahkan di bawah ini...</div>
+<div class="bg-light my-4 py-4 bg-light text-center px-3 border">
+	<div class="h4 mb-0">Masih ada yang akan ditambahkan di bawah ini...</div>
 	<!--<p class="mb-0">Modul yang kemungkinan ditambah: (m</p>-->
 </div>
+
+<div id="TambahanInfo" class="alert"><h6 class="mb-1" id="TI_header"></h6><p class="mb-0 small" id="TI_text"></p></div>
 
 </main>
 <footer class="bg-dark text-light">
@@ -206,11 +225,8 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 		<div class="small">Kontak: jollyfrankle3@gmail.com</div>
 	</div>
 </footer>
-<style id="map_style"></style><style id="activewil"></style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.5.0"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script>
 const delay = ms => new Promise(res=>setTimeout(res,ms));
 const NamaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
@@ -268,43 +284,6 @@ function TrendInd(mode,val1,val2) {
 	return [i,c,l];
 }
 function DateIndo(d,mode) {var t=new Date(d);var o="";o=mode==2?NamaHari[t.getDay()]+", " : ""; o+=t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear(); return o;}
-/*$.ajax({
-	url: "peta-ntt.svg",
-	dataType: 'html',
-	success: function(data){
-		$("#MapContainer").prepend(data);
-		var MapCon=document.getElementById('MapContainer');
-		$(".map-zoom").on("click",function() {
-			if($(this).data("zoom")=="in")
-				svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))+0.1);
-			if($(this).data("zoom")=="out")
-				svgPanZoomContainer.setScale(MapCon, (svgPanZoomContainer.getScale(MapCon))-0.1);
-		});
-new MutationObserver(function (mutations) {
-	if (window.inputting) {
-	delete window.inputting
-	} else {
-	mutations.forEach(function (mutation) {
-		document.getElementById('MapScale').value = (Math.round(svgPanZoomContainer.getScale(mutation.target.parentElement) * 10000) / 100).toFixed(2)
-	});
-	}
-}).observe(document.getElementById('MapContainer').firstElementChild, {
-	attributes: true,
-	attributeFilter: ['transform'],
-});
-const observer = new MutationObserver(function (mutations) {
-	mutations.forEach(function (mutation) {
-	console.log('scale: ', mutation.target.dataset.scale)
-	});
-});
-
-observer.observe(document.getElementById('MapContainer'), {
-	attributes: true,
-	attributeFilter: ['data-scale'],
-});
-
-	}
-});*/
 
 $.ajax({
 	url:'https://jhf2.000webhostapp.com/ajax/public.php',
@@ -326,25 +305,33 @@ $.ajax({
 			$("#prev7d_6").text(DateIndo(date_data)); date_data.setDate(date_data.getDate()-1);
 			$("#spinner_loader").fadeOut();
 			AJAX_Complete(data.data);
+			if(data.peng.show) {
+				$("#TI_header").html(data.peng.header);
+				$("#TI_text").html(data.peng.text);
+				$("#TambahanInfo").addClass("alert-"+(data.peng.type ?? "info")).show();
+			}
 		}
 		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
 	},
 	error: function(data) {
 		var alert_txt = "[!] Data tidak dapat diambil:\n\nnAlasan: Server sedang sibuk pada saat ini dan tidak dapat menangani permintaan. Jika terus mengalami kendala, hubungi jollyfrankle3@gmail.com.";
-		console.log(data);
-		console.log(alert_txt); alert(alert_txt);
+		console.log(data); console.log(alert_txt); alert(alert_txt);
 	}
 });
 
 async function AJAX_Complete(data){
 var numNoDec = new Intl.NumberFormat('id-ID', {maximumFractionDigits: 0});
 	// ColP1 = '<td>'++'</td>';
-var maxTotC=0, maxTunC=0, maxTotP=0, maxTunP=0;
+var maxTotC=0, maxTunC=0, maxTotP=0, maxTunP=0, total=[[0,0,0], [0,0,0], [0,0]], totalPop=0;
 $.each(data, function(k,v) {
 	maxTotC = maxTotC > v.tot.curr ? maxTotC : v.tot.curr;
 	maxTotP = maxTotP > v.tot.prev ? maxTotP : v.tot.prev;
 	maxTunC = maxTunC > v.tun.curr ? maxTunC : v.tun.curr;
 	maxTunP = maxTunP > v.tun.prev ? maxTunP : v.tun.prev;
+	total[0][0]+=v.tot.curr; total[0][1]+=v.tot.prev; total[0][2]+=(v.tot.curr-v.tot.prev);
+	total[1][0]+=v.tun.curr; total[1][1]+=v.tun.prev; total[1][2]+=(v.tun.curr-v.tun.prev);
+	total[2][0]+=v.akt.curr; total[2][1]+=v.akt.prev;
+	totalPop+=v.pend;
 });
 $.each(data, function(k,v) {
 	var Col1, Col2, ColP1, ColP2, ColP3, ColP4, ColT1, ColT2, ColT3, ColT4, ColA1, ColA2, ColA3;
@@ -365,11 +352,27 @@ $.each(data, function(k,v) {
 	ColT3 = '<td title="'+T_tren[0]+'"><div class="flbet"><div class="fw-500 w-100 text-left">'+T_beda+'</div><div class="logoright text-'+T_tren[1]+' '+T_tren[2]+'"></div></td>';
 	ColT4  = '<td>'+numNoDec.format((v.tun.curr/v.pend)*1000*1000)+'</td>';
 
-	ColA1 = '<td>'+numFormat.format(v.akt.curr)+'</td>';
-	ColA2 = '<td>'+numFormat.format(v.akt.prev)+'</td>';
+	ColA1 = '<td>'+indPlusMin(v.akt.curr)+'</td>';
+	ColA2 = '<td>'+indPlusMin(v.akt.prev)+'</td>';
 
 	$("#tbl_trend_wil tbody").append('<tr>'+Col1+ColP1+ColP2+ColP3+ColP4+ColT1+ColT2+ColT3+ColT4+ColA1+ColA2+'</tr>');
 });
+
+var templateTfoot = "#tbl_trend_wil tfoot th", Ptot_tren = TrendInd(1, total[0][0], total[0][1]), Ttot_tren = TrendInd(1, total[1][0], total[1][1]);
+
+$("#ntt_pop").text(numFormat.format(totalPop));
+$(templateTfoot+":nth-child(2)").text(indPlusMin(total[0][0]));
+$(templateTfoot+":nth-child(3)").text(indPlusMin(total[0][1]));
+$(templateTfoot+":nth-child(4)").html('<div class="flbet"><div class="w-100 text-left">'+indPlusMin(total[0][2])+'</div><div class="logoright text-'+Ptot_tren[1]+' '+Ptot_tren[2]+'"></div>').prop("title", Ptot_tren[0]);
+$(templateTfoot+":nth-child(5)").text(numNoDec.format((total[0][0]/totalPop)*1000*1000));
+
+$(templateTfoot+":nth-child(6)").text(indPlusMin(total[1][0]));
+$(templateTfoot+":nth-child(7)").text(indPlusMin(total[1][1]));
+$(templateTfoot+":nth-child(8)").html('<div class="flbet"><div class="w-100 text-left">'+indPlusMin(total[1][2])+'</div><div class="logoright text-'+Ttot_tren[1]+' '+Ttot_tren[2]+'"></div>').prop("title", Ttot_tren[0]);
+$(templateTfoot+":nth-child(9)").text(numNoDec.format((total[1][0]/totalPop)*1000*1000));
+
+$(templateTfoot+":nth-child(10)").text(indPlusMin(total[2][0]));
+$(templateTfoot+":nth-child(11)").text(indPlusMin(total[2][1]));
 }
 </script>
 </body>
