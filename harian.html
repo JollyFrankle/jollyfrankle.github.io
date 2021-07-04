@@ -312,6 +312,7 @@ $.ajax({
 	data: {action: "harian", range: GET_day_plain},
 	method: "POST",
 	dataType: "json",
+	timeout: 2000,
 	success: function(data){
 		if(data.success) {
 			var t=new Date(data.last_update);
@@ -328,9 +329,7 @@ $.ajax({
 		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
 	},
 	error: function(data) {
-		var alert_txt = "[!] Data tidak dapat diambil:\n\nAlasan: Server sedang sibuk pada saat ini dan tidak dapat menangani permintaan. Jika terus mengalami kendala, hubungi jollyfrankle3@gmail.com.";
-		console.log(data);
-		console.log(alert_txt); alert(alert_txt);
+		$("#spinner_loader>div").append('<div class="mt-2"><strong>Data tidak dapat diambil.</strong></div><div class="small mb-2">Anda bisa mencoba memuat ulang halaman.</div><a href="javascript:location.reload()" class="btn btn-sm btn-light fw-500">Muat ulang</a>');
 	}
 });
 async function AJAX_Complete(data){
