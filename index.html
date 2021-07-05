@@ -439,7 +439,7 @@ $("#RangeSel").val(GET_day_plain);
 function DateIndo(d) {var t=new Date(d); return t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear();}
 
 $.ajax({
-	url:'https://jhf2.000webhostapp.com/ajax/public.php',
+	url:'https://jf.jollycomp.com/ajax/public.php',
 	data: {action: "harian", range: GET_day_plain},
 	method: "POST",
 	dataType: "json",
