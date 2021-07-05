@@ -299,7 +299,7 @@ function TrendInd(mode,val1,val2) {
 function DateIndo(d,mode) {var t=new Date(d);var o="";o=mode==2?NamaHari[t.getDay()]+", " : ""; o+=t.getDate()+" "+NamaBulan[t.getMonth()]+" "+t.getFullYear(); return o;}
 
 $.ajax({
-	url:'https://jhf2.000webhostapp.com/ajax/public.php',
+	url:'https://jf.jollycomp.com/ajax/public.php',
 	data: {action: "trend_kab"},
 	method: "POST",
 	dataType: "json",
