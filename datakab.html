@@ -507,7 +507,7 @@ $.ajax({
 	data: {action: "ks_kab_terkini"},
 	method: "POST",
 	dataType: "json",
-	timeout: 2000,
+	timeout: 3000,
 	success: function(data){
 		if(data.success) {
 			var t = new Date(data.last_update);
