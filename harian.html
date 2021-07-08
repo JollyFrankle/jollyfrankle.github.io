@@ -47,6 +47,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 			<div class="spinner-grow text-white" style="width:5rem; height: 5rem" role="status">
 				<span class="sr-only">Memuat...</span>
 			</div>
+
 			<noscript>
 				<h6 class="mb-1 mt-3 px-3">JavaScript Anda tidak aktif</h6>
 				<div class="px-3">Halaman ini tidak dapat dimuat tanpa JavaScript</div>
@@ -330,7 +331,7 @@ $.ajax({
 		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
 	},
 	error: function(data) {
-		$("#spinner_loader>div").append('<div class="mt-2"><strong>Data tidak dapat diambil.</strong></div><div class="small mb-2">Anda bisa mencoba memuat ulang halaman.</div><a href="javascript:location.reload()" class="btn btn-sm btn-light fw-500">Muat ulang</a>');
+		$("#spinner_loader>div").append('<h6 class="mt-3 mb-1">Data tidak dapat diambil.</h6><div class="small mb-2">Anda dapat mencoba memuat ulang halaman ini.</div><a href="javascript:location.reload()" class="btn btn-sm btn-light fw-500" draggable="false">Muat ulang</a>');
 	}
 });
 async function AJAX_Complete(data){
@@ -444,16 +445,21 @@ $.each(Tanggal,function(key,val){
 	var HL_KBind="rgba(191,144,0,"+($ArrKB[key]-HL_KB["min"])/HL_KB["max"]+")",
 	HL_SBind="rgba(0,32,96,"+($ArrSB[key]-HL_SB["min"])/HL_SB["max"]+")",
 	HL_MBind="rgba(192,0,0,"+($ArrMB[key]-HL_MB["min"])/HL_MB["max"]+")";
+
 	Col1="<td>"+DateIndo(val,2)+"</td>";
-	ColK1="<td><div class='flbet'><strong>"+($ArrKB[key]<0?$ArrKB[key]:"+"+$ArrKB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_KBind+"'></div></div></td>";
+
+	ColK1="<td><div class='flbet'><strong>"+numFormat.format($ArrKB[key]<0?$ArrKB[key]:"+"+$ArrKB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_KBind+"'></div></div></td>";
 	ColK2="<td><div class='flbet'><div>+"+($ArrK7[key]!=null ? numFormat.format($ArrK7[key]) : " –")+"</div><div class='logoright text-"+K7dind[1]+" "+K7dind[2]+"'></div></div></td>";
 	ColK3="<td>"+numFormat.format($ArrKJ[key])+"</td>";
-	ColS1="<td><div class='flbet'><strong>"+($ArrSB[key]<0?$ArrSB[key]:"+"+$ArrSB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_SBind+"'></div></div></td>";
+
+	ColS1="<td><div class='flbet'><strong>"+numFormat.format($ArrSB[key]<0?$ArrSB[key]:"+"+$ArrSB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_SBind+"'></div></div></td>";
 	ColS2="<td><div class='flbet'><div>+"+($ArrS7[key]!=null ? numFormat.format($ArrS7[key]) : " –")+"</div><div class='logoright text-"+S7dind[1]+" "+S7dind[2]+"'></div></div></td>";
 	ColS3="<td>"+numFormat.format($ArrSJ[key])+"</td>";
-	ColM1="<td><div class='flbet'><strong>"+($ArrMB[key]<0?$ArrMB[key]:"+"+$ArrMB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_MBind+"'></div></div></td>";
+
+	ColM1="<td><div class='flbet'><strong>"+numFormat.format($ArrMB[key]<0?$ArrMB[key]:"+"+$ArrMB[key])+"</strong><div class='rounded tbl-iti' style='background:"+HL_MBind+"'></div></div></td>";
 	ColM2="<td><div class='flbet'><div>+"+($ArrM7[key]!=null ? numFormat.format($ArrM7[key]) : " –")+"</div><div class='logoright text-"+M7dind[1]+" "+M7dind[2]+"'></div></div></td>";
 	ColM3="<td>"+numFormat.format($ArrMJ[key])+"</td>";
+
 	ColA1="<td><div class='flbet'>"+numFormat.format(PersAktf)+"%<div class='logoright text-"+PAind[1]+" "+PAind[2]+"'></div></div></td>";
 	ColA2="<td>"+numFormat.format($ArrKJ[key]-($ArrSJ[key]+$ArrMJ[key]))+"</td>";
 	$("#TP_TblHarian tbody").prepend("<tr>"+Col1+ColK1+ColK2+ColK3+ColS1+ColS2+ColS3+ColM1+ColM2+ColM3+ColA1+ColA2+"</tr>");
@@ -480,10 +486,10 @@ $.each(Tanggal,function(key,val){
 		var info_tgl = $day<7 ? "<div class='small'>Hanya menampilkan data "+$day+" hari terakhir</div>" : "";
 		ColRMTgl="<td><span class='text-info fw-500'>Pekan ke-"+tgl.getWeek()+" tahun "+tgl.getWeekYear()+"</span>"+info_tgl+"</td>";
 		ColNone="<td class='d-none'></td>";
-		ColRMKB="<td colspan=3><div class='flbet'><strong style='color:#BF9000'>+"+$RMK+" ks.</strong><div class='flbet text-"+$RMKBavgInd[1]+"'>"+$RMKBavg+"<div class='logoright "+$RMKBavgInd[2]+"'></div></div></div></td>";
-		ColRMSB="<td colspan=3><div class='flbet'><strong style='color:#002060'>+"+$RMS+" ks.</strong><div class='flbet text-"+$RMSBavgInd[1]+"'>"+$RMSBavg+"<div class='logoright "+$RMSBavgInd[2]+"'></div></div></div></td>";
+		ColRMKB="<td colspan=3><div class='flbet'><strong style='color:#BF9000'>+"+numFormat.format($RMK)+" ks.</strong><div class='flbet text-"+$RMKBavgInd[1]+"'>"+$RMKBavg+"<div class='logoright "+$RMKBavgInd[2]+"'></div></div></div></td>";
+		ColRMSB="<td colspan=3><div class='flbet'><strong style='color:#002060'>+"+numFormat.format($RMS)+" ks.</strong><div class='flbet text-"+$RMSBavgInd[1]+"'>"+$RMSBavg+"<div class='logoright "+$RMSBavgInd[2]+"'></div></div></div></td>";
 		//"<td colspan=3 style='color:#002060;text-align:left'>+<strong>"+$RMS+"</strong></td>";
-		ColRMMB="<td colspan=3><div class='flbet'><strong style='color:#C00000'>+"+$RMM+" ks.</strong><div class='flbet text-"+$RMMBavgInd[1]+"'>"+$RMMBavg+"<div class='logoright "+$RMMBavgInd[2]+"'></div></div></div></td>";
+		ColRMMB="<td colspan=3><div class='flbet'><strong style='color:#C00000'>+"+numFormat.format($RMM)+" ks.</strong><div class='flbet text-"+$RMMBavgInd[1]+"'>"+$RMMBavg+"<div class='logoright "+$RMMBavgInd[2]+"'></div></div></div></td>";
 		//"<td colspan=3 style='color:#C00000;text-align:left'>+<strong>"+$RMM+"</strong></td>";
 		ColRMA="<td colspan=2 class='fw-500 text-secondary'>"+$RMAS_txt+" ks. aktif</td>";
 
