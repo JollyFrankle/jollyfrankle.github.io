@@ -312,7 +312,7 @@ body{font-family:"Roboto",sans-serif;}.chart-container{position:relative; min-wi
 						<small id="TBA_AktfLowestDate">Memuat</small>
 					</div>
 					Persentase saat ini:
-					<strong class="d-block mb-2" id="TBA_AktfPersen">...</strong>
+					<div><strong id="TBA_AktfPersen">...</strong></div>
 				</div>
 			</div>
 		</div>
@@ -460,7 +460,7 @@ $.ajax({
 		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
 	},
 	error: function(data) {
-		$("#spinner_loader>div").append('<div class="mt-2"><strong>Data tidak dapat diambil.</strong></div><div class="small mb-2">Anda bisa mencoba memuat ulang halaman.</div><a href="javascript:location.reload()" class="btn btn-sm btn-light fw-500">Muat ulang</a>');
+		$("#spinner_loader>div").append('<h6 class="mt-3 mb-1">Data tidak dapat diambil.</h6><div class="small mb-2">Anda dapat mencoba memuat ulang halaman ini.</div><a href="javascript:location.reload()" class="btn btn-sm btn-light fw-500" draggable="false">Muat ulang</a>');
 	}
 });
 function AJAX_Complete(data){
@@ -600,9 +600,9 @@ $(document).ready(async function(){
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
 	$Trend=TrendInd(1,Konf7day[TanggalLen-1],Konf7day[TanggalLen-8]);
-	$("#TBA_KonfHighest").text($Arr_day[IndexH]);
+	$("#TBA_KonfHighest").text(numFormat.format($Arr_day[IndexH]));
 	$("#TBA_KonfHighestDate").text(DateIndo(Tanggal[IndexH]));
-	$("#TBA_KonfLowest").text($Arr_day[IndexL]);
+	$("#TBA_KonfLowest").text(numFormat.format($Arr_day[IndexL]));
 	$("#TBA_KonfLowestDate").text(DateIndo(Tanggal[IndexL]));
 	$("#TBA_KonfTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 
@@ -610,9 +610,9 @@ $(document).ready(async function(){
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
 	$Trend=TrendInd(2,Semb7day[TanggalLen-1],Semb7day[TanggalLen-8]);
-	$("#TBA_SembHighest").text($Arr_day[IndexH]);
+	$("#TBA_SembHighest").text(numFormat.format($Arr_day[IndexH]));
 	$("#TBA_SembHighestDate").text(DateIndo(Tanggal[IndexH]));
-	$("#TBA_SembLowest").text($Arr_day[IndexL]);
+	$("#TBA_SembLowest").text(numFormat.format($Arr_day[IndexL]));
 	$("#TBA_SembLowestDate").text(DateIndo(Tanggal[IndexL]));
 	$("#TBA_SembTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 	$("#TBA_CRR").text(numFormat.format(TingkSemb[TingkSemb.length-1])+"%");
@@ -621,9 +621,9 @@ $(document).ready(async function(){
 	IndexH=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] > $Arr_day[b] ? a : b),
 	IndexL=Object.keys($Arr_day).reduce((a, b) => $Arr_day[a] < $Arr_day[b] ? a : b),
 	$Trend=TrendInd(1,Meng7day[TanggalLen-1],Meng7day[TanggalLen-8]);
-	$("#TBA_MengHighest").text($Arr_day[IndexH]);
+	$("#TBA_MengHighest").text(numFormat.format($Arr_day[IndexH]));
 	$("#TBA_MengHighestDate").text(DateIndo(Tanggal[IndexH]));
-	$("#TBA_MengLowest").text($Arr_day[IndexL]);
+	$("#TBA_MengLowest").text(numFormat.format($Arr_day[IndexL]));
 	$("#TBA_MengLowestDate").text(DateIndo(Tanggal[IndexL]));
 	$("#TBA_MengTrend").text($Trend[0]).addClass("text-"+$Trend[1]);
 	$("#TBA_CFR").text(numFormat.format(TingkMeng[TingkMeng.length-1])+"%");
@@ -883,7 +883,7 @@ $.each(Tanggal, function(k,v) {
 				// Kolom 2 - Indikator
 				col.push((!isNaN(perc_selisih) && perc_selisih!="Infinity") ? ind_html+"<div class='small'>"+PreIndC((data[0][v].total-data[1][v].total)/7)+" ks/hr</div>" :  "–");
 				// Kolom 3 - Ks tertinggi dan terendah
-				col.push($PreH+data[0][v].high+" ks"+$PreL+data[0][v].low+" ks");
+				col.push($PreH+numFormat.format(data[0][v].high)+" ks"+$PreL+numFormat.format(data[0][v].low)+" ks");
 			});
 			$.each(col, function(k,v) {opt_html+='<td>'+v+'</td>'})
 			$("#TP_Tabel tbody").prepend("<tr>"+opt_html+"</tr>");
