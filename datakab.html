@@ -514,9 +514,9 @@ $.ajax({
 			var t = new Date(data.last_update);
 			$(".LastMod").text(DateIndo(t)+", "+NolAwal(t.getHours(),2)+"."+NolAwal(t.getMinutes(),2)+"."+NolAwal(t.getSeconds(),2)+" WITA");
 			$(".LastData").text(DateIndo(data.last_data));
-			$("#KonfIncNTT").text("+"+data.new_konf+" ks. baru");
-			$("#SembIncNTT").text("+"+data.new_semb+" sembuh");
-			$("#MengIncNTT").text("+"+data.new_meng+" meninggal");
+			$("#KonfIncNTT").text("+"+numFormat.format(data.new_konf)+" ks. baru");
+			$("#SembIncNTT").text("+"+numFormat.format(data.new_semb)+" sembuh");
+			$("#MengIncNTT").text("+"+numFormat.format(data.new_meng)+" meninggal");
 			//$("#spinner_loader").fadeOut(); // Pindah ke: SHORT__SPINNER_PETA
 			AJAX_Complete(data.dt_kab);
 			if(data.peng.show) {
@@ -528,7 +528,7 @@ $.ajax({
 		if(data.error) alert("[!] Data tidak dapat diambil:\n\nAlasan: "+data.text+"\n\nHubungi jollyfrankle3@gmail.com apabila Anda yakin ini kesalahan.");
 	},
 	error: function(data) {
-		$("#spinner_loader>div").append('<div class="mt-2"><strong>Data tidak dapat diambil.</strong></div><div class="small mb-2">Anda bisa mencoba memuat ulang halaman.</div><a href="javascript:location.reload()" class="btn btn-sm btn-light fw-500">Muat ulang</a>');
+		$("#spinner_loader>div").append('<h6 class="mt-3 mb-1">Data tidak dapat diambil.</h6><div class="small mb-2">Anda dapat mencoba memuat ulang halaman ini.</div><a href="javascript:location.reload()" class="btn btn-sm btn-light fw-500" draggable="false">Muat ulang</a>');
 	}
 });
 
