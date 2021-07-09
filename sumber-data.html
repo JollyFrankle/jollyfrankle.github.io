@@ -65,6 +65,9 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 <p class="text-justify">Semua sumber data hingga 28 Juni 2021 adalah situs Satgas COVID-19 NTT (<a href="http://covid19.nttprov.go.id/">http://covid19.nttprov.go.id/</a>), namun akurasi data pada situs tersebut kurang dapat diandalkan. Oleh karena itu, beberapa situs/media sosial Satgas Kabupaten/Kota yang rutin diperbarui dan memiliki tingkat akurasi tinggi akan digunakan sebagai sumber data untuk Kabupaten/Kota tersebut.</p>
 <p class="text-justify">Perlu diketahui bahwa sumber data yang berupa media sosial atau gambar mungkin tidak dapat diperbarui setiap hari. Sumber data yang merupakan teks pada website dengan <em>layout</em> (tata letak) statis dapat diperbarui setiap hari.</p>
 <p class="text-justify">Keterangan mengenai sumber data dapat Anda temui di kanan tabel. Proses sinkronisasi dengan data Satgas Kabupaten tidak akan dilakukan sekaligus, karena akan menimbulkan penambahan kasus yang sangat tinggi, akibat tingginya selisih data antara Satgas Provinsi dan Satgas Kabupaten. Anda dapat berkontibusi memperbarui data Kabupaten/Kota dengan menekan tombol di bawah:</p>
+<div class="text-center mb-3 d-none">
+	<a href="https://docs.google.com/forms/d/e/1FAIpQLSdyTIy0X75WkpkrBfyP5uObZlLoa3JQX4CNoBAdQ312Mu3TDw/viewform" class="btn btn-lg btn-info" target="_blank" style="font-weight: 500">Laporkan penambahan kasus</a>
+</div>
 
 <div class="alert alert-danger">
 	<h5>Informasi sinkronisasi sementara dengan rilis resmi Satgas Provinsi NTT</h5>
@@ -118,7 +121,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
 				<td>
-					<a href="http://portal.endekab.go.id/" class="badge badge-primary">Situs Resmi Pemkab Ende</a>
+					<a href="http://portal.endekab.go.id/" class="badge badge-primary">Situs Resmi Pemkab</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. sembuh KONT, SUSP, PROB, POSITIF<br/>Ks. men. SUSP, PROB, POSITIF</div>
 				</td>
 				<td>Data Satgas Kabupaten dalam bentuk gambar, sehingga cukup sulit untuk mengotomatisasi pengambilan data. Selain itu, data Satgas Provinsi sudah akurat, sehingga tidak perlu sumber data tambahan Satgas Kabupaten.</td>
@@ -126,25 +129,25 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 			<tr>
 				<td>Kab. Flores Timur</td>
 				<td>
-					<a href="https://rakyatntt.com/data-covid-19-ntt-4-juli-1-003-positif-flotim-dan-matim-terbanyak/" class="badge badge-success">Rilis Resmi Satgas Provinsi<br/>4 Juli 2021</a>
-				</td>
-				<td>
-					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-warning">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td><span class="badge badge-dark">Sinkronisasi sementara dengan Rilis Resmi Satgas Provinsi</span> Dikarenakan selisihnya dengan situs resmi melampaui 100 kasus.</td>
+				<td>
+					&ndash;
+				</td>
+				<td>Belum ditemukan sumber data yang diperbarui secara dinamis.</td>
 			</tr>
 			<tr>
 				<td>Kota Kupang</td>
 				<td>
+					<a href="http://kupangkota.go.id/" class="badge badge-primary">Situs Resmi Pemkot</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. SUSP, PROB, KONF</div>
+				</td>
+				<td>
 					<a href="http://covid19.nttprov.go.id/" class="badge badge-primary">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td>
-					<a href="http://kupangkota.go.id/" class="badge badge-info">Situs Resmi Pemkot Kupang</a>
-					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. SUSP, PROB, KONF</div>
-				</td>
-				<td>Menggunakan data Satgas Kota pada 1-3 Juli 2021, kembali menggunakan data Satgas Provinsi pada 4 Juli 2021.</td>
+				<td>Menggunakan data Kota dan Provinsi.</td>
 			</tr>
 			<tr>
 				<td>Kab. Kupang</td>
@@ -161,13 +164,14 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 			<tr>
 				<td>Kab. Lembata</td>
 				<td>
-					<a href="https://rakyatntt.com/data-covid-19-ntt-4-juli-1-003-positif-flotim-dan-matim-terbanyak/" class="badge badge-success">Rilis Resmi Satgas Provinsi<br/>4 Juli 2021</a>
+					<a class="badge badge-primary">[FB] Dinas Kominfo Kab. Lembata</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
 				</td>
 				<td>
-					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-warning">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td><span class="badge badge-dark">Sinkronisasi sementara dengan Rilis Resmi Satgas Provinsi</span> Dikarenakan selisihnya dengan situs resmi melampaui 100 kasus.</td>
+				<td><span class="badge badge-success">Data Kabupaten mulai digunakan 9 Juli 2021</span></td>
 			</tr>
 			<tr>
 				<td>Kab. Malaka</td>
@@ -193,46 +197,41 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 			<tr>
 				<td>Kab. Manggarai Barat</td>
 				<td>
-					<a href="https://rakyatntt.com/data-covid-19-ntt-4-juli-1-003-positif-flotim-dan-matim-terbanyak/" class="badge badge-success">Rilis Resmi Satgas Provinsi<br/>4 Juli 2021</a>
+					<a class="badge badge-primary">[FB] Satgas COVID-19 Kabupaten</a>
+					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
 				</td>
 				<td>
-					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-warning">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td><span class="badge badge-dark">Sinkronisasi sementara dengan Rilis Resmi Satgas Provinsi</span> Dikarenakan selisihnya dengan situs resmi melampaui 100 kasus.</td>
+				<td><span class="badge badge-success">Data Kabupaten mulai digunakan 9 Juli 2021</span></td>
 			</tr>
 			<tr>
 				<td>Kab. Manggarai Timur</td>
 				<td>
-					<a href="https://rakyatntt.com/data-covid-19-ntt-4-juli-1-003-positif-flotim-dan-matim-terbanyak/" class="badge badge-success">Rilis Resmi Satgas Provinsi<br/>4 Juli 2021</a>
-				</td>
-				<td>
 					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td><span class="badge badge-dark">Sinkronisasi sementara dengan Rilis Resmi Satgas Provinsi</span> Dikarenakan selisihnya dengan situs resmi melampaui 100 kasus.</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
 			</tr>
 			<tr>
 				<td>Kab. Nagekeo</td>
 				<td>
-					<a href="https://rakyatntt.com/data-covid-19-ntt-4-juli-1-003-positif-flotim-dan-matim-terbanyak/" class="badge badge-success">Rilis Resmi Satgas Provinsi<br/>4 Juli 2021</a>
-				</td>
-				<td>
 					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td><span class="badge badge-dark">Sinkronisasi sementara dengan Rilis Resmi Satgas Provinsi</span> Dikarenakan selisihnya dengan situs resmi melampaui 100 kasus.</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
 			</tr>
 			<tr>
 				<td>Kab. Ngada</td>
 				<td>
-					<a href="https://rakyatntt.com/data-covid-19-ntt-4-juli-1-003-positif-flotim-dan-matim-terbanyak/" class="badge badge-success">Rilis Resmi Satgas Provinsi<br/>4 Juli 2021</a>
-				</td>
-				<td>
-					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
+					<a href="http://covid19.nttprov.go.id/" class="badge badge-warning">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td><span class="badge badge-dark">Sinkronisasi sementara dengan Rilis Resmi Satgas Provinsi</span> Dikarenakan selisihnya dengan situs resmi melampaui 100 kasus.</td>
+				<td>&ndash;</td>
+				<td>Belum ditemukan sumber data yang dapat diandalkan dari Satgas Kabupaten.</td>
 			</tr>
 			<tr>
 				<td>Kab. Rote Ndao</td>
@@ -249,7 +248,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 			<tr>
 				<td>Kab. Sabu Raijua</td>
 				<td>
-					<a href="https://www.facebook.com/gugustugas.covidsarai.7" class="badge badge-info">[FB] Satgas COVID-19 Kabupaten</a>
+					<a href="https://www.facebook.com/gugustugas.covidsarai.7" class="badge badge-primary">[FB] Satgas COVID-19 Kabupaten</a>
 					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
 				</td>
 				<td>
@@ -268,7 +267,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 					<a href="http://covid19.nttprov.go.id/" class="badge badge-warning">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td><span class="badge badge-primary">Data Kabupaten mulai digunakan 1 Juli 2021</span> Sinkronisasi berlangsung 1-3 Juli 2021, dengan membagi 3 jumlah penambahan kasus yang berjumlah 582 kasus per 30 Juni 2021.</td>
+				<td><span class="badge badge-success">Data Kabupaten mulai digunakan 1 Juli 2021</span></td>
 			</tr>
 			<tr>
 			<tr>
@@ -317,7 +316,7 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 					<a href="https://www.facebook.com/dinkes.timur" class="badge badge-primary">[FB] Satgas Kabupaten</a>
 					<div class="small">Ks. konf. POSITIF<br/>Ks. sembuh POSITIF<br/>Ks. men. POSITIF</div>
 				</td>
-				<td><span class="badge badge-secondary">Data Kabupaten siap digunakan</span> Apabila selisih dengan data Provinsi semakin jauh (lebih dari 100 kasus), kemungkinan data Kabupaten akan menggantikan data Provinsi.</td>
+				<td>&ndash;</td>
 			</tr>
 			<tr>
 				<td>Kab. Timor Tengah Selatan</td>
@@ -334,14 +333,14 @@ body{font-family:"Roboto",sans-serif;}.logoinc::before,.logodec::before,.logonet
 			<tr>
 				<td>Kab. Timor Tengah Utara</td>
 				<td>
+					<a href="http://ttukab.go.id/" class="badge badge-primary">Situs Resmi Pemkab</a>
+					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. sembuh KONT, SUSP, PROB, POSITIF<br/>Ks. men. KONT, SUSP, PROB, POSITIF</div>
+				</td>
+				<td>
 					<a href="http://covid19.nttprov.go.id/" class="badge badge-info">Satgas COVID-19 Provinsi</a>
 					<div class="small">Ks. konf. KONT, SUSP, PROB, POSITIF<br/>Ks. aktif KONT, SUSP, PROB, POSITIF</div>
 				</td>
-				<td>
-					<a href="https://covid19.ttu.go.id/" class="badge badge-danger">Satgas COVID-19 Kabupaten</a>
-					<div class="small">Tidak ada informasi</div>
-				</td>
-				<td>Website Satgas Kabupaten belum/tidak siap.</td>
+				<td><span class="badge badge-success">Data Kabupaten mulai digunakan 9 Juli 2021</span></td>
 			</tr>
 		</tbody>
 	</table>
